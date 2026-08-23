@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Festiverse — Design System (shadcn / Base UI)</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lexend:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Iconify — Solar icon set (unchanged from source app) -->
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+<!-- ============================================================
+     NO-BUILD REACT + BASE UI
+     Everything below is real @base-ui-components/react, loaded as
+     native ES modules from esm.sh. There is no bundler: this is the
+     same component code you'd put in components/ui/*.tsx, just run
+     directly in the browser via <script type="module">.
+     ============================================================ -->
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.2.0/client?external=react",
+    "clsx": "https://esm.sh/clsx@2.1.1",
+    "class-variance-authority": "https://esm.sh/class-variance-authority@0.7.1",
+    "@base-ui-components/react/dialog": "https://esm.sh/@base-ui-components/react/dialog?external=react,react-dom",
+    "@base-ui-components/react/popover": "https://esm.sh/@base-ui-components/react/popover?external=react,react-dom",
+    "@base-ui-components/react/menu": "https://esm.sh/@base-ui-components/react/menu?external=react,react-dom",
+    "@base-ui-components/react/accordion": "https://esm.sh/@base-ui-components/react/accordion?external=react,react-dom",
+    "@base-ui-components/react/tabs": "https://esm.sh/@base-ui-components/react/tabs?external=react,react-dom",
+    "@base-ui-components/react/toggle": "https://esm.sh/@base-ui-components/react/toggle?external=react,react-dom",
+    "@base-ui-components/react/toggle-group": "https://esm.sh/@base-ui-components/react/toggle-group?external=react,react-dom",
+    "@base-ui-components/react/toast": "https://esm.sh/@base-ui-components/react/toast?external=react,react-dom",
+    "@base-ui-components/react/field": "https://esm.sh/@base-ui-components/react/field?external=react,react-dom",
+    "@base-ui-components/react/separator": "https://esm.sh/@base-ui-components/react/separator?external=react,react-dom"
+  }
+}
+</script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<!-- Tailwind v4 — browser build (Play CDN for v4). Reads the
+     text/tailwindcss block below live; no config object, no build. -->
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<style type="text/tailwindcss">
+  /* ============================================================
+     DESIGN TOKENS — copied from festiverse-theme.css verbatim.
+     This is the shadcn v4 "New York" token shape: oklch values,
+     @theme inline mapping, chart/sidebar tokens, dark variant.
+     Nothing here was invented for Base UI — Base UI components are
+     styled with the exact same CSS variables as the Radix versions;
+     only the underlying primitive implementation differs.
+     ============================================================ */
+  @custom-variant dark (&:is(.dark *));
+
+  :root {
+    --background: oklch(0.9838 0.0035 247.8583);
+    --foreground: oklch(0.2079 0.0399 265.7275);
+    --card: oklch(1.0000 0 0);
+    --card-foreground: oklch(0.2079 0.0399 265.7275);
+    --popover: oklch(1.0000 0 0);
+    --popover-foreground: oklch(0.2079 0.0399 265.7275);
+    --primary: oklch(0.5449 0.2154 262.7414);
+    --primary-foreground: oklch(0.9838 0.0035 247.8583);
+    --secondary: oklch(0.9684 0.0068 247.8951);
+    --secondary-foreground: oklch(0.2079 0.0399 265.7275);
+    --muted: oklch(0.9684 0.0068 247.8951);
+    --muted-foreground: oklch(0.5547 0.0407 257.4404);
+    --accent: oklch(0.9684 0.0068 247.8951);
+    --accent-foreground: oklch(0.2079 0.0399 265.7275);
+    --destructive: oklch(0.6368 0.2078 25.3259);
+    --destructive-foreground: oklch(0.9848 0 0);
+    --border: oklch(0.9600 0.0032 264.5409);
+    --input: oklch(0.9278 0.0058 264.5314);
+    --ring: oklch(0.5449 0.2154 262.7414);
+
+    --chart-1: oklch(0.5449 0.2154 262.7414);
+    --chart-2: oklch(0.6268 0.2325 303.9004);
+    --chart-3: oklch(0.6959 0.1491 162.4796);
+    --chart-4: oklch(0.8369 0.1644 84.4286);
+    --chart-5: oklch(0.6559 0.2118 354.3084);
+
+    --sidebar: oklch(1.0000 0 0);
+    --sidebar-foreground: oklch(0.2079 0.0399 265.7275);
+    --sidebar-primary: oklch(0.5449 0.2154 262.7414);
+    --sidebar-primary-foreground: oklch(0.9838 0.0035 247.8583);
+    --sidebar-accent: oklch(0.9684 0.0068 247.8951);
+    --sidebar-accent-foreground: oklch(0.2079 0.0399 265.7275);
+    --sidebar-border: oklch(0.9600 0.0032 264.5409);
+    --sidebar-ring: oklch(0.5449 0.2154 262.7414);
+
+    --font-sans: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: Lexend, sans-serif;
+    --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-mono: "JetBrains Mono", monospace;
+
+    --radius: 0.75rem;
+
+    --shadow-2xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.03);
+    --shadow-xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.04);
+    --shadow-sm: 0px 4px 20px -2px hsl(0 0% 0% / 0.05);
+    --shadow: 0px 4px 20px -2px hsl(0 0% 0% / 0.05);
+    --shadow-md: 0px 4px 20px -2px hsl(0 0% 0% / 0.06);
+    --shadow-lg: 0px 8px 28px -4px hsl(0 0% 0% / 0.08);
+    --shadow-xl: 0px 12px 36px -4px hsl(0 0% 0% / 0.10);
+    --shadow-2xl: 0px 16px 44px -4px hsl(0 0% 0% / 0.14);
+    --shadow-glow: 0px 4px 20px -2px oklch(0.5449 0.2154 262.7414 / 0.25);
+    --shadow-action: 0px 8px 24px -4px oklch(0.5449 0.2154 262.7414 / 0.35);
+
+    --brand-secondary-500: oklch(0.7049 0.1867 47.6044);
+    --brand-secondary-600: oklch(0.6461 0.1943 41.1158);
+    --brand-secondary-700: oklch(0.5534 0.1739 38.4022);
+
+    --tracking-normal: 0em;
+    --tracking-display: 0.015em;
+    --spacing: 0.25rem;
+  }
+
+  .dark {
+    --background: oklch(0.1405 0.0044 285.8238);
+    --foreground: oklch(0.9848 0 0);
+    --card: oklch(0.1681 0.0019 286.1946);
+    --card-foreground: oklch(0.9848 0 0);
+    --popover: oklch(0.1417 0.0044 285.8192);
+    --popover-foreground: oklch(0.9848 0 0);
+    --primary: oklch(0.6043 0.1838 263.2689);
+    --primary-foreground: oklch(0.9838 0.0035 247.8583);
+    --secondary: oklch(0.2741 0.0055 286.0329);
+    --secondary-foreground: oklch(0.9848 0 0);
+    --muted: oklch(0.2741 0.0055 286.0329);
+    --muted-foreground: oklch(0.7119 0.0129 286.0684);
+    --accent: oklch(0.2741 0.0055 286.0329);
+    --accent-foreground: oklch(0.9848 0 0);
+    --destructive: oklch(0.3959 0.1331 25.7205);
+    --destructive-foreground: oklch(0.9848 0 0);
+    --border: oklch(0.2546 0.0049 286.0458);
+    --input: oklch(0.2741 0.0055 286.0329);
+    --ring: oklch(0.6043 0.1838 263.2689);
+
+    --chart-1: oklch(0.6043 0.1838 263.2689);
+    --chart-2: oklch(0.6268 0.2325 303.9004);
+    --chart-3: oklch(0.6959 0.1491 162.4796);
+    --chart-4: oklch(0.8369 0.1644 84.4286);
+    --chart-5: oklch(0.6559 0.2118 354.3084);
+
+    --sidebar: oklch(0.1681 0.0019 286.1946);
+    --sidebar-foreground: oklch(0.9848 0 0);
+    --sidebar-primary: oklch(0.6043 0.1838 263.2689);
+    --sidebar-primary-foreground: oklch(0.9838 0.0035 247.8583);
+    --sidebar-accent: oklch(0.2741 0.0055 286.0329);
+    --sidebar-accent-foreground: oklch(0.9848 0 0);
+    --sidebar-border: oklch(0.2546 0.0049 286.0458);
+    --sidebar-ring: oklch(0.6043 0.1838 263.2689);
+
+    --shadow-2xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.20);
+    --shadow-xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.24);
+    --shadow-sm: 0px 4px 20px -2px hsl(0 0% 0% / 0.30);
+    --shadow: 0px 4px 20px -2px hsl(0 0% 0% / 0.30);
+    --shadow-md: 0px 4px 20px -2px hsl(0 0% 0% / 0.34);
+    --shadow-lg: 0px 8px 28px -4px hsl(0 0% 0% / 0.40);
+    --shadow-xl: 0px 12px 36px -4px hsl(0 0% 0% / 0.46);
+    --shadow-2xl: 0px 16px 44px -4px hsl(0 0% 0% / 0.55);
+    --shadow-glow: 0px 4px 20px -2px oklch(0.6043 0.1838 263.2689 / 0.35);
+    --shadow-action: 0px 8px 24px -4px oklch(0.6043 0.1838 263.2689 / 0.45);
+  }
+
+  @theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    --font-sans: var(--font-sans);
+    --font-display: var(--font-display);
+    --font-mono: var(--font-mono);
+    --font-serif: var(--font-serif);
+
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+
+    --shadow-2xs: var(--shadow-2xs);
+    --shadow-xs: var(--shadow-xs);
+    --shadow-sm: var(--shadow-sm);
+    --shadow: var(--shadow);
+    --shadow-md: var(--shadow-md);
+    --shadow-lg: var(--shadow-lg);
+    --shadow-xl: var(--shadow-xl);
+    --shadow-2xl: var(--shadow-2xl);
+    --shadow-glow: var(--shadow-glow);
+    --shadow-action: var(--shadow-action);
+
+    --color-brand-secondary-500: var(--brand-secondary-500);
+    --color-brand-secondary-600: var(--brand-secondary-600);
+    --color-brand-secondary-700: var(--brand-secondary-700);
+
+    --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
+    --tracking-tight: calc(var(--tracking-normal) - 0.025em);
+    --tracking-normal: var(--tracking-normal);
+    --tracking-wide: calc(var(--tracking-normal) + 0.025em);
+    --tracking-wider: calc(var(--tracking-normal) + 0.05em);
+    --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+  }
+
+  @layer base {
+    * { @apply border-border outline-ring/50; }
+    body { @apply bg-background text-foreground; letter-spacing: var(--tracking-normal); font-family: var(--font-sans); }
+    h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: var(--tracking-display); }
+  }
+
+  /* Doc-shell chrome only — NOT part of the Festiverse app itself,
+     this is the wrapper around the reference. Reclassed to tokens
+     (bg-card/border-border/text-muted-foreground) instead of the
+     original hardcoded hex so dark mode + theming stay correct. */
+  .ds-nav-link { display:block; padding:6px 10px; border-radius:8px; font-size:13px; @apply text-muted-foreground; transition:.15s; }
+  .ds-nav-link:hover { @apply bg-accent text-accent-foreground; }
+  .ds-nav-link.active { @apply bg-primary/10 text-primary font-semibold; }
+  .ds-section { scroll-margin-top: 84px; }
+  .ds-card-frame { @apply bg-card border border-border rounded-xl; }
+  .ds-label-tag { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; @apply text-muted-foreground/70; }
+  .ds-code { font-family: var(--font-mono); font-size:12px; background:#0f172a; color:#93c5fd; border-radius:10px; padding:12px 14px; overflow-x:auto; display:block; white-space:pre; }
+  .dark .ds-code { background:#0a0a0c; }
+  .ds-phone { width:100%; max-width:380px; margin:0 auto; }
+  .ds-note { font-size:12px; line-height:1.5; @apply text-muted-foreground/70; }
+  .ds-badge-baseui { @apply inline-flex items-center gap-1 rounded-md bg-primary/10 text-primary px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .snap-x-mandatory { scroll-snap-type: x mandatory; }
+  .snap-center { scroll-snap-align: center; }
+  .glass { background: rgba(255,255,255,.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .dark .glass { background: rgba(10,10,12,.7); }
+  .text-gradient { background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; @apply bg-gradient-to-r from-primary to-primary/60; }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .press-effect { transition: transform .2s; }
+  .press-effect:active { transform: scale(0.98); }
+</style>
+</head>
+<body class="bg-background text-foreground transition-colors">
+
+<!-- ============================================================
+     TOP UTILITY BAR (custom app-shell chrome — no shadcn equivalent,
+     see manifest section at the bottom of the page)
+     ============================================================ -->
+<header class="sticky top-0 z-50 h-16 border-b border-border glass flex items-center px-4 md:px-6 gap-4">
+  <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-primary/70 flex items-center justify-center text-primary-foreground font-display font-bold text-sm shadow-glow shrink-0">FV</div>
+  <div class="min-w-0">
+    <h1 class="font-display font-bold text-[15px] leading-tight truncate">Festiverse — Design System</h1>
+    <p class="text-[11px] text-muted-foreground leading-tight truncate">shadcn/ui · Base UI variant · New York style</p>
+  </div>
+  <div id="mount-theme-dropdown" class="ml-auto shrink-0"></div>
+</header>
+
+<div class="max-w-[1400px] mx-auto flex">
+
+  <!-- SIDEBAR TOC -->
+  <nav class="hidden lg:block w-60 shrink-0 sticky top-16 h-[calc(100dvh-64px)] overflow-y-auto no-scrollbar px-3 py-6 border-r border-border">
+    <div class="ds-label-tag px-2 mb-2">Foundations</div>
+    <a href="#tokens" class="ds-nav-link">Design Tokens</a>
+    <a href="#typography" class="ds-nav-link">Typography</a>
+    <a href="#layout" class="ds-nav-link">Layout &amp; Breakpoints</a>
+    <div class="ds-label-tag px-2 mt-5 mb-2">Core Components</div>
+    <a href="#buttons" class="ds-nav-link">Button</a>
+    <a href="#badges" class="ds-nav-link">Badge</a>
+    <a href="#forms" class="ds-nav-link">Field / Input</a>
+    <a href="#cards" class="ds-nav-link">Card</a>
+    <div class="ds-label-tag px-2 mt-5 mb-2">Navigation</div>
+    <a href="#app-shell" class="ds-nav-link">App Shell (custom)</a>
+    <a href="#bottom-nav" class="ds-nav-link">Bottom Nav (custom)</a>
+    <a href="#tabs" class="ds-nav-link">Tabs &amp; ToggleGroup</a>
+    <a href="#dropdown" class="ds-nav-link">Menu (Dropdown)</a>
+    <div class="ds-label-tag px-2 mt-5 mb-2">Content Patterns</div>
+    <a href="#hero" class="ds-nav-link">Hero / Countdown (custom)</a>
+    <a href="#carousel" class="ds-nav-link">Carousel (custom)</a>
+    <a href="#masonry" class="ds-nav-link">Masonry (custom)</a>
+    <a href="#timeline" class="ds-nav-link">Timeline (custom)</a>
+    <a href="#popover" class="ds-nav-link">Popover</a>
+    <a href="#accordion" class="ds-nav-link">Accordion</a>
+    <div class="ds-label-tag px-2 mt-5 mb-2">Overlays &amp; Feedback</div>
+    <a href="#modals" class="ds-nav-link">Dialog &amp; Sheet</a>
+    <a href="#toasts" class="ds-nav-link">Toast</a>
+    <a href="#states" class="ds-nav-link">Skeleton / Empty States</a>
+    <div class="ds-label-tag px-2 mt-5 mb-2">Full Pages</div>
+    <a href="#full-pages" class="ds-nav-link">Auth / Error (custom)</a>
+    <div class="ds-label-tag px-2 mt-5 mb-2">Reference</div>
+    <a href="#manifest" class="ds-nav-link">Base UI Migration Manifest</a>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="flex-1 min-w-0 px-4 md:px-10 py-8 md:py-12 space-y-24">
+
+    <!-- INTRO -->
+    <section class="ds-section">
+      <div class="max-w-3xl">
+        <span class="ds-label-tag">shadcn/ui · Base UI primitives · New York style</span>
+        <h2 class="text-3xl md:text-4xl font-bold font-display tracking-tight mt-2 mb-4">Festiverse Design System</h2>
+        <p class="text-[15px] text-muted-foreground leading-relaxed">
+          This is the original Festiverse reference rebuilt so every interactive pattern is a real
+          <span class="font-mono text-[13px] bg-muted px-1.5 py-0.5 rounded">shadcn/ui</span>-style component running on
+          <span class="font-mono text-[13px] bg-muted px-1.5 py-0.5 rounded">@base-ui-components/react</span> instead of raw Tailwind soup —
+          <code class="ds-badge-baseui">Base UI</code> marks a real primitive component below, <code class="ds-badge-baseui" style="background:var(--muted);color:var(--muted-foreground)">Custom</code> marks a Festiverse-specific pattern with no shadcn equivalent (documented instead of faked).
+          Colors, radius, shadows and fonts all still come from the same CSS-variable tokens as <span class="font-mono text-[13px] bg-muted px-1.5 py-0.5 rounded">festiverse-theme.css</span> — nothing was re-themed.
+          No build step: React 19 + Base UI load as native ES modules from esm.sh, JSX is stripped in-browser by Babel Standalone.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-5">
+          <span class="ds-badge-baseui">base-ui</span>
+          <span class="ds-badge-baseui">new-york</span>
+          <span class="ds-badge-baseui">tailwind v4</span>
+          <span class="ds-badge-baseui">no build step</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKENS -->
+    <section id="tokens" class="ds-section">
+      <span class="ds-label-tag">Foundations</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1">Design Tokens</h2>
+      <p class="ds-note mb-6">Unchanged from <span class="font-mono">festiverse-theme.css</span> — this is the exact shadcn v4 CSS-variable shape (oklch, <span class="font-mono">@theme inline</span>, chart/sidebar tokens). Base UI components below consume these same variables; only Radix's DOM/behavior layer was swapped out.</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="ds-card-frame p-4"><div class="h-12 rounded-lg bg-primary shadow-sm mb-2"></div><p class="text-xs font-mono">--primary</p></div>
+        <div class="ds-card-frame p-4"><div class="h-12 rounded-lg bg-secondary border border-border mb-2"></div><p class="text-xs font-mono">--secondary</p></div>
+        <div class="ds-card-frame p-4"><div class="h-12 rounded-lg bg-muted mb-2"></div><p class="text-xs font-mono">--muted</p></div>
+        <div class="ds-card-frame p-4"><div class="h-12 rounded-lg bg-destructive mb-2"></div><p class="text-xs font-mono">--destructive</p></div>
+        <div class="ds-card-frame p-4"><div class="h-12 rounded-lg bg-brand-secondary-500 mb-2"></div><p class="text-xs font-mono">--brand-secondary-500</p></div>
+        <div class="ds-card-frame p-4"><div class="h-12 rounded-lg bg-card border border-border shadow-glow mb-2"></div><p class="text-xs font-mono">shadow-glow</p></div>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHY -->
+    <section id="typography" class="ds-section">
+      <span class="ds-label-tag">Foundations</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1">Typography</h2>
+      <p class="ds-note mb-6">Inter (body/UI) + Lexend (display, h1–h4) + JetBrains Mono (code) — same three-font stack as the source app, wired via <span class="font-mono">--font-sans / --font-display / --font-mono</span>.</p>
+      <div class="ds-card-frame p-6 space-y-3">
+        <p class="font-display font-bold text-3xl">Festiverse Display / Lexend</p>
+        <p class="text-base">Body copy uses Inter at 400–700 weight for everything that isn't a heading.</p>
+        <p class="font-mono text-sm text-muted-foreground">font-mono — JetBrains Mono, used for code and price/handle tags</p>
+      </div>
+    </section>
+
+    <!-- LAYOUT -->
+    <section id="layout" class="ds-section">
+      <span class="ds-label-tag">Foundations</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1">Layout &amp; Breakpoints</h2>
+      <p class="ds-note mb-6">Mobile-first, single-column PWA. The shell caps content width even on desktop rather than reflowing into a multi-column layout — a deliberate "phone-shaped" constraint, unrelated to component library choice.</p>
+      <div class="ds-card-frame p-5">
+        <ul class="space-y-2 text-sm">
+          <li class="flex justify-between border-b border-border pb-2"><span class="font-mono text-xs">max-w-3xl</span><span class="text-muted-foreground text-xs">Main app content</span></li>
+          <li class="flex justify-between border-b border-border pb-2"><span class="font-mono text-xs">max-w-md</span><span class="text-muted-foreground text-xs">Centered dialogs</span></li>
+          <li class="flex justify-between"><span class="font-mono text-xs">max-w-sm</span><span class="text-muted-foreground text-xs">Login card</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         BUTTON  (Base UI)
+         ============================================================ -->
+    <section id="buttons" class="ds-section">
+      <span class="ds-label-tag">Core Components</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Button <span class="ds-badge-baseui">Base UI</span></h2>
+      <p class="ds-note mb-6">One <span class="font-mono">cva</span>-driven <span class="font-mono">&lt;Button variant size&gt;</span> replaces every ad-hoc button in the source. Standard shadcn variants (<span class="font-mono">default / secondary / outline / ghost / destructive / link</span>) plus two Festiverse-specific ones (<span class="font-mono">cta</span> = pill + glow, <span class="font-mono">gradientPurple/gradientOrange</span> = role-action tiles).</p>
+      <div class="ds-card-frame p-6 space-y-6" id="mount-buttons"></div>
+    </section>
+
+    <!-- ============================================================
+         BADGE  (Base UI — plain styled element, no primitive needed)
+         ============================================================ -->
+    <section id="badges" class="ds-section">
+      <span class="ds-label-tag">Core Components</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Badge <span class="ds-badge-baseui">Base UI</span></h2>
+      <p class="ds-note mb-6">Category tags, role badges, and status/price tags all render through one <span class="font-mono">&lt;Badge variant&gt;</span> component; per-category color is passed as a <span class="font-mono">className</span> override on top of the base variant, matching the source's <span class="font-mono">CATEGORY_TAG_COLORS</span> map.</p>
+      <div class="ds-card-frame p-6 space-y-6" id="mount-badges"></div>
+    </section>
+
+    <!-- ============================================================
+         FIELD / INPUT  (Base UI Field)
+         ============================================================ -->
+    <section id="forms" class="ds-section">
+      <span class="ds-label-tag">Core Components</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Field / Input <span class="ds-badge-baseui">Base UI</span></h2>
+      <p class="ds-note mb-6">Built on Base UI's <span class="font-mono">Field</span> primitive (label/control/description/error wired together via ARIA automatically), replacing the source's literal <span class="font-mono">const INPUT = "..."</span> string constant.</p>
+      <div class="ds-card-frame p-6 max-w-xl" id="mount-forms"></div>
+    </section>
+
+    <!-- ============================================================
+         CARD (Base UI)
+         ============================================================ -->
+    <section id="cards" class="ds-section">
+      <span class="ds-label-tag">Core Components</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Card <span class="ds-badge-baseui">Base UI</span></h2>
+      <p class="ds-note mb-6"><span class="font-mono">Card / CardHeader / CardTitle / CardDescription / CardContent / CardFooter</span> — the same compound-component shape as shadcn's Radix Card, since Card itself has no interactive primitive to swap.</p>
+      <div id="mount-cards" class="grid sm:grid-cols-2 gap-4"></div>
+    </section>
+
+    <!-- ============================================================
+         APP SHELL — custom
+         ============================================================ -->
+    <section id="app-shell" class="ds-section">
+      <span class="ds-label-tag">Navigation</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">App Shell (Top Bar) <span class="ds-badge-baseui" style="background:var(--muted);color:var(--muted-foreground)">Custom</span></h2>
+      <p class="ds-note mb-6">The sticky, blurred top bar you see on this very page is the real pattern — <span class="font-mono">.glass</span> utility (85% bg + 12px blur). There's no shadcn "AppBar" primitive; this stays hand-built Tailwind, now reading from tokens instead of hardcoded white/black.</p>
+      <div class="ds-card-frame p-3 max-w-md">
+        <div class="h-14 rounded-lg glass border border-border flex items-center px-4 gap-3">
+          <div class="w-7 h-7 rounded-full bg-primary"></div>
+          <span class="font-display font-bold text-sm">Festiverse</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         BOTTOM NAV — custom
+         ============================================================ -->
+    <section id="bottom-nav" class="ds-section">
+      <span class="ds-label-tag">Navigation</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Bottom Navigation <span class="ds-badge-baseui" style="background:var(--muted);color:var(--muted-foreground)">Custom</span></h2>
+      <p class="ds-note mb-6">Fixed 4-item icon+label bar. Active state swaps the Solar icon from <span class="font-mono">-linear</span> to <span class="font-mono">-bold</span> rather than just recoloring — a distinctive Festiverse touch worth keeping exactly as-is. No shadcn primitive covers a mobile tab bar, so this stays custom.</p>
+      <div class="ds-phone">
+        <nav class="h-16 bg-background/80 backdrop-blur-md border-t border-border flex justify-around items-center px-2 rounded-2xl shadow-sm" id="bottomNavDemo">
+          <button data-nav="home" class="ds-bn group flex flex-col items-center gap-1 p-2 w-16 text-primary">
+            <iconify-icon icon="solar:home-smile-bold" width="24"></iconify-icon>
+            <span class="text-[10px] tracking-tight font-bold">Home</span>
+          </button>
+          <button data-nav="schedule" class="ds-bn group flex flex-col items-center gap-1 p-2 w-16 text-muted-foreground">
+            <iconify-icon icon="solar:calendar-linear" width="24"></iconify-icon>
+            <span class="text-[10px] tracking-tight font-medium">Schedule</span>
+          </button>
+          <button data-nav="stalls" class="ds-bn group flex flex-col items-center gap-1 p-2 w-16 text-muted-foreground">
+            <iconify-icon icon="solar:shop-linear" width="24"></iconify-icon>
+            <span class="text-[10px] tracking-tight font-medium">Stalls</span>
+          </button>
+          <button data-nav="profile" class="ds-bn group flex flex-col items-center gap-1 p-2 w-16 text-muted-foreground">
+            <iconify-icon icon="solar:user-circle-linear" width="24"></iconify-icon>
+            <span class="text-[10px] tracking-tight font-medium">Profile</span>
+          </button>
+        </nav>
+        <p class="ds-note mt-3 text-center">Click a tab — icon swaps linear↔bold, label swaps medium↔bold.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         TABS & TOGGLEGROUP (Base UI)
+         ============================================================ -->
+    <section id="tabs" class="ds-section">
+      <span class="ds-label-tag">Navigation</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Tabs &amp; ToggleGroup <span class="ds-badge-baseui">Base UI</span></h2>
+      <p class="ds-note mb-6">The source has three visually distinct tab-like patterns. Two map cleanly onto <span class="font-mono">Tabs</span> (segmented pill + underline), the filter-chip row maps onto a single-select <span class="font-mono">ToggleGroup</span> since chips aren't really "views," they're multi-criteria filters.</p>
+      <div class="space-y-8">
+        <div class="ds-card-frame p-6">
+          <h4 class="font-semibold text-sm mb-3">Day Switcher <span class="ds-note font-normal">— &lt;Tabs&gt; with a sliding &lt;Tabs.Indicator&gt;</span></h4>
+          <div id="mount-day-tabs"></div>
+        </div>
+        <div class="ds-card-frame p-6">
+          <h4 class="font-semibold text-sm mb-3">Filter Chip Row <span class="ds-note font-normal">— &lt;ToggleGroup&gt; of &lt;Toggle&gt;, single-select</span></h4>
+          <div id="mount-chips"></div>
+        </div>
+        <div class="ds-card-frame p-6">
+          <h4 class="font-semibold text-sm mb-3">Underline Tab Bar <span class="ds-note font-normal">— &lt;Tabs&gt;, admin dashboard style</span></h4>
+          <div id="mount-underline-tabs"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         MENU / DROPDOWN (Base UI)
+         ============================================================ -->
+    <section id="dropdown" class="ds-section">
+      <span class="ds-label-tag">Navigation</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Menu (Dropdown) <span class="ds-badge-baseui">Base UI</span></h2>
+      <p class="ds-note mb-6"><span class="font-mono">Menu.Root / Trigger / Portal / Positioner / Popup / Item</span> — the theme switcher from the top bar of this very page. Base UI uses an explicit <span class="font-mono">Positioner</span> between <span class="font-mono">Portal</span> and <span class="font-mono">Popup</span> where Radix folds positioning into <span class="font-mono">Content</span>.</p>
+      <div class="ds-card-frame p-6">
+        <div id="mount-dropdown-demo"></div>
+        <p class="ds-note mt-3">The live theme toggle is also in the top bar — same component.</p>
+      </div>
+    </section>
+
+    <!-- HERO / COUNTDOWN — custom -->
+    <section id="hero" class="ds-section">
+      <span class="ds-label-tag">Content Patterns</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Hero / Countdown <span class="ds-badge-baseui" style="background:var(--muted);color:var(--muted-foreground)">Custom</span></h2>
+      <p class="ds-note mb-6">Gradient hero card with a live day/hour/min countdown — bespoke to Festiverse, no shadcn primitive applies. Reclassed to tokens only.</p>
+      <div class="ds-phone">
+        <div class="rounded-2xl p-6 bg-gradient-to-br from-primary to-primary/70 text-primary-foreground shadow-lg">
+          <p class="text-xs font-semibold uppercase tracking-wide opacity-80 mb-1">Festiverse 2026</p>
+          <h3 class="font-display font-bold text-xl mb-4">Starts in</h3>
+          <div class="flex gap-3">
+            <div class="bg-white/15 rounded-xl px-3 py-2 text-center flex-1"><div class="font-display font-bold text-2xl">04</div><div class="text-[10px] opacity-80">DAYS</div></div>
+            <div class="bg-white/15 rounded-xl px-3 py-2 text-center flex-1"><div class="font-display font-bold text-2xl">12</div><div class="text-[10px] opacity-80">HRS</div></div>
+            <div class="bg-white/15 rounded-xl px-3 py-2 text-center flex-1"><div class="font-display font-bold text-2xl">45</div><div class="text-[10px] opacity-80">MIN</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAROUSEL — custom -->
+    <section id="carousel" class="ds-section">
+      <span class="ds-label-tag">Content Patterns</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Horizontal Carousel <span class="ds-badge-baseui" style="background:var(--muted);color:var(--muted-foreground)">Custom</span></h2>
+      <p class="ds-note mb-6">CSS scroll-snap only — no carousel library in the source, so no shadcn Carousel block is pulled in either. <span class="font-mono">.snap-x-mandatory / .snap-center / .no-scrollbar</span>.</p>
+      <div class="flex gap-4 overflow-x-auto snap-x-mandatory no-scrollbar pb-2">
+        <div class="ds-card-frame snap-center shrink-0 w-64 h-36 flex items-end p-4 bg-gradient-to-br from-primary/80 to-primary text-primary-foreground"><span class="font-bold text-sm">Featured Event #1</span></div>
+        <div class="ds-card-frame snap-center shrink-0 w-64 h-36 flex items-end p-4 bg-gradient-to-br from-brand-secondary-500 to-brand-secondary-700 text-white"><span class="font-bold text-sm">Featured Event #2</span></div>
+        <div class="ds-card-frame snap-center shrink-0 w-64 h-36 flex items-end p-4 bg-gradient-to-br from-chart-2 to-chart-5 text-white"><span class="font-bold text-sm">Featured Event #3</span></div>
+      </div>
+    </section>
+
+    <!-- MASONRY — custom -->
+    <section id="masonry" class="ds-section">
+      <span class="ds-label-tag">Content Patterns</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Stalls Masonry <span class="ds-badge-baseui" style="background:var(--muted);color:var(--muted-foreground)">Custom</span></h2>
+      <p class="ds-note mb-6">Fixed <span class="font-mono">columns-2</span> at every breakpoint — a real masonry grid, not a responsive reflow. No shadcn equivalent.</p>
+      <div class="columns-2 gap-3 max-w-md [&>*]:mb-3">
+        <div class="ds-card-frame h-32 bg-muted"></div>
+        <div class="ds-card-frame h-20 bg-muted"></div>
+        <div class="ds-card-frame h-24 bg-muted"></div>
+        <div class="ds-card-frame h-36 bg-muted"></div>
+      </div>
+    </section>
+
+    <!-- TIMELINE — custom -->
+    <section id="timeline" class="ds-section">
+      <span class="ds-label-tag">Content Patterns</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Schedule Timeline <span class="ds-badge-baseui" style="background:var(--muted);color:var(--muted-foreground)">Custom</span></h2>
+      <p class="ds-note mb-6">Hand-computed absolute-position hour grid with lane-packed overlaps — not a calendar library, so nothing to swap onto Base UI. Tapping a block opens the <a href="#popover" class="text-primary underline">Popover</a> below.</p>
+      <div class="ds-phone ds-card-frame overflow-hidden">
+        <div class="relative bg-background/50" style="height:180px">
+          <div class="absolute w-full border-t border-border/60 text-xs text-muted-foreground/60 pl-2" style="top:0"><span class="-mt-3 bg-background/50 px-1 rounded">9 AM</span></div>
+          <div class="absolute w-full border-t border-border/60 text-xs text-muted-foreground/60 pl-2" style="top:80px"><span class="-mt-3 bg-background/50 px-1 rounded">10 AM</span></div>
+          <div class="absolute rounded-lg border p-2 bg-chart-2/10 border-chart-2/30 text-chart-2" style="top:10px; left:56px; right:12px; height:55px">
+            <h4 class="text-xs font-bold leading-tight">Opening Ceremony</h4>
+          </div>
+          <div class="absolute rounded-lg border p-2 bg-chart-3/10 border-chart-3/30 text-chart-3" style="top:90px; left:56px; width:45%; height:60px">
+            <h4 class="text-xs font-bold leading-tight">Hackathon Kickoff</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POPOVER (Base UI) -->
+    <section id="popover" class="ds-section">
+      <span class="ds-label-tag">Content Patterns</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Popover <span class="ds-badge-baseui">Base UI</span></h2>
+      <p class="ds-note mb-6"><span class="font-mono">Popover.Root / Trigger / Portal / Positioner / Popup</span> — the floating event card. Base UI ships its own open/close transition data-attributes (<span class="font-mono">data-starting-style</span> / <span class="font-mono">data-ending-style</span>) so Framer Motion isn't required for the enter/exit animation the source used.</p>
+      <div class="ds-card-frame p-6" id="mount-popover"></div>
+    </section>
+
+    <!-- ACCORDION (Base UI) -->
+    <section id="accordion" class="ds-section">
+      <span class="ds-label-tag">Content Patterns</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Accordion <span class="ds-badge-baseui">Base UI</span></h2>
+      <p class="ds-note mb-6"><span class="font-mono">Accordion.Root / Item / Header / Trigger / Panel</span>, single-open. Panel height animation uses Base UI's built-in CSS custom property for measured height rather than a hardcoded grid-rows hack.</p>
+      <div class="ds-card-frame p-6 max-w-xl" id="mount-accordion"></div>
+    </section>
+
+    <!-- MODALS & SHEETS (Base UI Dialog) -->
+    <section id="modals" class="ds-section">
+      <span class="ds-label-tag">Overlays &amp; Feedback</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Dialog &amp; Sheet <span class="ds-badge-baseui">Base UI</span></h2>
+      <p class="ds-note mb-6">Both the centered modal and the bottom sheet are the same <span class="font-mono">Dialog</span> primitive — a <span class="font-mono">Sheet</span> is just <span class="font-mono">Dialog</span> with a <span class="font-mono">side="bottom"</span> style variant, exactly how shadcn's own Sheet is built on top of Dialog.</p>
+      <div class="ds-card-frame p-6 flex flex-wrap gap-3" id="mount-modals"></div>
+    </section>
+
+    <!-- TOAST (Base UI) -->
+    <section id="toasts" class="ds-section">
+      <span class="ds-label-tag">Overlays &amp; Feedback</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Toast <span class="ds-badge-baseui">Base UI</span></h2>
+      <p class="ds-note mb-6"><span class="font-mono">Toast.Provider / Viewport / Root</span> + <span class="font-mono">useToastManager()</span>. Base UI shipped a native Toast component in July 2026 — double-check the exact API against <a class="text-primary underline" href="https://base-ui.com/react/components/toast" target="_blank" rel="noopener">base-ui.com/react/components/toast</a> before shipping, this reference was written from the best available docs at build time.</p>
+      <div class="ds-card-frame p-6" id="mount-toast"></div>
+    </section>
+
+    <!-- STATES -->
+    <section id="states" class="ds-section">
+      <span class="ds-label-tag">Overlays &amp; Feedback</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Skeleton / Empty States <span class="ds-badge-baseui">Base UI</span></h2>
+      <p class="ds-note mb-6">A one-line <span class="font-mono">&lt;Skeleton&gt;</span> (styled div, no primitive needed) plus the source's consistent empty-state pattern: 48px muted Solar icon over one line of centered muted text.</p>
+      <div class="grid md:grid-cols-3 gap-6" id="mount-states"></div>
+    </section>
+
+    <!-- AUTH / ERROR — custom -->
+    <section id="full-pages" class="ds-section">
+      <span class="ds-label-tag">Full Pages</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1 flex items-center gap-2">Auth / Error Pages <span class="ds-badge-baseui" style="background:var(--muted);color:var(--muted-foreground)">Custom</span></h2>
+      <p class="ds-note mb-6">Full-bleed gradient "threshold" screens — reserved for entering/lost moments, breaking from the neutral background used everywhere else. Not a component pattern, kept as page-level custom markup.</p>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="ds-phone rounded-2xl overflow-hidden" style="aspect-ratio:9/14">
+          <div class="w-full h-full bg-gradient-to-br from-primary via-primary/90 to-primary/70 flex flex-col items-center justify-center p-6 relative overflow-hidden">
+            <div class="w-full max-w-sm relative z-10 text-center">
+              <div class="w-16 h-16 mx-auto rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white font-display font-bold text-2xl mb-4 border border-white/20">FV</div>
+              <h1 class="text-2xl font-bold text-white font-display">Festiverse</h1>
+              <div class="bg-card rounded-2xl p-5 shadow-2xl border border-white/10 mt-6 text-left">
+                <h2 class="text-base font-bold text-center mb-1 text-card-foreground">Welcome back</h2>
+                <p class="text-xs text-muted-foreground text-center mb-4">Sign in to continue</p>
+                <button class="w-full flex items-center justify-center gap-2 bg-secondary text-secondary-foreground border border-border rounded-xl px-4 py-2.5 text-xs font-semibold">Continue with Google</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-phone rounded-2xl overflow-hidden" style="aspect-ratio:9/14">
+          <div class="w-full h-full bg-gradient-to-br from-primary via-primary/90 to-primary/70 flex flex-col items-center justify-center p-6 text-center">
+            <h1 class="text-5xl font-bold text-white font-display mb-1">404</h1>
+            <h2 class="text-lg font-bold text-white/90 font-display mb-2">Lost in the crowd?</h2>
+            <p class="text-white/70 text-xs mb-5">This page wandered off somewhere in the festival grounds.</p>
+            <div class="w-full flex items-center justify-center gap-2 bg-white text-primary rounded-xl px-4 py-2.5 text-xs font-bold shadow-lg max-w-xs"><iconify-icon icon="solar:home-smile-bold" width="16"></iconify-icon>Back to Home</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         MANIFEST — for other AI agents
+         ============================================================ -->
+    <section id="manifest" class="ds-section">
+      <span class="ds-label-tag">Reference</span>
+      <h2 class="text-2xl font-bold font-display tracking-tight mt-1 mb-1">Base UI Migration Manifest</h2>
+      <p class="ds-note mb-6">Machine-readable version of this table lives in <span class="font-mono">COMPONENT-MANIFEST.md</span> and <span class="font-mono">components.json</span> alongside this file. Use it to know which shadcn component + variant to reach for.</p>
+      <div class="ds-card-frame overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="text-left text-xs text-muted-foreground uppercase border-b border-border">
+            <tr><th class="p-3">Source pattern</th><th class="p-3">shadcn component</th><th class="p-3">Base UI primitive</th><th class="p-3">Variant / notes</th></tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr><td class="p-3 font-medium">Register / CTA buttons</td><td class="p-3 font-mono text-xs">Button</td><td class="p-3 font-mono text-xs">—</td><td class="p-3 text-xs">variant="cta" for pill+glow, "default" for standard</td></tr>
+            <tr><td class="p-3 font-medium">Category / role / price tags</td><td class="p-3 font-mono text-xs">Badge</td><td class="p-3 font-mono text-xs">—</td><td class="p-3 text-xs">variant="default|role", color via className</td></tr>
+            <tr><td class="p-3 font-medium">Event/Stall/Login forms</td><td class="p-3 font-mono text-xs">Field, Input, Label</td><td class="p-3 font-mono text-xs">Field</td><td class="p-3 text-xs">Field.Root wraps Label + Control + Error</td></tr>
+            <tr><td class="p-3 font-medium">Day switcher</td><td class="p-3 font-mono text-xs">Tabs</td><td class="p-3 font-mono text-xs">Tabs</td><td class="p-3 text-xs">Tabs.Indicator for the sliding pill</td></tr>
+            <tr><td class="p-3 font-medium">Filter chip row</td><td class="p-3 font-mono text-xs">ToggleGroup</td><td class="p-3 font-mono text-xs">ToggleGroup, Toggle</td><td class="p-3 text-xs">toggleMultiple=false for single-select</td></tr>
+            <tr><td class="p-3 font-medium">Admin underline tabs</td><td class="p-3 font-mono text-xs">Tabs</td><td class="p-3 font-mono text-xs">Tabs</td><td class="p-3 text-xs">Indicator styled as bottom border, not pill</td></tr>
+            <tr><td class="p-3 font-medium">Theme switcher</td><td class="p-3 font-mono text-xs">DropdownMenu</td><td class="p-3 font-mono text-xs">Menu</td><td class="p-3 text-xs">Portal → Positioner → Popup → Item</td></tr>
+            <tr><td class="p-3 font-medium">Event popover (schedule)</td><td class="p-3 font-mono text-xs">Popover</td><td class="p-3 font-mono text-xs">Popover</td><td class="p-3 text-xs">data-starting-style/data-ending-style replace Framer Motion</td></tr>
+            <tr><td class="p-3 font-medium">FAQ / details</td><td class="p-3 font-mono text-xs">Accordion</td><td class="p-3 font-mono text-xs">Accordion</td><td class="p-3 text-xs">single-open</td></tr>
+            <tr><td class="p-3 font-medium">Fest Dates modal</td><td class="p-3 font-mono text-xs">Dialog</td><td class="p-3 font-mono text-xs">Dialog</td><td class="p-3 text-xs">centered, Backdrop + Popup</td></tr>
+            <tr><td class="p-3 font-medium">Register bottom sheet</td><td class="p-3 font-mono text-xs">Sheet (Dialog wrapper)</td><td class="p-3 font-mono text-xs">Dialog</td><td class="p-3 text-xs">side="bottom" style variant on Popup</td></tr>
+            <tr><td class="p-3 font-medium">"Event registered!" toast</td><td class="p-3 font-mono text-xs">Toast (Sonner-equivalent)</td><td class="p-3 font-mono text-xs">Toast</td><td class="p-3 text-xs">verify API against latest Base UI docs</td></tr>
+            <tr><td class="p-3 font-medium">Loading card</td><td class="p-3 font-mono text-xs">Skeleton</td><td class="p-3 font-mono text-xs">—</td><td class="p-3 text-xs">plain animate-pulse div</td></tr>
+            <tr class="bg-muted/40"><td class="p-3 font-medium">Bottom nav, hero/countdown, carousel, masonry, timeline, auth/404</td><td class="p-3 text-xs text-muted-foreground" colspan="3">No shadcn/Base UI equivalent — kept as documented custom Tailwind, not fabricated.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="pt-10 pb-16 border-t border-border text-center">
+      <p class="ds-note">Rebuilt from the original Festiverse reference onto shadcn/ui's Base UI variant (New York style). Every token traces back to <span class="font-mono">festiverse-theme.css</span>; every component decision is logged in the manifest above.</p>
+    </footer>
+
+  </main>
+</div>
+
+<!-- ============================================================
+     VANILLA JS — page chrome only (scrollspy, bottom-nav demo).
+     None of this is component logic; all real interactivity below
+     is React + Base UI, mounted via the module script at the end.
+     ============================================================ -->
+<script>
+  document.querySelectorAll('.ds-bn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.ds-bn').forEach(b => {
+        b.classList.remove('text-primary');
+        b.classList.add('text-muted-foreground');
+        const icon = b.querySelector('iconify-icon');
+        icon.setAttribute('icon', icon.getAttribute('icon').replace('-bold', '-linear'));
+        b.querySelector('span').classList.remove('font-bold');
+        b.querySelector('span').classList.add('font-medium');
+      });
+      btn.classList.add('text-primary');
+      btn.classList.remove('text-muted-foreground');
+      const icon = btn.querySelector('iconify-icon');
+      icon.setAttribute('icon', icon.getAttribute('icon').replace('-linear', '-bold'));
+      btn.querySelector('span').classList.add('font-bold');
+      btn.querySelector('span').classList.remove('font-medium');
+    });
+  });
+
+  const sections = document.querySelectorAll('.ds-section[id]');
+  const navLinks = document.querySelectorAll('.ds-nav-link');
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const link = document.querySelector('.ds-nav-link[href="#' + entry.target.id + '"]');
+      if (!link) return;
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => spy.observe(s));
+</script>
+
+<!-- ============================================================
+     REACT + BASE UI COMPONENT LIBRARY
+     This is the real payload: shadcn-style component definitions
+     (cva variants, data-slot attributes, Base UI's `render` prop)
+     mounted into the placeholder divs above. Copy any function
+     below into components/ui/<name>.tsx as-is in a real project.
+     ============================================================ -->
+<script type="text/babel" data-type="module" data-presets="react">
+import React, { useState } from "react";
+import { createRoot } from "react-dom/client";
+import clsx from "clsx";
+import { cva } from "class-variance-authority";
+import { Dialog } from "@base-ui-components/react/dialog";
+import { Popover } from "@base-ui-components/react/popover";
+import { Menu } from "@base-ui-components/react/menu";
+import { Accordion } from "@base-ui-components/react/accordion";
+import { Tabs } from "@base-ui-components/react/tabs";
+import { Toggle } from "@base-ui-components/react/toggle";
+import { ToggleGroup } from "@base-ui-components/react/toggle-group";
+import { Toast } from "@base-ui-components/react/toast";
+import { Field } from "@base-ui-components/react/field";
+
+function cn(...inputs) { return clsx(inputs); }
+
+/* ---------- components/ui/button.jsx --------------------------- */
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold transition-all disabled:pointer-events-none disabled:opacity-60 active:scale-[0.98] [&_iconify-icon]:pointer-events-none",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+        cta: "bg-primary text-primary-foreground rounded-full shadow-glow hover:bg-primary/90",
+        secondary: "bg-secondary text-secondary-foreground border border-border hover:bg-secondary/80",
+        outline: "border border-border bg-card text-foreground hover:bg-muted",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        destructiveGhost: "bg-destructive/10 text-destructive hover:bg-destructive/20",
+        link: "text-primary underline-offset-4 hover:underline",
+        gradientPurple: "bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-lg border border-white/20",
+        gradientOrange: "bg-gradient-to-r from-orange-400 to-red-500 text-white shadow-lg border border-white/20",
+        google: "bg-card border border-border text-card-foreground shadow-xs hover:bg-muted/50",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-8 px-3 text-xs",
+        lg: "h-12 px-6",
+        icon: "h-9 w-9 rounded-full",
+        iconLg: "h-12 w-12 rounded-xl",
+        pill: "h-7 px-4 py-1.5 text-xs rounded-full",
+      },
+    },
+    defaultVariants: { variant: "default", size: "default" },
+  }
+);
+function Button({ className, variant, size, ...props }) {
+  return <button data-slot="button" className={cn(buttonVariants({ variant, size }), className)} {...props} />;
+}
+
+/* ---------- components/ui/badge.jsx ----------------------------- */
+const badgeVariants = cva(
+  "inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold w-fit whitespace-nowrap shrink-0 [&_iconify-icon]:text-[12px]",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary/10 text-primary",
+        secondary: "bg-muted text-muted-foreground",
+        outline: "border border-border text-foreground",
+        destructive: "bg-destructive/10 text-destructive",
+        role: "rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-wide font-bold",
+        pill: "rounded-full px-3 py-1 text-xs font-medium",
+      },
+    },
+    defaultVariants: { variant: "default" },
+  }
+);
+function Badge({ className, variant, ...props }) {
+  return <span data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />;
+}
+
+/* ---------- components/ui/card.jsx ------------------------------ */
+function Card({ className, ...props }) { return <div data-slot="card" className={cn("bg-card text-card-foreground rounded-xl border border-border shadow-xs", className)} {...props} />; }
+function CardHeader({ className, ...props }) { return <div data-slot="card-header" className={cn("flex flex-col gap-1 p-5", className)} {...props} />; }
+function CardTitle({ className, ...props }) { return <h4 data-slot="card-title" className={cn("font-semibold text-sm", className)} {...props} />; }
+function CardDescription({ className, ...props }) { return <p data-slot="card-description" className={cn("text-sm text-muted-foreground", className)} {...props} />; }
+function CardContent({ className, ...props }) { return <div data-slot="card-content" className={cn("p-5 pt-0 text-sm text-muted-foreground", className)} {...props} />; }
+function CardFooter({ className, ...props }) { return <div data-slot="card-footer" className={cn("flex items-center gap-2 p-5 pt-0", className)} {...props} />; }
+
+/* ---------- components/ui/skeleton.jsx --------------------------- */
+function Skeleton({ className, ...props }) {
+  return <div data-slot="skeleton" className={cn("bg-muted animate-pulse rounded-md", className)} {...props} />;
+}
+
+/* ---------- helper: mount a React node into a placeholder div ---- */
+function mount(id, node) {
+  const el = document.getElementById(id);
+  if (el) createRoot(el).render(node);
+}
+
+/* ================================================================
+   BUTTON DEMO
+   ================================================================ */
+function ButtonsDemo() {
+  return (
+    <>
+      <div>
+        <h4 className="font-semibold text-sm mb-3">Primary CTA</h4>
+        <div className="flex flex-wrap gap-3 items-center">
+          <Button variant="default" size="lg">Register</Button>
+          <Button variant="cta" size="lg" className="flex-1">Register • ₹299</Button>
+          <Button variant="cta" size="lg" disabled className="opacity-60 cursor-not-allowed">
+            <iconify-icon icon="solar:loading-bold" width="16" className="animate-spin"></iconify-icon>Saving…
+          </Button>
+        </div>
+      </div>
+      <div>
+        <h4 className="font-semibold text-sm mb-3">Secondary / Outline</h4>
+        <div className="flex flex-wrap gap-3">
+          <Button variant="secondary">View Details</Button>
+          <Button variant="outline">Cancel</Button>
+        </div>
+      </div>
+      <div>
+        <h4 className="font-semibold text-sm mb-3">Icon Buttons</h4>
+        <div className="flex flex-wrap gap-3 items-center">
+          <Button variant="ghost" size="icon" className="bg-secondary/50 hover:bg-secondary"><iconify-icon icon="solar:magnifer-linear" width="20"></iconify-icon></Button>
+          <Button variant="ghost" size="icon" className="bg-secondary/50 hover:bg-secondary relative">
+            <iconify-icon icon="solar:bell-bing-linear" width="20"></iconify-icon>
+            <span className="absolute top-0.5 right-0.5 w-2.5 h-2.5 bg-destructive border-2 border-card rounded-full"></span>
+          </Button>
+          <Button variant="outline" size="iconLg" className="shadow-sm"><iconify-icon icon="solar:bookmark-linear" width="20" className="text-muted-foreground"></iconify-icon></Button>
+        </div>
+      </div>
+      <div>
+        <h4 className="font-semibold text-sm mb-3">Destructive</h4>
+        <div className="flex flex-wrap gap-3">
+          <Button variant="destructiveGhost"><iconify-icon icon="solar:logout-2-linear" width="18"></iconify-icon>Sign Out</Button>
+          <Button variant="destructive">Yes, Delete</Button>
+        </div>
+      </div>
+      <div>
+        <h4 className="font-semibold text-sm mb-3">Gradient Role-Action</h4>
+        <div className="grid sm:grid-cols-2 gap-3">
+          <Button variant="gradientPurple" size="lg" className="w-full justify-between">
+            <span className="flex items-center gap-3"><iconify-icon icon="solar:shield-user-bold" width="18"></iconify-icon><span className="text-left"><span className="block font-bold text-sm">Admin Dashboard</span></span></span>
+            <iconify-icon icon="solar:alt-arrow-right-linear"></iconify-icon>
+          </Button>
+          <Button variant="gradientOrange" size="lg" className="w-full justify-between">
+            <span className="flex items-center gap-3"><iconify-icon icon="solar:widget-linear" width="18"></iconify-icon><span className="text-left"><span className="block font-bold text-sm">Organizer Tools</span></span></span>
+            <iconify-icon icon="solar:alt-arrow-right-linear"></iconify-icon>
+          </Button>
+        </div>
+      </div>
+      <div>
+        <h4 className="font-semibold text-sm mb-3">Third-Party Auth</h4>
+        <Button variant="google" size="lg">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+          Continue with Google
+        </Button>
+      </div>
+    </>
+  );
+}
+
+/* ================================================================
+   BADGE DEMO
+   ================================================================ */
+function BadgesDemo() {
+  return (
+    <>
+      <div>
+        <h4 className="font-semibold text-sm mb-3">Category Tags</h4>
+        <div className="flex flex-wrap gap-2">
+          <Badge className="text-purple-600 bg-purple-50 dark:bg-purple-500/10 dark:text-purple-400"><iconify-icon icon="solar:fire-bold"></iconify-icon>Cultural</Badge>
+          <Badge className="text-cyan-600 bg-cyan-50 dark:bg-cyan-500/10 dark:text-cyan-400">Tech</Badge>
+          <Badge className="text-blue-600 bg-blue-50 dark:bg-blue-500/10 dark:text-blue-400">Workshop</Badge>
+          <Badge className="text-red-600 bg-red-50 dark:bg-red-500/10 dark:text-red-400"><iconify-icon icon="solar:cup-star-bold"></iconify-icon>Competition</Badge>
+          <Badge className="text-green-600 bg-green-50 dark:bg-green-500/10 dark:text-green-400">Sports</Badge>
+        </div>
+      </div>
+      <div>
+        <h4 className="font-semibold text-sm mb-3">Role Badges</h4>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="role" className="bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-500/10 dark:text-purple-400 dark:border-purple-500/20">Super Admin</Badge>
+          <Badge variant="role" className="bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20">App Admin</Badge>
+          <Badge variant="role" className="bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-500/10 dark:text-orange-400 dark:border-orange-500/20">Event Manager</Badge>
+        </div>
+      </div>
+      <div>
+        <h4 className="font-semibold text-sm mb-3">Status / Price</h4>
+        <div className="flex flex-wrap gap-2 items-center">
+          <span className="text-[10px] font-bold text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-500/10 px-1.5 py-0.5 rounded">FREE</span>
+          <span className="text-[10px] font-bold text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-500/10 px-1.5 py-0.5 rounded">₹299</span>
+          <Badge variant="pill" className="bg-primary/10 text-primary">#roboticsclub</Badge>
+          <Badge variant="pill" className="bg-muted text-muted-foreground">Dept. of CSE</Badge>
+        </div>
+      </div>
+    </>
+  );
+}
+
+/* ================================================================
+   FIELD / INPUT DEMO  (Base UI Field)
+   ================================================================ */
+function FormsDemo() {
+  return (
+    <div className="space-y-5">
+      <code className="ds-code">{'<Field.Root>\n  <Field.Label>Event Title *</Field.Label>\n  <Field.Control placeholder="e.g. Robo Wars Finals" />\n</Field.Root>'}</code>
+      <Field.Root className="flex flex-col gap-1">
+        <Field.Label className="text-xs font-semibold text-muted-foreground uppercase">Event Title *</Field.Label>
+        <Field.Control
+          placeholder="e.g. Robo Wars Finals"
+          className="w-full px-3 py-2.5 border border-border rounded-xl text-sm bg-background text-foreground focus:ring-2 focus:ring-ring outline-none transition-all"
+        />
+      </Field.Root>
+      <Field.Root className="flex flex-col gap-1">
+        <Field.Label className="text-xs font-semibold text-muted-foreground uppercase">Description</Field.Label>
+        <Field.Control
+          render={<textarea rows={3} />}
+          placeholder="What's this event about?"
+          className="w-full px-3 py-2.5 border border-border rounded-xl text-sm bg-background text-foreground focus:ring-2 focus:ring-ring outline-none transition-all resize-none"
+        />
+        <Field.Description className="text-[11px] text-muted-foreground">Shown on the event detail page.</Field.Description>
+      </Field.Root>
+    </div>
+  );
+}
+
+/* ================================================================
+   CARD DEMO
+   ================================================================ */
+function CardsDemo() {
+  return (
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>Robo Wars Finals</CardTitle>
+          <CardDescription>Sep 13 · Main Auditorium</CardDescription>
+        </CardHeader>
+        <CardContent>Robotics club's flagship competition — 32 teams, elimination bracket.</CardContent>
+        <CardFooter><Button variant="cta" size="sm">Register • ₹299</Button><Button variant="outline" size="sm">Details</Button></CardFooter>
+      </Card>
+      <Card className="bg-gradient-to-br from-primary to-primary/70 text-primary-foreground border-0 shadow-glow">
+        <CardHeader>
+          <CardTitle className="text-primary-foreground">Featured: Battle of Bands</CardTitle>
+          <CardDescription className="text-primary-foreground/80">Sep 12 · Main Ground · 7 PM</CardDescription>
+        </CardHeader>
+        <CardFooter><Button variant="secondary" size="sm">View Lineup</Button></CardFooter>
+      </Card>
+    </>
+  );
+}
+
+/* ================================================================
+   TABS: day switcher + underline tabs (Base UI Tabs)
+   ================================================================ */
+function DaySwitcher() {
+  return (
+    <Tabs.Root defaultValue="d1" className="inline-block">
+      <Tabs.List className="relative inline-flex items-center bg-secondary/50 p-1 rounded-full border border-border/50">
+        <Tabs.Tab value="d1" className="relative z-10 px-3 py-1 rounded-full text-xs font-bold min-w-[70px] text-muted-foreground data-[selected]:text-primary transition-colors">Sep 12</Tabs.Tab>
+        <Tabs.Tab value="d2" className="relative z-10 px-3 py-1 rounded-full text-xs font-bold min-w-[70px] text-muted-foreground data-[selected]:text-primary transition-colors">Sep 13</Tabs.Tab>
+        <Tabs.Indicator className="absolute inset-y-1 rounded-full bg-background shadow-sm transition-all duration-200" />
+      </Tabs.List>
+    </Tabs.Root>
+  );
+}
+
+function UnderlineTabs() {
+  return (
+    <Tabs.Root defaultValue="users">
+      <Tabs.List className="relative flex border-b border-border">
+        <Tabs.Tab value="users" className="flex-1 py-3 text-sm font-semibold text-muted-foreground data-[selected]:text-primary transition-colors">Users</Tabs.Tab>
+        <Tabs.Tab value="events" className="flex-1 py-3 text-sm font-semibold text-muted-foreground data-[selected]:text-primary transition-colors">Events</Tabs.Tab>
+        <Tabs.Tab value="stalls" className="flex-1 py-3 text-sm font-semibold text-muted-foreground data-[selected]:text-primary transition-colors">Stalls</Tabs.Tab>
+        <Tabs.Indicator className="absolute bottom-0 h-0.5 bg-primary transition-all duration-200" />
+      </Tabs.List>
+    </Tabs.Root>
+  );
+}
+
+/* ================================================================
+   TOGGLEGROUP: filter chips (Base UI ToggleGroup + Toggle)
+   ================================================================ */
+function ChipRow() {
+  const items = [
+    { value: "all", label: "All Events" },
+    { value: "saved", label: "Saved", icon: "solar:bookmark-linear" },
+    { value: "going", label: "Going", icon: "solar:check-circle-linear" },
+    { value: "cultural", label: "Cultural" },
+    { value: "workshops", label: "Workshops" },
+    { value: "tech", label: "Tech" },
+  ];
+  return (
+    <ToggleGroup defaultValue={["all"]} toggleMultiple={false} className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+      {items.map((item) => (
+        <Toggle
+          key={item.value}
+          value={item.value}
+          render={<button />}
+          className="flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold border transition-colors bg-card text-muted-foreground border-border data-[pressed]:bg-primary data-[pressed]:text-primary-foreground data-[pressed]:border-primary data-[pressed]:shadow-glow"
+        >
+          {item.icon && <iconify-icon icon={item.icon} width="14"></iconify-icon>}
+          {item.label}
+        </Toggle>
+      ))}
+    </ToggleGroup>
+  );
+}
+
+/* ================================================================
+   MENU: theme dropdown (Base UI Menu)
+   ================================================================ */
+function ThemeDropdown() {
+  return (
+    <Menu.Root>
+      <Menu.Trigger
+        render={<button />}
+        className="w-9 h-9 flex items-center justify-center rounded-full bg-secondary/50 text-muted-foreground hover:bg-secondary active:scale-95 transition-all"
+        aria-label="Toggle theme"
+      >
+        <iconify-icon icon="solar:sun-linear" width="18" className="block dark:hidden"></iconify-icon>
+        <iconify-icon icon="solar:moon-stars-bold" width="18" className="hidden dark:block"></iconify-icon>
+      </Menu.Trigger>
+      <Menu.Portal>
+        <Menu.Positioner sideOffset={8} align="end" className="z-50">
+          <Menu.Popup className="min-w-[8rem] rounded-md border border-border bg-popover text-popover-foreground shadow-md p-1 outline-none">
+            <Menu.Item onClick={() => document.documentElement.classList.remove("dark")} className="px-2 py-1.5 text-sm rounded-sm hover:bg-accent hover:text-accent-foreground outline-none cursor-pointer">Light</Menu.Item>
+            <Menu.Item onClick={() => document.documentElement.classList.add("dark")} className="px-2 py-1.5 text-sm rounded-sm hover:bg-accent hover:text-accent-foreground outline-none cursor-pointer">Dark</Menu.Item>
+            <Menu.Item onClick={() => document.documentElement.classList.toggle("dark", window.matchMedia("(prefers-color-scheme: dark)").matches)} className="px-2 py-1.5 text-sm rounded-sm hover:bg-accent hover:text-accent-foreground outline-none cursor-pointer">System</Menu.Item>
+          </Menu.Popup>
+        </Menu.Positioner>
+      </Menu.Portal>
+    </Menu.Root>
+  );
+}
+
+/* ================================================================
+   POPOVER: event card (Base UI Popover)
+   ================================================================ */
+function EventPopover() {
+  return (
+    <Popover.Root>
+      <Popover.Trigger render={<button />} className={cn(buttonVariants({ variant: "cta" }))}>
+        Tap an event block
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Positioner sideOffset={12} align="start" className="z-50">
+          <Popover.Popup className="w-64 rounded-xl shadow-xl border border-border overflow-hidden outline-none data-[starting-style]:opacity-0 data-[starting-style]:scale-95 transition-all duration-150">
+            <div className="relative h-40 bg-gradient-to-br from-primary to-purple-500">
+              <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/80"></div>
+              <Popover.Close render={<button />} className="absolute top-2 right-2 p-1 bg-black/40 hover:bg-black/60 text-white rounded-full backdrop-blur-sm">
+                <iconify-icon icon="solar:close-circle-bold" width="18"></iconify-icon>
+              </Popover.Close>
+              <div className="absolute inset-0 flex flex-col justify-end p-3">
+                <Badge className="bg-primary/90 text-white mb-1 w-fit">Cultural</Badge>
+                <Popover.Title className="text-sm font-bold text-white leading-tight">Battle of Bands — Finals</Popover.Title>
+              </div>
+            </div>
+            <div className="bg-card px-3 py-2">
+              <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                <div className="flex items-center gap-1"><iconify-icon icon="solar:clock-circle-bold" className="text-primary" width="12"></iconify-icon><span className="font-medium text-foreground text-[11px]">7:00 PM</span></div>
+                <span>•</span>
+                <div className="flex items-center gap-1"><iconify-icon icon="solar:map-point-bold" className="text-primary" width="12"></iconify-icon><span className="font-medium text-foreground text-[11px]">Main Ground</span></div>
+              </div>
+            </div>
+            <div className="h-px bg-border"></div>
+            <div className="bg-card px-3 py-2.5 flex items-center justify-between gap-1.5">
+              <Button variant="ghost" size="sm" className="bg-primary/15 text-primary"><iconify-icon icon="solar:bookmark-bold" width="13"></iconify-icon>42</Button>
+              <Button variant="ghost" size="sm" className="bg-secondary/40"><iconify-icon icon="solar:users-group-rounded-linear" width="13"></iconify-icon>118</Button>
+              <Button variant="default" size="sm" className="flex-1">Details<iconify-icon icon="solar:arrow-right-bold" width="11"></iconify-icon></Button>
+            </div>
+          </Popover.Popup>
+        </Popover.Positioner>
+      </Popover.Portal>
+    </Popover.Root>
+  );
+}
+
+/* ================================================================
+   ACCORDION (Base UI Accordion)
+   ================================================================ */
+function FAQAccordion() {
+  const items = [
+    { q: "Is entry free for students?", a: "Yes — student IDs get free entry to all cultural events; competitions may have a registration fee." },
+    { q: "Can I register for multiple events?", a: "Yes, there's no cap. Overlapping time slots are flagged in your schedule." },
+    { q: "How do I get my certificate?", a: "Certificates are issued via email within 7 days of the event ending." },
+  ];
+  return (
+    <Accordion.Root className="divide-y divide-border">
+      {items.map((it, i) => (
+        <Accordion.Item key={i} value={i}>
+          <Accordion.Header>
+            <Accordion.Trigger className="w-full flex items-center justify-between py-3 text-sm font-semibold text-left outline-none [&[data-panel-open]_iconify-icon]:rotate-180">
+              {it.q}
+              <iconify-icon icon="solar:alt-arrow-down-linear" width="18" className="transition-transform text-muted-foreground shrink-0"></iconify-icon>
+            </Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Panel className="text-sm text-muted-foreground pb-4 overflow-hidden data-[starting-style]:h-0 data-[ending-style]:h-0 transition-all">
+            {it.a}
+          </Accordion.Panel>
+        </Accordion.Item>
+      ))}
+    </Accordion.Root>
+  );
+}
+
+/* ================================================================
+   DIALOG + SHEET (both Base UI Dialog, different Popup styling)
+   ================================================================ */
+function DialogDemo() {
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger render={<button />} className={cn(buttonVariants({ variant: "cta" }))}>Open dialog</Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Backdrop className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 transition-opacity" />
+        <Dialog.Popup className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[calc(100%-2rem)] max-w-md bg-card border border-border rounded-xl shadow-2xl p-6 outline-none data-[starting-style]:opacity-0 data-[starting-style]:scale-95 data-[ending-style]:opacity-0 transition-all">
+          <Dialog.Title className="font-display font-bold text-lg mb-1">Fest Dates</Dialog.Title>
+          <Dialog.Description className="text-sm text-muted-foreground mb-4">Sep 12 – Sep 14, 2026 · JNTUH Campus</Dialog.Description>
+          <Dialog.Close render={<button />} className={cn(buttonVariants({ variant: "outline" }), "w-full")}>Close</Dialog.Close>
+        </Dialog.Popup>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+
+function SheetDemo() {
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger render={<button />} className={cn(buttonVariants({ variant: "secondary" }))}>Open bottom sheet</Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Backdrop className="fixed inset-0 bg-black/50 z-40 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 transition-opacity" />
+        <Dialog.Popup className="fixed left-0 right-0 bottom-0 z-50 max-w-md mx-auto bg-card border-t border-border rounded-t-2xl shadow-2xl p-6 outline-none data-[starting-style]:translate-y-full data-[ending-style]:translate-y-full transition-transform">
+          <div className="w-10 h-1.5 bg-border rounded-full mx-auto mb-4"></div>
+          <Dialog.Title className="font-display font-bold text-lg mb-1">Register for Event</Dialog.Title>
+          <Dialog.Description className="text-sm text-muted-foreground mb-4">Robo Wars Finals — ₹299</Dialog.Description>
+          <Button variant="cta" size="lg" className="w-full">Confirm • ₹299</Button>
+        </Dialog.Popup>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+
+/* ================================================================
+   TOAST (Base UI Toast — best-effort against the July 2026 API)
+   ================================================================ */
+function ToastFireButton() {
+  const toastManager = Toast.useToastManager();
+  return (
+    <Button
+      variant="cta"
+      onClick={() => toastManager.add({ title: "Event registered!", description: "Check My Tickets for details." })}
+    >
+      Fire a toast
+    </Button>
+  );
+}
+function ToastList() {
+  const { toasts } = Toast.useToastManager();
+  return toasts.map((toast) => (
+    <Toast.Root
+      key={toast.id}
+      toast={toast}
+      className="flex items-center gap-2 bg-card rounded-xl px-4 py-3 shadow-lg border border-border text-sm font-medium data-[starting-style]:opacity-0 data-[starting-style]:translate-y-2 data-[ending-style]:opacity-0 transition-all"
+    >
+      <Toast.Title className="font-semibold" />
+      <Toast.Description className="text-muted-foreground text-xs" />
+    </Toast.Root>
+  ));
+}
+function ToastDemo() {
+  return (
+    <Toast.Provider>
+      <ToastFireButton />
+      <Toast.Portal>
+        <Toast.Viewport className="fixed top-20 left-1/2 -translate-x-1/2 z-[300] flex flex-col gap-2">
+          <ToastList />
+        </Toast.Viewport>
+      </Toast.Portal>
+    </Toast.Provider>
+  );
+}
+
+/* ================================================================
+   EMPTY / LOADING STATES
+   ================================================================ */
+function StatesDemo() {
+  return (
+    <>
+      <div className="ds-card-frame p-6 text-center">
+        <iconify-icon icon="solar:calendar-search-linear" width="48" className="text-muted-foreground mx-auto mb-3"></iconify-icon>
+        <p className="text-sm text-muted-foreground font-medium">No events match this filter</p>
+      </div>
+      <div className="ds-card-frame p-6">
+        <div className="flex items-center gap-3 p-3 bg-card rounded-xl border border-border shadow-sm">
+          <Skeleton className="w-16 h-16 rounded-lg" />
+          <div className="flex-1 space-y-2"><Skeleton className="h-4 w-3/4" /><Skeleton className="h-3 w-1/2" /></div>
+        </div>
+      </div>
+      <div className="ds-card-frame p-6 flex items-center justify-center">
+        <div className="relative w-8 h-8">
+          <div className="absolute inset-0 rounded-full border-2 border-border"></div>
+          <div className="absolute inset-0 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+/* ================================================================
+   MOUNT EVERYTHING
+   ================================================================ */
+mount("mount-theme-dropdown", <ThemeDropdown />);
+mount("mount-buttons", <ButtonsDemo />);
+mount("mount-badges", <BadgesDemo />);
+mount("mount-forms", <FormsDemo />);
+mount("mount-cards", <CardsDemo />);
+mount("mount-day-tabs", <DaySwitcher />);
+mount("mount-chips", <ChipRow />);
+mount("mount-underline-tabs", <UnderlineTabs />);
+mount("mount-dropdown-demo", <ThemeDropdown />);
+mount("mount-popover", <EventPopover />);
+mount("mount-accordion", <FAQAccordion />);
+mount("mount-modals", <><DialogDemo /><SheetDemo /></>);
+mount("mount-toast", <ToastDemo />);
+mount("mount-states", <StatesDemo />);
+
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.documentElement.classList.add('dark');
+}
+</script>
+</body>
+</html>
