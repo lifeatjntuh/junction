@@ -395,7 +395,7 @@ export function Showcase() {
       <Section id="buttons" title="Buttons" description="Standard shadcn variants plus Junction-only cta / gradient / google variants.">
         <ButtonsDemo />
       </Section>
-      <Section id="badges" title="Badges" description="Category tags use variant=\"default\" with a color className override; roles use variant=\"role\".">
+      <Section id="badges" title="Badges" description={'Category tags use variant="default" with a color className override; roles use variant="role".'}>
         <BadgesDemo />
       </Section>
       <Section id="forms" title="Form fields" description="Built on Base UI's Field primitive — accessible label/control/description wiring included.">
