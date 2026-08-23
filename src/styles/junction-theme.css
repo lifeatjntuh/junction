@@ -1,0 +1,229 @@
+/*
+ * Junction — LifeatJNTUH design system tokens.
+ * shadcn v4 "New York"-shaped CSS variable file (oklch values, @theme inline,
+ * chart/sidebar tokens) running on the Base UI runtime instead of Radix.
+ *
+ * This is the single source of truth for color, radius, shadow, and font tokens.
+ * Point every component's className at these tokens (bg-card, text-muted-foreground,
+ * border-border, shadow-glow, rounded-lg, ...) rather than hardcoded values.
+ */
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.9838 0.0035 247.8583);
+  --foreground: oklch(0.2079 0.0399 265.7275);
+  --card: oklch(1.0000 0 0);
+  --card-foreground: oklch(0.2079 0.0399 265.7275);
+  --popover: oklch(1.0000 0 0);
+  --popover-foreground: oklch(0.2079 0.0399 265.7275);
+  --primary: oklch(0.5449 0.2154 262.7414);
+  --primary-foreground: oklch(0.9838 0.0035 247.8583);
+  --secondary: oklch(0.9684 0.0068 247.8951);
+  --secondary-foreground: oklch(0.2079 0.0399 265.7275);
+  --muted: oklch(0.9684 0.0068 247.8951);
+  --muted-foreground: oklch(0.5547 0.0407 257.4404);
+  --accent: oklch(0.9684 0.0068 247.8951);
+  --accent-foreground: oklch(0.2079 0.0399 265.7275);
+  --destructive: oklch(0.6368 0.2078 25.3259);
+  --destructive-foreground: oklch(0.9848 0 0);
+  --border: oklch(0.9600 0.0032 264.5409);
+  --input: oklch(0.9278 0.0058 264.5314);
+  --ring: oklch(0.5449 0.2154 262.7414);
+
+  /* Chart palette — the Junction accent scale (purple/green/pink/yellow/cyan). */
+  --chart-1: oklch(0.5449 0.2154 262.7414); /* primary blue */
+  --chart-2: oklch(0.6268 0.2325 303.9004); /* accent.purple #a855f7 */
+  --chart-3: oklch(0.6959 0.1491 162.4796); /* accent.green  #10b981 */
+  --chart-4: oklch(0.8369 0.1644 84.4286);  /* accent.yellow #fbbf24 */
+  --chart-5: oklch(0.6559 0.2118 354.3084); /* accent.pink   #ec4899 */
+
+  /* No distinct sidebar surface exists in the current product surfaces (mobile
+     app-shell only) — mirrored from card/popover/primary so the tokens exist if
+     a desktop admin sidebar is ever added, without inventing a new color. */
+  --sidebar: oklch(1.0000 0 0);
+  --sidebar-foreground: oklch(0.2079 0.0399 265.7275);
+  --sidebar-primary: oklch(0.5449 0.2154 262.7414);
+  --sidebar-primary-foreground: oklch(0.9838 0.0035 247.8583);
+  --sidebar-accent: oklch(0.9684 0.0068 247.8951);
+  --sidebar-accent-foreground: oklch(0.2079 0.0399 265.7275);
+  --sidebar-border: oklch(0.9600 0.0032 264.5409);
+  --sidebar-ring: oklch(0.5449 0.2154 262.7414);
+
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: Lexend, sans-serif; /* h1–h4 */
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --radius: 0.75rem;
+
+  --shadow-x: 0px;
+  --shadow-y: 4px;
+  --shadow-blur: 20px;
+  --shadow-spread: -2px;
+  --shadow-opacity: 0.05;
+  --shadow-color: #000000;
+  --shadow-2xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.03);
+  --shadow-xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.04);
+  --shadow-sm: 0px 4px 20px -2px hsl(0 0% 0% / 0.05);
+  --shadow: 0px 4px 20px -2px hsl(0 0% 0% / 0.05);
+  --shadow-md: 0px 4px 20px -2px hsl(0 0% 0% / 0.06);
+  --shadow-lg: 0px 8px 28px -4px hsl(0 0% 0% / 0.08);
+  --shadow-xl: 0px 12px 36px -4px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0px 16px 44px -4px hsl(0 0% 0% / 0.14);
+
+  /* Junction-specific: primary-tinted "glow" shadow used on CTA buttons and the
+     small set of surfaces the interface must not let the user miss. */
+  --shadow-glow: 0px 4px 20px -2px oklch(0.5449 0.2154 262.7414 / 0.25);
+  --shadow-action: 0px 8px 24px -4px oklch(0.5449 0.2154 262.7414 / 0.35);
+
+  /* Junction-specific: the brand's orange secondary scale, as real tokens rather
+     than raw hex scattered through Tailwind config. Distinct from --secondary
+     above, which stays neutral gray — the shadcn "low-emphasis button" role. */
+  --brand-secondary-500: oklch(0.7049 0.1867 47.6044);
+  --brand-secondary-600: oklch(0.6461 0.1943 41.1158);
+  --brand-secondary-700: oklch(0.5534 0.1739 38.4022);
+
+  --tracking-normal: 0em;
+  --tracking-display: 0.015em;
+  --spacing: 0.25rem;
+}
+
+.dark {
+  --background: oklch(0.1405 0.0044 285.8238);
+  --foreground: oklch(0.9848 0 0);
+  --card: oklch(0.1681 0.0019 286.1946);
+  --card-foreground: oklch(0.9848 0 0);
+  --popover: oklch(0.1417 0.0044 285.8192);
+  --popover-foreground: oklch(0.9848 0 0);
+  --primary: oklch(0.6043 0.1838 263.2689);
+  --primary-foreground: oklch(0.9838 0.0035 247.8583);
+  --secondary: oklch(0.2741 0.0055 286.0329);
+  --secondary-foreground: oklch(0.9848 0 0);
+  --muted: oklch(0.2741 0.0055 286.0329);
+  --muted-foreground: oklch(0.7119 0.0129 286.0684);
+  --accent: oklch(0.2741 0.0055 286.0329);
+  --accent-foreground: oklch(0.9848 0 0);
+  --destructive: oklch(0.3959 0.1331 25.7205);
+  --destructive-foreground: oklch(0.9848 0 0);
+  --border: oklch(0.2546 0.0049 286.0458);
+  --input: oklch(0.2741 0.0055 286.0329);
+  --ring: oklch(0.6043 0.1838 263.2689);
+
+  --chart-1: oklch(0.6043 0.1838 263.2689);
+  --chart-2: oklch(0.6268 0.2325 303.9004);
+  --chart-3: oklch(0.6959 0.1491 162.4796);
+  --chart-4: oklch(0.8369 0.1644 84.4286);
+  --chart-5: oklch(0.6559 0.2118 354.3084);
+
+  --sidebar: oklch(0.1681 0.0019 286.1946);
+  --sidebar-foreground: oklch(0.9848 0 0);
+  --sidebar-primary: oklch(0.6043 0.1838 263.2689);
+  --sidebar-primary-foreground: oklch(0.9838 0.0035 247.8583);
+  --sidebar-accent: oklch(0.2741 0.0055 286.0329);
+  --sidebar-accent-foreground: oklch(0.9848 0 0);
+  --sidebar-border: oklch(0.2546 0.0049 286.0458);
+  --sidebar-ring: oklch(0.6043 0.1838 263.2689);
+
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: Lexend, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --radius: 0.75rem;
+
+  --shadow-2xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.20);
+  --shadow-xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.24);
+  --shadow-sm: 0px 4px 20px -2px hsl(0 0% 0% / 0.30);
+  --shadow: 0px 4px 20px -2px hsl(0 0% 0% / 0.30);
+  --shadow-md: 0px 4px 20px -2px hsl(0 0% 0% / 0.34);
+  --shadow-lg: 0px 8px 28px -4px hsl(0 0% 0% / 0.40);
+  --shadow-xl: 0px 12px 36px -4px hsl(0 0% 0% / 0.46);
+  --shadow-2xl: 0px 16px 44px -4px hsl(0 0% 0% / 0.55);
+
+  --shadow-glow: 0px 4px 20px -2px oklch(0.6043 0.1838 263.2689 / 0.35);
+  --shadow-action: 0px 8px 24px -4px oklch(0.6043 0.1838 263.2689 / 0.45);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+
+  --radius-sm: calc(var(--radius) - 4px);  /* 8px  — chips, badges, inputs */
+  --radius-md: calc(var(--radius) - 2px);  /* 10px */
+  --radius-lg: var(--radius);              /* 12px — buttons, cards */
+  --radius-xl: calc(var(--radius) + 4px);  /* 16px — sheets, dialogs */
+
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+  --shadow-glow: var(--shadow-glow);
+  --shadow-action: var(--shadow-action);
+
+  --color-brand-secondary-500: var(--brand-secondary-500);
+  --color-brand-secondary-600: var(--brand-secondary-600);
+  --color-brand-secondary-700: var(--brand-secondary-700);
+
+  --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
+  --tracking-tight: calc(var(--tracking-normal) - 0.025em);
+  --tracking-normal: var(--tracking-normal);
+  --tracking-wide: calc(var(--tracking-normal) + 0.025em);
+  --tracking-wider: calc(var(--tracking-normal) + 0.05em);
+  --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    letter-spacing: var(--tracking-normal);
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: var(--tracking-display);
+  }
+}

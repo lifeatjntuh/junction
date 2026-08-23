@@ -2,11 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema.json",
   "style": "new-york",
   "base": "base-ui",
-  "rsc": true,
+  "rsc": false,
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "src/styles/festiverse-theme.css",
+    "css": "src/styles/junction-theme.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
