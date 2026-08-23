@@ -78,6 +78,12 @@ are flagged inline in their source files as well:
 Run `npm install` before trusting any of this against real type definitions — `@base-ui-components/react`
 is pinned to `latest` in `package.json` deliberately, since the API is still moving.
 
+No `package-lock.json` is committed for the same reason: pinning `latest` and locking it
+would defeat the point. CI runs `npm install` rather than `npm ci` as a result. Once you're ready
+to stop tracking Base UI's latest release automatically, run `npm install` locally, pin
+`@base-ui-components/react` to a real version, commit the generated `package-lock.json`, and
+switch both workflow files back to `npm ci` for reproducible installs.
+
 ## Deploy
 
 **GitHub Pages** — `.github/workflows/deploy-pages.yml` builds and deploys `main` automatically

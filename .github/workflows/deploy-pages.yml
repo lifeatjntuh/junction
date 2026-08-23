@@ -21,9 +21,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
-      - run: npm ci
+          node-version: 22
+      # No package-lock.json is committed — see build.yml for why.
+      - run: npm install
       # base path must match the repo name if this deploys to
       # https://<user>.github.io/<repo>/ — see README "Deploy" section.
       - run: npm run build

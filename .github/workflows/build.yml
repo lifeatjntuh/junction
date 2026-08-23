@@ -14,10 +14,14 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: 22
 
-      - run: npm ci
+      # No package-lock.json is committed (this repo intentionally pins
+      # @base-ui-components/react to "latest" while it's in active beta —
+      # see README "Known risk areas"). `npm install` resolves fresh each run;
+      # switch to `npm ci` once you've run `npm install` locally and committed
+      # the generated package-lock.json.
+      - run: npm install
       - run: npm run build
 
       - uses: actions/upload-artifact@v4
