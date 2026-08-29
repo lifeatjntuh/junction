@@ -17,31 +17,31 @@ const CUSTOM_PATTERNS = [
   ["Menu lists", "Stacked icon + label + chevron rows on the profile page."],
 ];
 
-function Header() {
+function Sidebar() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-5xl items-center gap-6 px-6 py-4">
+    <aside className="sticky top-0 z-40 flex flex-col border-b border-border bg-background/80 backdrop-blur-md md:h-screen md:w-64 md:shrink-0 md:border-b-0 md:border-r md:bg-background md:p-6 md:backdrop-blur-none">
+      <div className="flex items-center px-6 py-4 md:p-0 md:mb-8">
         <a href="#top" className="flex items-center gap-2 font-display text-base font-semibold">
           <iconify-icon icon="solar:widget-5-bold" className="text-primary" />
           Junction
         </a>
-        <nav className="hidden flex-1 items-center gap-4 overflow-x-auto text-sm text-muted-foreground md:flex">
-          {NAV.map((id) => (
-            <a key={id} href={`#${id}`} className="whitespace-nowrap capitalize hover:text-foreground">
-              {id}
-            </a>
-          ))}
-        </nav>
-        <a
-          href="https://base-ui.com"
-          target="_blank"
-          rel="noreferrer"
-          className="ml-auto shrink-0 text-xs text-muted-foreground hover:text-foreground"
-        >
-          Built on Base UI ↗
-        </a>
       </div>
-    </header>
+      <nav className="hidden md:flex flex-1 flex-col gap-3 overflow-y-auto text-sm text-muted-foreground">
+        {NAV.map((id) => (
+          <a key={id} href={`#${id}`} className="capitalize transition-colors hover:text-foreground">
+            {id}
+          </a>
+        ))}
+      </nav>
+      <a
+        href="https://base-ui.com"
+        target="_blank"
+        rel="noreferrer"
+        className="hidden md:block mt-6 shrink-0 text-xs text-muted-foreground hover:text-foreground"
+      >
+        Built on Base UI ↗
+      </a>
+    </aside>
   );
 }
 
@@ -92,14 +92,16 @@ function Footer() {
 
 export default function App() {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main>
-        <Hero />
-        <Showcase />
-        <CustomPatternsNote />
-      </main>
-      <Footer />
+    <div className="flex min-h-screen flex-col md:flex-row">
+      <Sidebar />
+      <div className="flex-1 min-w-0">
+        <main>
+          <Hero />
+          <Showcase />
+          <CustomPatternsNote />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }
