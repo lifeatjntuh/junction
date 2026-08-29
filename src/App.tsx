@@ -1,20 +1,11 @@
 import { Showcase } from "@/sections/Showcase";
+import { CustomPatterns } from "@/sections/CustomPatterns";
 
 const NAV = [
   "tokens", "typography", "layout", "buttons", "badges", "forms", "cards",
   "tabs", "dropdown", "popover", "accordion", "lists", "modals", "toasts",
-  "states", "utilities", "not-present",
-];
-
-const CUSTOM_PATTERNS = [
-  ["Bottom navigation", "Mobile tab bar with a linear→bold icon swap on the active state."],
-  ["Hero / countdown card", "Gradient hero with a live day/hour/minute countdown."],
-  ["Horizontal carousel", "CSS scroll-snap only — no carousel library."],
-  ["Stalls masonry grid", "Fixed columns-2 layout, not a component."],
-  ["Schedule timeline", "Hand-computed absolute-position hour grid with lane packing."],
-  ["Auth / 404 pages", "Full-bleed, page-level gradient 'threshold' screens."],
-  ["Top app bar / .glass", "Sticky blurred header — there's no shadcn 'AppBar'."],
-  ["Menu lists", "Stacked icon + label + chevron rows on the profile page."],
+  "states", "utilities", "app-shell", "bottom-nav", "hero", "carousel",
+  "masonry", "timeline", "full-pages", "not-present",
 ];
 
 function Sidebar() {
@@ -59,28 +50,7 @@ function Hero() {
   );
 }
 
-function CustomPatternsNote() {
-  return (
-    <section className="border-t border-border py-12">
-      <div className="mx-auto max-w-5xl px-6">
-        <h2 className="text-2xl font-semibold">Intentionally custom</h2>
-        <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-          These patterns have no shadcn / Base UI equivalent and are kept as plain Tailwind
-          against the same design tokens rather than forced into a component. See
-          COMPONENT-MANIFEST.md for the full mapping.
-        </p>
-        <dl className="mt-6 grid gap-4 sm:grid-cols-2">
-          {CUSTOM_PATTERNS.map(([name, note]) => (
-            <div key={name} className="rounded-lg border border-border bg-card p-4">
-              <dt className="text-sm font-semibold">{name}</dt>
-              <dd className="mt-1 text-sm text-muted-foreground">{note}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </section>
-  );
-}
+
 
 function Footer() {
   return (
@@ -98,7 +68,7 @@ export default function App() {
         <main>
           <Hero />
           <Showcase />
-          <CustomPatternsNote />
+          <CustomPatterns />
         </main>
         <Footer />
       </div>
