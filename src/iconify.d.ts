@@ -5,6 +5,25 @@ import type * as React from "react";
 
 export {};
 
+declare module "react" {
+  namespace JSX {
+    interface IntrinsicElements {
+      "iconify-icon": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement> & {
+          icon: string;
+          width?: string | number;
+          height?: string | number;
+          inline?: boolean;
+          flip?: string;
+          rotate?: string | number;
+          [key: string]: any;
+        },
+        HTMLElement
+      >;
+    }
+  }
+}
+
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -14,6 +33,9 @@ declare global {
           width?: string | number;
           height?: string | number;
           inline?: boolean;
+          flip?: string;
+          rotate?: string | number;
+          [key: string]: any;
         },
         HTMLElement
       >;

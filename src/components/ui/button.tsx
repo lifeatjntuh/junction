@@ -64,7 +64,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     if (render) {
       return React.cloneElement(render, {
-        className: cn(classes, render.props.className),
+        className: cn(classes, (render.props as { className?: string }).className),
         ...props,
       } as React.HTMLAttributes<HTMLElement>);
     }

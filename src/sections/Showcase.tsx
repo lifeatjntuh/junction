@@ -214,7 +214,7 @@ function UnderlineTabs() {
 function ChipRow() {
   const [value, setValue] = React.useState<string[]>(["music"]);
   return (
-    <ToggleGroup value={value} onValueChange={(v) => setValue(v as string[])} toggleMultiple={false}>
+    <ToggleGroup value={value} onValueChange={(v) => setValue(v as string[])} multiple>
       <Toggle value="music">Music</Toggle>
       <Toggle value="workshops">Workshops</Toggle>
       <Toggle value="food">Food</Toggle>
@@ -281,7 +281,7 @@ function EventPopoverDemo() {
 function FaqAccordion() {
   return (
     <Frame className="max-w-xl">
-      <Accordion openMultiple={false}>
+      <Accordion>
         <AccordionItem value="tickets">
           <AccordionTrigger>Do I need a ticket for every day?</AccordionTrigger>
           <AccordionPanel>No — one registration covers all three days of the event.</AccordionPanel>
