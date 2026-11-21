@@ -1,152 +1,74 @@
 /*
- * Junction — LifeatJNTUH design system tokens.
- * shadcn v4 "New York"-shaped CSS variable file (oklch values, @theme inline,
- * chart/sidebar tokens) running on the Base UI runtime instead of Radix.
+ * Junction — LifeatJNTUH design system theme.
  *
- * This is the single source of truth for color, radius, shadow, and font tokens.
- * Point every component's className at these tokens (bg-card, text-muted-foreground,
- * border-border, shadow-glow, rounded-lg, ...) rather than hardcoded values.
+ * Ported from the @lifeatjntuh website design system
+ * (lifeatjntuh-admin/website, src/styles/globals.css and
+ * src/components/pages/design-system/page.tsx).
+ *
+ * Core: Plum #1f1235, Cream #fff7ee, Hot pink #f0208f, Orange #ff6a1f,
+ * Violet #7b5cff. Pastels: Pink #ffc9e6, Lime #dcf58a, Blue #c9e0ff,
+ * Yellow #fff27a, Lavender #ddd2ff, Peach #ffd6bd.
+ * Type: Fredoka (website headlines), Bricolage Grotesque (social
+ * headlines), Plus Jakarta Sans (body), Lexend (app screens).
+ * Shapes: 32px panel corners, fully round buttons and chips, soft shadows.
+ *
+ * This is the single source of truth for the package's tokens. Import it
+ * once in a consuming app:
+ *   import "@lifeatjntuh/junction/theme";
+ * (The main entry point also imports it as a side effect.)
+ * The same values are available typed in code from "./tokens" /
+ * "@lifeatjntuh/junction/tokens".
+ *
+ * Two website-only imports were dropped here: tw-animate-css and the
+ * Tailwind typography plugin, which Junction does not depend on.
  */
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
-:root {
-  --background: oklch(0.9838 0.0035 247.8583);
-  --foreground: oklch(0.2079 0.0399 265.7275);
-  --card: oklch(1.0000 0 0);
-  --card-foreground: oklch(0.2079 0.0399 265.7275);
-  --popover: oklch(1.0000 0 0);
-  --popover-foreground: oklch(0.2079 0.0399 265.7275);
-  --primary: oklch(0.5449 0.2154 262.7414);
-  --primary-foreground: oklch(0.9838 0.0035 247.8583);
-  --secondary: oklch(0.9684 0.0068 247.8951);
-  --secondary-foreground: oklch(0.2079 0.0399 265.7275);
-  --muted: oklch(0.9684 0.0068 247.8951);
-  --muted-foreground: oklch(0.5547 0.0407 257.4404);
-  --accent: oklch(0.9684 0.0068 247.8951);
-  --accent-foreground: oklch(0.2079 0.0399 265.7275);
-  --destructive: oklch(0.6368 0.2078 25.3259);
-  --destructive-foreground: oklch(0.9848 0 0);
-  --border: oklch(0.9600 0.0032 264.5409);
-  --input: oklch(0.9278 0.0058 264.5314);
-  --ring: oklch(0.5449 0.2154 262.7414);
-
-  /* Chart palette — the Junction accent scale (purple/green/pink/yellow/cyan). */
-  --chart-1: oklch(0.5449 0.2154 262.7414); /* primary blue */
-  --chart-2: oklch(0.6268 0.2325 303.9004); /* accent.purple #a855f7 */
-  --chart-3: oklch(0.6959 0.1491 162.4796); /* accent.green  #10b981 */
-  --chart-4: oklch(0.8369 0.1644 84.4286);  /* accent.yellow #fbbf24 */
-  --chart-5: oklch(0.6559 0.2118 354.3084); /* accent.pink   #ec4899 */
-
-  /* No distinct sidebar surface exists in the current product surfaces (mobile
-     app-shell only) — mirrored from card/popover/primary so the tokens exist if
-     a desktop admin sidebar is ever added, without inventing a new color. */
-  --sidebar: oklch(1.0000 0 0);
-  --sidebar-foreground: oklch(0.2079 0.0399 265.7275);
-  --sidebar-primary: oklch(0.5449 0.2154 262.7414);
-  --sidebar-primary-foreground: oklch(0.9838 0.0035 247.8583);
-  --sidebar-accent: oklch(0.9684 0.0068 247.8951);
-  --sidebar-accent-foreground: oklch(0.2079 0.0399 265.7275);
-  --sidebar-border: oklch(0.9600 0.0032 264.5409);
-  --sidebar-ring: oklch(0.5449 0.2154 262.7414);
-
-  --font-sans: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: Lexend, sans-serif; /* h1–h4 */
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: "JetBrains Mono", monospace;
-
-  --radius: 0.75rem;
-
-  --shadow-x: 0px;
-  --shadow-y: 4px;
-  --shadow-blur: 20px;
-  --shadow-spread: -2px;
-  --shadow-opacity: 0.05;
-  --shadow-color: #000000;
-  --shadow-2xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.03);
-  --shadow-xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.04);
-  --shadow-sm: 0px 4px 20px -2px hsl(0 0% 0% / 0.05);
-  --shadow: 0px 4px 20px -2px hsl(0 0% 0% / 0.05);
-  --shadow-md: 0px 4px 20px -2px hsl(0 0% 0% / 0.06);
-  --shadow-lg: 0px 8px 28px -4px hsl(0 0% 0% / 0.08);
-  --shadow-xl: 0px 12px 36px -4px hsl(0 0% 0% / 0.10);
-  --shadow-2xl: 0px 16px 44px -4px hsl(0 0% 0% / 0.14);
-
-  /* Junction-specific: primary-tinted "glow" shadow used on CTA buttons and the
-     small set of surfaces the interface must not let the user miss. */
-  --shadow-glow: 0px 4px 20px -2px oklch(0.5449 0.2154 262.7414 / 0.25);
-  --shadow-action: 0px 8px 24px -4px oklch(0.5449 0.2154 262.7414 / 0.35);
-
-  /* Junction-specific: the brand's orange secondary scale, as real tokens rather
-     than raw hex scattered through Tailwind config. Distinct from --secondary
-     above, which stays neutral gray — the shadcn "low-emphasis button" role. */
-  --brand-secondary-500: oklch(0.7049 0.1867 47.6044);
-  --brand-secondary-600: oklch(0.6461 0.1943 41.1158);
-  --brand-secondary-700: oklch(0.5534 0.1739 38.4022);
-
-  --tracking-normal: 0em;
-  --tracking-display: 0.015em;
-  --spacing: 0.25rem;
-}
-
-.dark {
-  --background: oklch(0.1405 0.0044 285.8238);
-  --foreground: oklch(0.9848 0 0);
-  --card: oklch(0.1681 0.0019 286.1946);
-  --card-foreground: oklch(0.9848 0 0);
-  --popover: oklch(0.1417 0.0044 285.8192);
-  --popover-foreground: oklch(0.9848 0 0);
-  --primary: oklch(0.6043 0.1838 263.2689);
-  --primary-foreground: oklch(0.9838 0.0035 247.8583);
-  --secondary: oklch(0.2741 0.0055 286.0329);
-  --secondary-foreground: oklch(0.9848 0 0);
-  --muted: oklch(0.2741 0.0055 286.0329);
-  --muted-foreground: oklch(0.7119 0.0129 286.0684);
-  --accent: oklch(0.2741 0.0055 286.0329);
-  --accent-foreground: oklch(0.9848 0 0);
-  --destructive: oklch(0.3959 0.1331 25.7205);
-  --destructive-foreground: oklch(0.9848 0 0);
-  --border: oklch(0.2546 0.0049 286.0458);
-  --input: oklch(0.2741 0.0055 286.0329);
-  --ring: oklch(0.6043 0.1838 263.2689);
-
-  --chart-1: oklch(0.6043 0.1838 263.2689);
-  --chart-2: oklch(0.6268 0.2325 303.9004);
-  --chart-3: oklch(0.6959 0.1491 162.4796);
-  --chart-4: oklch(0.8369 0.1644 84.4286);
-  --chart-5: oklch(0.6559 0.2118 354.3084);
-
-  --sidebar: oklch(0.1681 0.0019 286.1946);
-  --sidebar-foreground: oklch(0.9848 0 0);
-  --sidebar-primary: oklch(0.6043 0.1838 263.2689);
-  --sidebar-primary-foreground: oklch(0.9838 0.0035 247.8583);
-  --sidebar-accent: oklch(0.2741 0.0055 286.0329);
-  --sidebar-accent-foreground: oklch(0.9848 0 0);
-  --sidebar-border: oklch(0.2546 0.0049 286.0458);
-  --sidebar-ring: oklch(0.6043 0.1838 263.2689);
-
-  --font-sans: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: Lexend, sans-serif;
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: "JetBrains Mono", monospace;
-
-  --radius: 0.75rem;
-
-  --shadow-2xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.20);
-  --shadow-xs: 0px 2px 10px -2px hsl(0 0% 0% / 0.24);
-  --shadow-sm: 0px 4px 20px -2px hsl(0 0% 0% / 0.30);
-  --shadow: 0px 4px 20px -2px hsl(0 0% 0% / 0.30);
-  --shadow-md: 0px 4px 20px -2px hsl(0 0% 0% / 0.34);
-  --shadow-lg: 0px 8px 28px -4px hsl(0 0% 0% / 0.40);
-  --shadow-xl: 0px 12px 36px -4px hsl(0 0% 0% / 0.46);
-  --shadow-2xl: 0px 16px 44px -4px hsl(0 0% 0% / 0.55);
-
-  --shadow-glow: 0px 4px 20px -2px oklch(0.6043 0.1838 263.2689 / 0.35);
-  --shadow-action: 0px 8px 24px -4px oklch(0.6043 0.1838 263.2689 / 0.45);
-}
-
 @theme inline {
+  /* Color bindings (theme tokens — ploy- prefix is standard) */
+  --color-ploy-neutral-primary: var(--ploy-neutral-primary);
+  --color-ploy-neutral-secondary: var(--ploy-neutral-secondary);
+  --color-ploy-neutral-inverse: var(--ploy-neutral-inverse);
+  --color-ploy-neutral-light: var(--ploy-neutral-light);
+  --color-ploy-neutral-dark: var(--ploy-neutral-dark);
+  --color-ploy-accent-primary: var(--ploy-accent-primary);
+  --color-ploy-accent-secondary: var(--ploy-accent-secondary);
+  --color-ploy-accent-tertiary: var(--ploy-accent-tertiary);
+  --color-ploy-text-primary: var(--ploy-text-primary);
+  --color-ploy-text-secondary: var(--ploy-text-secondary);
+  --color-ploy-text-inverse: var(--ploy-text-inverse);
+  --color-ploy-text-inverse-secondary: var(--ploy-text-inverse-secondary);
+  --color-ploy-text-on-accent-primary: var(--ploy-text-on-accent-primary);
+  --color-ploy-text-on-accent-secondary: var(--ploy-text-on-accent-secondary);
+  --color-ploy-text-on-accent-tertiary: var(--ploy-text-on-accent-tertiary);
+  --color-ploy-button-primary-background: var(--ploy-button-primary-background);
+  --color-ploy-button-primary-text: var(--ploy-button-primary-text);
+  --color-ploy-button-primary-border: var(--ploy-button-primary-border);
+  --color-ploy-button-secondary-background: var(
+    --ploy-button-secondary-background
+  );
+  --color-ploy-button-secondary-text: var(--ploy-button-secondary-text);
+  --color-ploy-button-secondary-border: var(--ploy-button-secondary-border);
+  --color-ploy-background-primary: var(--ploy-background-primary);
+  --color-ploy-background-secondary: var(--ploy-background-secondary);
+  --color-ploy-background-accent-primary: var(--ploy-background-accent-primary);
+  --color-ploy-background-accent-secondary: var(
+    --ploy-background-accent-secondary
+  );
+  --color-ploy-background-accent-tertiary: var(
+    --ploy-background-accent-tertiary
+  );
+  --color-ploy-background-inverse: var(--ploy-background-inverse);
+  --color-ploy-border-primary: var(--ploy-border-primary);
+  --color-ploy-border-inverse: var(--ploy-border-inverse);
+  --color-ploy-input-background: var(--ploy-input-background);
+  --color-ploy-input-border: var(--ploy-input-border);
+
+  /* shadcn standard color bindings */
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -161,16 +83,10 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
+
+  /* shadcn sidebar color bindings */
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -180,50 +96,483 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  --font-sans: var(--font-sans);
-  --font-display: var(--font-display);
+  /* Color scale bindings (50-950 for neutrals and accents) */
+  --color-ploy-neutral-primary-50: var(--ploy-neutral-primary-50);
+  --color-ploy-neutral-primary-100: var(--ploy-neutral-primary-100);
+  --color-ploy-neutral-primary-200: var(--ploy-neutral-primary-200);
+  --color-ploy-neutral-primary-300: var(--ploy-neutral-primary-300);
+  --color-ploy-neutral-primary-400: var(--ploy-neutral-primary-400);
+  --color-ploy-neutral-primary-500: var(--ploy-neutral-primary-500);
+  --color-ploy-neutral-primary-600: var(--ploy-neutral-primary-600);
+  --color-ploy-neutral-primary-700: var(--ploy-neutral-primary-700);
+  --color-ploy-neutral-primary-800: var(--ploy-neutral-primary-800);
+  --color-ploy-neutral-primary-900: var(--ploy-neutral-primary-900);
+  --color-ploy-neutral-primary-950: var(--ploy-neutral-primary-950);
+  --color-ploy-accent-primary-50: var(--ploy-accent-primary-50);
+  --color-ploy-accent-primary-100: var(--ploy-accent-primary-100);
+  --color-ploy-accent-primary-200: var(--ploy-accent-primary-200);
+  --color-ploy-accent-primary-300: var(--ploy-accent-primary-300);
+  --color-ploy-accent-primary-400: var(--ploy-accent-primary-400);
+  --color-ploy-accent-primary-500: var(--ploy-accent-primary-500);
+  --color-ploy-accent-primary-600: var(--ploy-accent-primary-600);
+  --color-ploy-accent-primary-700: var(--ploy-accent-primary-700);
+  --color-ploy-accent-primary-800: var(--ploy-accent-primary-800);
+  --color-ploy-accent-primary-900: var(--ploy-accent-primary-900);
+  --color-ploy-accent-primary-950: var(--ploy-accent-primary-950);
+  --color-ploy-accent-secondary-50: var(--ploy-accent-secondary-50);
+  --color-ploy-accent-secondary-100: var(--ploy-accent-secondary-100);
+  --color-ploy-accent-secondary-200: var(--ploy-accent-secondary-200);
+  --color-ploy-accent-secondary-300: var(--ploy-accent-secondary-300);
+  --color-ploy-accent-secondary-400: var(--ploy-accent-secondary-400);
+  --color-ploy-accent-secondary-500: var(--ploy-accent-secondary-500);
+  --color-ploy-accent-secondary-600: var(--ploy-accent-secondary-600);
+  --color-ploy-accent-secondary-700: var(--ploy-accent-secondary-700);
+  --color-ploy-accent-secondary-800: var(--ploy-accent-secondary-800);
+  --color-ploy-accent-secondary-900: var(--ploy-accent-secondary-900);
+  --color-ploy-accent-secondary-950: var(--ploy-accent-secondary-950);
+
+  /* Surface slot bindings (s0-s5 — layered surfaces) */
+  --color-ploy-neutral-primary-s0: var(--ploy-neutral-primary-s0);
+  --color-ploy-neutral-primary-s1: var(--ploy-neutral-primary-s1);
+  --color-ploy-neutral-primary-s2: var(--ploy-neutral-primary-s2);
+  --color-ploy-neutral-primary-s3: var(--ploy-neutral-primary-s3);
+  --color-ploy-neutral-primary-s4: var(--ploy-neutral-primary-s4);
+  --color-ploy-neutral-primary-s5: var(--ploy-neutral-primary-s5);
+
+  /* Radius bindings (semantic — fallback to base --radius) */
+  --radius-button: var(--radius-button, var(--radius));
+  --radius-card: var(--radius-card, var(--radius));
+  --radius-input: var(--radius-input, var(--radius));
+
+  /* Font size scale (maps standard Tailwind text-* to brand type scale) */
+  --text-9xl: var(--font-size-9xl, 8rem);
+  --text-8xl: var(--font-size-8xl, 6rem);
+  --text-7xl: var(--font-size-7xl, 4.5rem);
+  --text-6xl: var(--font-size-6xl, 3.75rem);
+  --text-5xl: var(--font-size-5xl, 3rem);
+  --text-4xl: var(--font-size-4xl, 2.25rem);
+  --text-3xl: var(--font-size-3xl, 1.875rem);
+  --text-2xl: var(--font-size-2xl, 1.5rem);
+  --text-xl: var(--font-size-xl, 1.25rem);
+  --text-lg: var(--font-size-lg, 1.125rem);
+  --text-base: var(--font-size-base, 1rem);
+  --text-sm: var(--font-size-sm, 0.875rem);
+  --text-xs: var(--font-size-xs, 0.75rem);
+
+  /* Font bindings */
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --font-sans: var(--font-body);
   --font-mono: var(--font-mono);
-  --font-serif: var(--font-serif);
+  --font-eyebrow: var(--font-eyebrow, var(--font-body));
+  --font-button: var(--font-button, var(--font-body));
+  --font-display: var(--font-display, var(--font-heading));
+  --font-app: var(--font-app, var(--font-body));
 
-  --radius-sm: calc(var(--radius) - 4px);  /* 8px  — chips, badges, inputs */
-  --radius-md: calc(var(--radius) - 2px);  /* 10px */
-  --radius-lg: var(--radius);              /* 12px — buttons, cards */
-  --radius-xl: calc(var(--radius) + 4px);  /* 16px — sheets, dialogs */
+  /* App shadows (soft, plum-tinted) and pink glow for app CTAs */
+  --shadow-app-xs: var(--app-shadow-xs);
+  --shadow-app-sm: var(--app-shadow-sm);
+  --shadow-app-md: var(--app-shadow-md);
+  --shadow-app-lg: var(--app-shadow-lg);
+  --shadow-app-xl: var(--app-shadow-xl);
+  --shadow-glow: var(--app-shadow-glow);
+  --shadow-action: var(--app-shadow-action);
+  --radius-app: var(--radius-app, 1rem);
+}
 
-  --shadow-2xs: var(--shadow-2xs);
-  --shadow-xs: var(--shadow-xs);
-  --shadow-sm: var(--shadow-sm);
-  --shadow: var(--shadow);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
-  --shadow-xl: var(--shadow-xl);
-  --shadow-2xl: var(--shadow-2xl);
-  --shadow-glow: var(--shadow-glow);
-  --shadow-action: var(--shadow-action);
+/* ============================================
+   shadcn → ploy- token aliases
+   Maps shadcn's standard variable names to the ploy- design system.
+   Lives outside ploy-theme-start/end so it survives tenant theme injection.
+   ============================================ */
+:root {
+  /* Core */
+  --background: var(--ploy-background-primary);
+  --foreground: var(--ploy-text-primary);
 
-  --color-brand-secondary-500: var(--brand-secondary-500);
-  --color-brand-secondary-600: var(--brand-secondary-600);
-  --color-brand-secondary-700: var(--brand-secondary-700);
+  /* Card */
+  --card: var(--ploy-background-secondary);
+  --card-foreground: var(--ploy-text-primary);
 
-  --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
-  --tracking-tight: calc(var(--tracking-normal) - 0.025em);
-  --tracking-normal: var(--tracking-normal);
-  --tracking-wide: calc(var(--tracking-normal) + 0.025em);
-  --tracking-wider: calc(var(--tracking-normal) + 0.05em);
-  --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+  /* Popover */
+  --popover: var(--ploy-background-primary);
+  --popover-foreground: var(--ploy-text-primary);
+
+  /* Primary (accent/brand — buttons, checkboxes, active states) */
+  --primary: var(--ploy-accent-primary);
+  --primary-foreground: var(--ploy-text-on-accent-primary);
+
+  /* Secondary (subtle backgrounds) */
+  --secondary: var(--ploy-background-secondary);
+  --secondary-foreground: var(--ploy-text-primary);
+
+  /* Muted (de-emphasized content) */
+  --muted: var(--ploy-background-secondary);
+  --muted-foreground: var(--ploy-text-secondary);
+
+  /* Accent (hover states, highlighted items — maps to accent-secondary brand color) */
+  --accent: var(--ploy-accent-secondary);
+  --accent-foreground: var(--ploy-text-on-accent-secondary);
+
+  /* Form inputs */
+  --input: var(--ploy-input-border);
+  --border: var(--ploy-border-primary);
+  --ring: var(--ploy-accent-primary);
+
+  /* Sidebar */
+  --sidebar: var(--ploy-background-secondary);
+  --sidebar-foreground: var(--ploy-text-primary);
+  --sidebar-primary: var(--ploy-accent-primary);
+  --sidebar-primary-foreground: var(--ploy-text-on-accent-primary);
+  --sidebar-accent: var(--ploy-background-secondary);
+  --sidebar-accent-foreground: var(--ploy-text-primary);
+  --sidebar-border: var(--ploy-border-primary);
+  --sidebar-ring: var(--ploy-accent-primary);
+}
+
+/* ploy-theme-start */
+:root {
+  /* @lifeatjntuh "Fest Mode, softened": bubbly rounded headings, pastel panels, pink + orange */
+  --radius: 1.5rem;
+  --radius-button: 999px;
+  --radius-card: 2rem;
+  --radius-input: 999px;
+
+  --font-heading: "Fredoka", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  /* Grotesk display: social media headlines and loud website moments */
+  --font-display: "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  /* App interfaces (Event Tracker, Buddy apps): headings, buttons, tabs, labels */
+  --font-app: "Lexend", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-eyebrow: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-button: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  --font-size-9xl: 9rem;
+  --font-size-8xl: 7rem;
+  --font-size-7xl: 5rem;
+  --font-size-6xl: 4rem;
+  --font-size-5xl: 3.25rem;
+  --font-size-4xl: 2.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-xl: 1.25rem;
+  --font-size-lg: 1.125rem;
+  --font-size-base: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-xs: 0.75rem;
+
+  --font-heading-weight: 600;
+  --font-heading-bold-weight: 700;
+  --font-heading-letter-spacing: -0.01em;
+  --font-heading-line-height: 1;
+  --font-body-weight: 400;
+  --font-body-bold-weight: 700;
+  --font-body-letter-spacing: normal;
+  --font-body-line-height: 1.55;
+  --font-button-weight: 700;
+  --font-button-letter-spacing: normal;
+  --font-button-line-height: 1;
+
+  --ploy-shadow-color: rgb(31 18 53 / 0.12);
+
+  /* App kit: soft diffuse shadows, pink glow on main actions */
+  --radius-app: 1rem;
+  --app-shadow-xs: 0px 2px 10px -2px rgb(31 18 53 / 0.04);
+  --app-shadow-sm: 0px 4px 20px -2px rgb(31 18 53 / 0.05);
+  --app-shadow-md: 0px 4px 20px -2px rgb(31 18 53 / 0.07);
+  --app-shadow-lg: 0px 8px 28px -4px rgb(31 18 53 / 0.09);
+  --app-shadow-xl: 0px 12px 36px -4px rgb(31 18 53 / 0.12);
+  --app-shadow-glow: 0px 4px 20px -2px rgb(240 32 143 / 0.28);
+  --app-shadow-action: 0px 8px 24px -4px rgb(240 32 143 / 0.4);
+  --border-width: 0px;
+  --border-style: solid;
+
+  /* Pastel panel palette */
+  --panel-pink: #ffc9e6;
+  --panel-lime: #dcf58a;
+  --panel-blue: #c9e0ff;
+  --panel-yellow: #fff27a;
+  --panel-lavender: #ddd2ff;
+  --panel-peach: #ffd6bd;
+
+  --ploy-neutral-primary: #fff7ee;
+  --ploy-neutral-secondary: #ffffff;
+  --ploy-neutral-inverse: #1f1235;
+  --ploy-neutral-light: #ffffff;
+  --ploy-neutral-dark: #1f1235;
+  --ploy-neutral-primary-s0: #ffffff;
+  --ploy-neutral-primary-s1: var(--ploy-neutral-primary);
+  --ploy-neutral-primary-s2: #ffefe0;
+  --ploy-neutral-primary-s3: #fbe6d3;
+  --ploy-neutral-primary-s4: #f1d9c4;
+  --ploy-neutral-primary-s5: #e4c9b3;
+  --ploy-neutral-inverse-s0: #140b24;
+  --ploy-neutral-inverse-s1: var(--ploy-neutral-inverse);
+  --ploy-neutral-inverse-s2: #2e1f48;
+  --ploy-neutral-inverse-s3: #4a3a63;
+  --ploy-neutral-inverse-s4: #6d5f84;
+  --ploy-neutral-inverse-s5: #9789ab;
+
+  --ploy-accent-primary: #f0208f;
+  --ploy-accent-secondary: #ff6a1f;
+  --ploy-accent-tertiary: #7b5cff;
+  --ploy-text-primary: #1f1235;
+  --ploy-text-secondary: #5a4b70;
+  --ploy-text-inverse: #ffffff;
+  --ploy-text-inverse-secondary: rgb(255 255 255 / 0.72);
+  --ploy-text-on-accent-primary: #ffffff;
+  --ploy-text-on-accent-secondary: #ffffff;
+  --ploy-text-on-accent-tertiary: #ffffff;
+  --ploy-button-primary-background: #f0208f;
+  --ploy-button-primary-text: #ffffff;
+  --ploy-button-primary-border: transparent;
+  --ploy-button-secondary-background: #ffffff;
+  --ploy-button-secondary-text: #1f1235;
+  --ploy-button-secondary-border: transparent;
+  --ploy-background-primary: var(--ploy-neutral-primary);
+  --ploy-background-secondary: #ffffff;
+  --ploy-background-accent-primary: var(--ploy-accent-primary);
+  --ploy-background-accent-secondary: var(--ploy-accent-secondary);
+  --ploy-background-accent-tertiary: var(--ploy-accent-tertiary);
+  --ploy-background-inverse: #1f1235;
+  --ploy-border-primary: rgb(31 18 53 / 0.1);
+  --ploy-border-inverse: rgb(255 255 255 / 0.16);
+  --ploy-input-background: #ffffff;
+  --ploy-input-border: rgb(31 18 53 / 0.14);
+  --destructive: oklch(0.55 0.22 27);
+
+  --ploy-neutral-primary-50: #fffbf6;
+  --ploy-neutral-primary-100: #fff7ee;
+  --ploy-neutral-primary-200: #ffefe0;
+  --ploy-neutral-primary-300: #fbe6d3;
+  --ploy-neutral-primary-400: #f1d9c4;
+  --ploy-neutral-primary-500: #e4c9b3;
+  --ploy-neutral-primary-600: #c9ab93;
+  --ploy-neutral-primary-700: #a08670;
+  --ploy-neutral-primary-800: #76604f;
+  --ploy-neutral-primary-900: #4d3d31;
+  --ploy-neutral-primary-950: #2a1f18;
+  --ploy-neutral-inverse-50: #f4f1f8;
+  --ploy-neutral-inverse-100: #e6e0ef;
+  --ploy-neutral-inverse-200: #cbc1db;
+  --ploy-neutral-inverse-300: #ab9ec2;
+  --ploy-neutral-inverse-400: #8a7aa6;
+  --ploy-neutral-inverse-500: #6d5f84;
+  --ploy-neutral-inverse-600: #554869;
+  --ploy-neutral-inverse-700: #5a4b70;
+  --ploy-neutral-inverse-800: #2e1f48;
+  --ploy-neutral-inverse-900: #1f1235;
+  --ploy-neutral-inverse-950: #140b24;
+  --ploy-accent-primary-50: #fff0f8;
+  --ploy-accent-primary-100: #ffdcee;
+  --ploy-accent-primary-200: #ffc9e6;
+  --ploy-accent-primary-300: #ff94cb;
+  --ploy-accent-primary-400: #fb5aae;
+  --ploy-accent-primary-500: #f0208f;
+  --ploy-accent-primary-600: #d10f77;
+  --ploy-accent-primary-700: #a80b60;
+  --ploy-accent-primary-800: #7f0a4a;
+  --ploy-accent-primary-900: #580834;
+  --ploy-accent-primary-950: #35041f;
+  --ploy-accent-secondary-50: #fff4ec;
+  --ploy-accent-secondary-100: #ffe4d1;
+  --ploy-accent-secondary-200: #ffd6bd;
+  --ploy-accent-secondary-300: #ffb084;
+  --ploy-accent-secondary-400: #ff8a4d;
+  --ploy-accent-secondary-500: #ff6a1f;
+  --ploy-accent-secondary-600: #e5520a;
+  --ploy-accent-secondary-700: #b83f06;
+  --ploy-accent-secondary-800: #8a3006;
+  --ploy-accent-secondary-900: #5c2005;
+  --ploy-accent-secondary-950: #361202;
+}
+/* ploy-theme-end */
+
+/* Dark mode: html.dark flips surfaces, text and pastels. Lives outside the theme markers. */
+.dark {
+  color-scheme: dark;
+  --panel-pink: #4a1d3d;
+  --panel-lime: #2b3814;
+  --panel-blue: #1c2c4d;
+  --panel-yellow: #3b3413;
+  --panel-lavender: #2d2452;
+  --panel-peach: #47281b;
+  --ploy-neutral-primary: #150c26;
+  --ploy-neutral-secondary: #221639;
+  --ploy-neutral-primary-s0: #221639;
+  --ploy-neutral-primary-s2: #2a1d44;
+  --ploy-neutral-primary-s3: #33254f;
+  --ploy-neutral-primary-s4: #3f305d;
+  --ploy-neutral-primary-s5: #4d3d6b;
+  --ploy-neutral-primary-50: #2a1d44;
+  --ploy-neutral-primary-100: #150c26;
+  --ploy-neutral-primary-200: #2a1d44;
+  --ploy-background-secondary: #221639;
+  --ploy-background-inverse: #33245a;
+  --ploy-neutral-inverse: #33245a;
+  --ploy-neutral-inverse-800: #433170;
+  --ploy-text-primary: #f7f1ff;
+  --ploy-text-secondary: #bcaed4;
+  --ploy-border-primary: rgb(255 255 255 / 0.1);
+  --ploy-input-background: #221639;
+  --ploy-input-border: rgb(255 255 255 / 0.14);
+  --ploy-button-secondary-background: #2a1d44;
+  --ploy-button-secondary-text: #f7f1ff;
+  --ploy-accent-primary-50: #3d1532;
+  --ploy-accent-primary-100: #4d1a40;
+  --ploy-accent-primary-600: #ff4fa8;
+  --ploy-accent-primary-700: #ff94cb;
+  --ploy-accent-primary-800: #ffc2e1;
+  --app-shadow-xs: 0px 2px 10px -2px rgb(0 0 0 / 0.25);
+  --app-shadow-sm: 0px 4px 20px -2px rgb(0 0 0 / 0.3);
+  --app-shadow-md: 0px 4px 20px -2px rgb(0 0 0 / 0.35);
+  --app-shadow-lg: 0px 8px 28px -4px rgb(0 0 0 / 0.4);
+  --app-shadow-xl: 0px 12px 36px -4px rgb(0 0 0 / 0.5);
+}
+/* Fixed artwork (social templates) always renders in the light palette. */
+.dark .force-light {
+  color-scheme: light;
+  --panel-pink: #ffc9e6;
+  --panel-lime: #dcf58a;
+  --panel-blue: #c9e0ff;
+  --panel-yellow: #fff27a;
+  --panel-lavender: #ddd2ff;
+  --panel-peach: #ffd6bd;
+  --ploy-neutral-primary: #fff7ee;
+  --ploy-neutral-secondary: #ffffff;
+  --ploy-neutral-primary-s0: #ffffff;
+  --ploy-neutral-primary-s2: #ffefe0;
+  --ploy-neutral-primary-s3: #fbe6d3;
+  --ploy-neutral-primary-s4: #f1d9c4;
+  --ploy-neutral-primary-s5: #e4c9b3;
+  --ploy-neutral-primary-50: #fffbf6;
+  --ploy-neutral-primary-100: #fff7ee;
+  --ploy-neutral-primary-200: #ffefe0;
+  --ploy-background-secondary: #ffffff;
+  --ploy-background-inverse: #1f1235;
+  --ploy-neutral-inverse: #1f1235;
+  --ploy-neutral-inverse-800: #2e1f48;
+  --ploy-text-primary: #1f1235;
+  --ploy-text-secondary: #5a4b70;
+  --ploy-border-primary: rgb(31 18 53 / 0.1);
+  --ploy-input-background: #ffffff;
+  --ploy-input-border: rgb(31 18 53 / 0.14);
+  --ploy-button-secondary-background: #ffffff;
+  --ploy-button-secondary-text: #1f1235;
+  --ploy-accent-primary-50: #fff0f8;
+  --ploy-accent-primary-100: #ffdcee;
+  --ploy-accent-primary-600: #d10f77;
+  --ploy-accent-primary-700: #a80b60;
+  --ploy-accent-primary-800: #7f0a4a;
+  --app-shadow-xs: 0px 2px 10px -2px rgb(31 18 53 / 0.04);
+  --app-shadow-sm: 0px 4px 20px -2px rgb(31 18 53 / 0.05);
+  --app-shadow-md: 0px 4px 20px -2px rgb(31 18 53 / 0.07);
+  --app-shadow-lg: 0px 8px 28px -4px rgb(31 18 53 / 0.09);
+  --app-shadow-xl: 0px 12px 36px -4px rgb(31 18 53 / 0.12);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-    letter-spacing: var(--tracking-normal);
-    font-family: var(--font-sans);
+
+  html {
+    scroll-behavior: smooth;
   }
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    letter-spacing: var(--tracking-display);
+
+  body {
+    @apply bg-ploy-background-primary text-ploy-text-primary;
+    font-weight: var(--font-body-weight);
+    letter-spacing: var(--font-body-letter-spacing);
+    line-height: var(--font-body-line-height);
+  }
+
+  .typography-heading {
+    font-weight: var(--font-heading-weight);
+    letter-spacing: var(--font-heading-letter-spacing);
+    line-height: var(--font-heading-line-height);
+  }
+
+  .typography-body {
+    font-weight: var(--font-body-weight);
+    letter-spacing: var(--font-body-letter-spacing);
+    line-height: var(--font-body-line-height);
+  }
+
+  .typography-eyebrow {
+    font-weight: var(--font-eyebrow-weight);
+    letter-spacing: var(--font-eyebrow-letter-spacing);
+    line-height: var(--font-eyebrow-line-height);
+  }
+
+  .typography-button {
+    font-weight: var(--font-button-weight);
+    letter-spacing: var(--font-button-letter-spacing);
+    line-height: var(--font-button-line-height);
   }
 }
+
+/* Reduced motion: disable animations and transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   CSS View Transitions (MPA)
+   ============================================ */
+@view-transition {
+  navigation: auto;
+}
+
+/* Crossfade animation for page transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.2s;
+  animation-timing-function: ease-out;
+}
+
+/* Disable view transitions for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+/* Marquee ticker */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-ticker {
+  animation: ticker 40s linear infinite;
+}
+
+/* App kit utilities */
+@utility press-effect {
+  transition: transform 200ms ease;
+  &:active { transform: scale(0.98); }
+}
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@utility glass {
+  background-color: color-mix(in srgb, var(--ploy-background-primary) 85%, transparent);
+  backdrop-filter: blur(12px);
+}
+@keyframes app-slide-up {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-app-slide-up { animation: app-slide-up 0.3s ease-out; }
