@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75,800&family=Fredoka:wght@600;700&family=Lexend:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+
+/**
+ * Junction theme for the Docusaurus docs site.
+ * Same colours and fonts as the design system itself:
+ * Plum #1f1235, Cream #fff7ee, Hot pink #f0208f, Orange #ff6a1f,
+ * Violet #7b5cff; Fredoka headlines, Plus Jakarta Sans body, Lexend apps.
+ */
+:root {
+  --ifm-color-primary: #f0208f;
+  --ifm-color-primary-dark: #d60d7c;
+  --ifm-color-primary-darker: #c20b72;
+  --ifm-color-primary-darkest: #a0095f;
+  --ifm-color-primary-light: #ff4da6;
+  --ifm-color-primary-lighter: #ff6cb6;
+  --ifm-color-primary-lightest: #ff9ed2;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(240, 32, 143, 0.1);
+
+  --ifm-font-family-base: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --ifm-heading-font-family: "Fredoka", "Plus Jakarta Sans", sans-serif;
+  --ifm-background-color: #fff7ee;
+  --ifm-navbar-background-color: #1f1235;
+  --ifm-navbar-link-color: #fff7ee;
+  --ifm-navbar-link-hover-color: #ffc9e6;
+  --ifm-footer-background-color: #1f1235;
+}
+
+[data-theme="dark"] {
+  --ifm-color-primary: #ff4da6;
+  --ifm-color-primary-dark: #f0208f;
+  --ifm-color-primary-darker: #d60d7c;
+  --ifm-color-primary-darkest: #a0095f;
+  --ifm-color-primary-light: #ff6cb6;
+  --ifm-color-primary-lighter: #ff9ed2;
+  --ifm-color-primary-lightest: #ffc9e6;
+  --ifm-background-color: #1f1235;
+  --ifm-navbar-background-color: #1f1235;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 77, 166, 0.15);
+}
+
+.navbar__title {
+  font-family: "Fredoka", sans-serif;
+  font-weight: 700;
+}
+
+/* Junction landing hero (src/pages/index.tsx). */
+.junction-hero {
+  background: #1f1235;
+  color: #fff7ee;
+  padding: 4rem 1rem;
+  text-align: center;
+  border-radius: 0 0 32px 32px;
+}
+
+.junction-hero h1 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.junction-hero p {
+  font-size: 1.15rem;
+  max-width: 640px;
+  margin: 0 auto 1.5rem;
+}
+
+.junction-hero .buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.junction-hero .button--primary {
+  background: #f0208f;
+  border-color: #f0208f;
+}
+
+.junction-hero .button--secondary {
+  background: transparent;
+  color: #fff7ee;
+  border-color: #fff7ee;
+}

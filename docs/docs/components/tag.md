@@ -1,0 +1,26 @@
+---
+title: Tag
+description: Rounded pill chip for activities, roles and small labels, in white, dark, pink, glass, pastel and muted tones.
+---
+
+# Tag
+
+Rounded pill chip for activities, roles and small labels.
+
+```tsx
+import { Tag } from "@lifeatjntuh/junction";
+
+<Tag tone="dark">Music</Tag>
+<Tag tone="pinkSoft">Fest</Tag>
+<Tag tone="role">Organizer</Tag>
+```
+
+## Props
+
+| Prop | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `tone` | `white \| dark \| pink \| glass \| pinkSoft \| lime \| blue \| yellow \| lavender \| peach \| muted \| role` | `white` | `role` is uppercase with tracking (Organizer, Admin); `muted` is for draft / sold out |
+| `size` | `xs \| sm \| md` | `md` | |
+| `kit` | `web \| app` | `web` | `app` uses Lexend for app screens |
+
+Tags are fully round (`rounded-full`) and semibold.

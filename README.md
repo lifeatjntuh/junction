@@ -20,6 +20,36 @@ experiences built by LifeatJNTUH. It is the design system from the
 > been checked against the registry — confirm it is free before the first
 > publish.
 
+## Docs
+
+**https://lifeatjntuh.github.io/junction/** — built with
+[Docusaurus](https://docusaurus.io/) (React + MDX) in `docs/`, deployed by
+`.github/workflows/deploy-pages.yml` to GitHub Pages. It documents the
+colours, fonts, tokens and every component, with copy-paste usage examples
+and props.
+
+The docs are LLM-friendly, using two published plugins (no custom copy
+code):
+
+- [`docusaurus-plugin-llms`](https://www.npmjs.com/package/docusaurus-plugin-llms)
+  writes `llms.txt`, `llms-full.txt` and one `.md` copy of every page at
+  build time.
+- [`docusaurus-plugin-copy-page-button`](https://www.npmjs.com/package/docusaurus-plugin-copy-page-button)
+  adds a **Copy page as Markdown** button to every page, plus **Open in
+  ChatGPT / Claude / Perplexity / Gemini** actions that point at the `.md`
+  copies.
+
+Run the docs locally:
+
+```bash
+npm run docs:dev    # http://localhost:3000/junction/
+npm run docs:build  # static site in docs/build
+```
+
+> GitHub Pages must be enabled for this repo with Source = "GitHub
+> Actions" (Settings → Pages) for the workflow to publish. The workflow
+> builds fine without it, but the deploy step has nowhere to publish to.
+
 ## Install
 
 ```bash
@@ -103,6 +133,21 @@ tokens.fonts.app; // "Lexend"
 The `tokens` subpath has no CSS side effect. The same values live as CSS
 variables in the theme stylesheet — use the variables in stylesheets and
 these constants in JS/TS (chart colours, canvas, `theme-color`).
+
+## Icons
+
+Solar, linear, everywhere — via `@solar-icons/react` and `@iconify/react`
+(`solar:` icons). There is no Lucide and no other icon set in the package,
+the docs or the demo. See the [Icons page](https://lifeatjntuh.github.io/junction/icons)
+in the docs for the full list and usage examples.
+
+```tsx
+import { SunIcon } from "@solar-icons/react/linear/sun";
+import { Icon } from "@iconify/react";
+
+<SunIcon />
+<Icon icon="solar:eye-linear" />;
+```
 
 ## API design
 
@@ -188,22 +233,29 @@ See `COMPONENT-MANIFEST.md` for the full list with props and status.
 
 The demo site in this repo (`src/App.tsx`, `src/sections/Showcase.tsx`)
 is **not** part of the published package — it only shows the components
-working. Run it with:
+working. The public docs site is the Docusaurus site in `docs/` (see
+"Docs" above). Run the demo with:
 
 ```bash
 npm install
 npm run dev        # demo site
 npm run build:lib  # build the package into dist/
 npm run build:demo # type-check + build the demo site
+npm run docs:dev   # docs site
+npm run docs:build # build the docs site into docs/build
 npm pack --dry-run # inspect what would be published (dist/ only)
 ```
 
-> Build note: the library build was not verified in the environment that
-> prepared this change (local clone/build was blocked by an execution-risk
-> check, and the branch was created through the GitHub API). Run
+> Build note: the docs build was verified locally (Docusaurus 3.10.2:
+> `npm run docs:build` succeeds and writes `llms.txt`, `llms-full.txt`
+> and one `.md` copy per page). The library and demo builds were NOT
+> verified locally — the local clone step failed a system execution-risk
+> check, and the branch was built through the GitHub API instead. Run
 > `npm run build:lib` and `npm run build:demo` locally before merging,
-> and regenerate the lockfile (`pnpm install` / `npm install`) — the old
-> `pnpm-lock.yaml` still lists the removed Base UI / shadcn dependencies.
+> and regenerate the root lockfile (`pnpm install` — the old
+> `pnpm-lock.yaml` still lists the removed Base UI / shadcn dependencies).
+> The docs app has its own `docs/package-lock.json` (npm), generated and
+> committed with this change.
 
 ## Breaking changes from the old Junction (0.1.0, pre-release)
 

@@ -31,6 +31,12 @@ releases until 1.0).
   `ScheduleGrid` and friends.
 - Demo site rewritten against the new components; it is not part of the
   published package.
+- Docs site added in `docs/`, built with Docusaurus and deployed to GitHub
+  Pages at https://lifeatjntuh.github.io/junction/ (see
+  `.github/workflows/deploy-pages.yml`). Every docs page has a Copy as
+  Markdown button and the site serves `llms.txt` / `llms-full.txt`.
+- Icons are Solar, linear, throughout (`@solar-icons/react` and
+  `@iconify/react` with `solar:` icons) — no Lucide or other icon set.
 
 ### Removed (breaking)
 
