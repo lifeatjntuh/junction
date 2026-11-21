@@ -28,6 +28,12 @@ experiences built by LifeatJNTUH. It is the design system from the
 colours, fonts, tokens and every component, with copy-paste usage examples
 and props.
 
+> The workflow file itself is not in this PR: GitHub App tokens cannot
+> create or update files under `.github/workflows/`, so an org admin must
+> replace the existing workflow (which still deploys the old Vite demo)
+> with the version pasted in the PR description. Pages must also be
+> enabled with Source = "GitHub Actions" (Settings → Pages).
+
 The docs are LLM-friendly, using two published plugins (no custom copy
 code):
 
