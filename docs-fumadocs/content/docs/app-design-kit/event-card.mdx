@@ -1,0 +1,49 @@
+---
+title: EventCard
+description: Responsive app card for events, stalls and listings — stacked, row and full-bleed photo variants.
+---
+
+<EventCardDemo />
+
+Responsive app card for events, stalls and listings. `variant="stacked"`
+(default): optional photo on top, tags, Lexend title, place/time,
+two-line description. `variant="row"`: square thumbnail on the left for
+compact phone lists. `variant="photo"`: full-bleed picture (4:5 on
+phones, 4:3 from sm) with category, title and place/time on a dark
+fade. Pastel category tag and status chip, rounded-app, soft shadow,
+tap-shrink; works in light and dark mode. Renders a link when `href`
+is set.
+
+## Props
+
+| Prop | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `title` | `string` | — | Required |
+| `place` | `string` | — | Required |
+| `time` | `string` | — | Required |
+| `description` | `string` | — | Two lines max (hidden in `row`) |
+| `category` | `{ label: string; tone: TagProps["tone"] }` | — | Pastel category tag |
+| `status` | `string` | — | Small status chip, e.g. "Draft" or "Sold out" |
+| `image` | `string` | — | Photo URL |
+| `imageAlt` | `string` | `""` | Alt text for the photo (decorative by default) |
+| `href` | `string` | — | Renders a link when set |
+| `variant` | `stacked \| row \| photo` | `stacked` | `photo` needs an image for the full effect |
+| `className` | `string` | — | Merged with `cn()` |
+
+Category and status render as tags. Icons are Solar: `clock-circle`,
+`map-point` (linear), `check-circle` (bold).
+
+## Usage
+
+```tsx
+import { EventCard } from "@lifeatjntuh/junction";
+
+<EventCard
+  variant="stacked"
+  title="Open Mic Night"
+  place="Main Auditorium"
+  time="Sat, 22 Nov · 6 PM"
+  category={{ label: "Music", tone: "pinkSoft" }}
+  status="Going"
+/>;
+```

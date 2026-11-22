@@ -1,0 +1,42 @@
+---
+title: Sheet
+description: Vaul bottom sheet for filters, details and actions on small screens — Sheet, SheetTrigger, SheetContent and SheetClose.
+---
+
+<SheetDemo />
+
+Vaul bottom sheet — the panel that slides up from the bottom of the
+screen for filters, details and actions. Drag handle, cream panel with
+big rounded top corners, Lexend title, optional description, safe-area
+padding. Swipe down or tap outside to close.
+
+## Primitives
+
+Compose `Sheet` → `SheetTrigger` → `SheetContent`, with `SheetClose`
+for the action button inside:
+
+- **`Sheet`** — the Vaul root (`Drawer.Root`).
+- **`SheetTrigger`** — opens the sheet; use `asChild` to render it as
+  your own button.
+- **`SheetContent`** — the sliding panel. Props: `title` (required,
+  the sheet heading), `description` (optional subheading), `children`.
+- **`SheetClose`** — closes the sheet; use `asChild` to render it as
+  your own button.
+
+## Usage
+
+```tsx
+import { Sheet, SheetTrigger, SheetContent, SheetClose, Button } from "@lifeatjntuh/junction";
+
+<Sheet>
+  <SheetTrigger asChild>
+    <Button variant="secondary">Filters</Button>
+  </SheetTrigger>
+  <SheetContent title="Filters" description="Narrow down the list">
+    …
+    <SheetClose asChild>
+      <Button>Apply</Button>
+    </SheetClose>
+  </SheetContent>
+</Sheet>
+```
