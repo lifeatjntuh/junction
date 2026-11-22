@@ -1,0 +1,89 @@
+---
+title: Make more 3D objects
+description: How to make new 3D objects in the Junction style — the copyable prompt template, the seven prompt colours, and the five per-object prompts.
+---
+
+The design system has five 3D objects: **@ sign, Clover, Camera, Mic,
+Books**. To make another one in the same style, fill in the template
+below and run it in Ploy's Image Generation tool — then copy the
+result into the brand's object set.
+
+The prompts on this page are shown in
+[CopyPrompt](/docs/components/copy-prompt) boxes: a read-only prompt
+with a copy button, so the exact words travel without retyping.
+
+## The template
+
+Fill in `[OBJECT]`, `[MAIN COLOR + HEX]` and `[ACCENT COLOR + HEX]`.
+Everything else stays word for word — that is what makes new objects
+match the old ones.
+
+```text
+A single cute 3D inflated puffy [OBJECT], glossy soft plastic balloon style with rounded swollen edges, [MAIN COLOR + HEX] with [ACCENT COLOR + HEX] details, soft studio lighting with subtle highlights, slightly tilted three-quarter view, playful, centered, isolated, no text, no logos, no ground shadow.
+```
+
+## Settings
+
+- **Background:** transparent.
+- **Aspect ratio:** 1:1.
+- **One object per image, two colours at most.**
+- **Swap only the object and the colours.** Keep the rest word for
+  word so new objects match.
+- **Worked example:** `[OBJECT]` = guitar, main colour orange
+  (#FF7A2F), accent lavender (#C9B6FF).
+
+## Colours used in the prompts
+
+| Colour | Hex |
+| --- | --- |
+| Hot pink | `#FF2E7E` |
+| Orange | `#FF7A2F` |
+| Lime | `#C6F36B` |
+| Sky blue | `#8EC5FF` |
+| Lavender | `#C9B6FF` |
+| Yellow | `#FFE45C` |
+| Soft pink | `#FF8FC0` |
+
+## The five objects
+
+### @ sign
+
+```text
+A single glossy inflated 3D '@' symbol, puffy balloon-like soft plastic with soft studio lighting and subtle highlights, hot pink (#FF2E7E) with slight magenta sheen, slightly tilted, playful, centered, isolated, no text, no shadow on ground.
+```
+
+### Clover
+
+```text
+A single glossy inflated 3D four-lobed puffy clover shape like a balloon, soft matte-gloss plastic, lime green (#C6F36B) with soft studio lighting and subtle highlights, slightly tilted, centered, isolated, no text, no ground shadow.
+```
+
+### Camera
+
+```text
+A single cute 3D inflated puffy retro camera, glossy soft plastic balloon style, bright orange (#FF7A2F) body with lavender lens ring, soft studio lighting, slightly tilted three-quarter view, centered, isolated, no text, no logos, no ground shadow.
+```
+
+### Mic
+
+```text
+A single cute 3D inflated puffy handheld microphone, glossy soft plastic balloon style, sky blue (#8EC5FF) handle with a lavender (#C9B6FF) mesh head, soft studio lighting, tilted at a playful angle, centered, isolated, no text, no ground shadow.
+```
+
+### Books
+
+```text
+A small stack of three cute 3D inflated puffy books, glossy soft plastic balloon style, colors yellow (#FFE45C), pink (#FF8FC0) and lavender (#C9B6FF), soft studio lighting, three-quarter view, centered, isolated, no text on covers, no ground shadow.
+```
+
+## Rules
+
+- At most one 3D object per post, placed away from the text, never in
+  front of it.
+- Shiny 3D objects add the fun; real student photos carry the story.
+- See [Shapes](/docs/brand/shapes) for the corners, shadows and
+  panels the objects sit on.
+
+Source: `lifeatjntuh-admin/website` —
+`src/components/pages/design-system/page.tsx` (the "Make more 3D
+objects" block, `OBJECT_TEMPLATE`, `OBJECT_COLORS`, `OBJECTS`).

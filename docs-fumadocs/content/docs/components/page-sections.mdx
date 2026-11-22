@@ -1,0 +1,28 @@
+---
+title: Page sections
+description: The nine reusable page sections every page on the LifeatJNTUH website is built from — nav, footer, hero, ticker, pillars, memories, take-part, LifeOps and join CTA.
+---
+
+Every page on the website is built from the same nine reusable
+sections. Build a new page by composing these — don't invent a new
+layout for one page.
+
+| Section | File | Use |
+| --- | --- | --- |
+| `site-nav` | `src/components/sections/site-nav.tsx` | Top navigation on every page |
+| `site-footer` | `src/components/sections/site-footer.tsx` | Footer on every page |
+| `home-hero` | `src/components/pages/home/sections/home-hero.tsx` | Photo hero with WhatsApp and Instagram buttons |
+| `home-ticker` | `src/components/pages/home/sections/home-ticker.tsx` | Orange marquee strip |
+| `home-pillars` | `src/components/pages/home/sections/home-pillars.tsx` | Curate, Connect, Collab pastel panels |
+| `home-memories` | `src/components/pages/home/sections/home-memories.tsx` | Polaroid photo wall with credits |
+| `home-take-part` | `src/components/pages/home/sections/home-take-part.tsx` | Use it, Add to it, Run it cards |
+| `home-lifeops` | `src/components/pages/home/sections/home-lifeops.tsx` | LifeOps perks and roles |
+| `home-join-cta` | `src/components/pages/home/sections/home-join-cta.tsx` | Hot pink join panel |
+
+The sections are exported as `SECTIONS` from the design-system page
+in the website repo. `site-nav` and `site-footer` appear on every
+page; the rest are the home page's sections, reused wherever the same
+job comes up.
+
+Source: `lifeatjntuh-admin/website` —
+`src/components/pages/design-system/page.tsx` (`SECTIONS`).

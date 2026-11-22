@@ -10,6 +10,21 @@ is a pastel lavender circle; `tone="error"` is a pale pink circle. It
 takes an optional 3D object image or icon, a Lexend title, one line of
 help and an optional action (usually a `Button kit="app"`).
 
+## The copy
+
+The website's design-system page uses this copy — use it, not
+placeholders:
+
+- **Empty:** "No events yet" / "Once an organizer adds a schedule, it
+  shows up here."
+- **Error:** "Couldn't load stalls" / "Check your connection and try
+  again." with a "Try again" action.
+- **Loading:** a 3-block Skeleton stack — a tall block, then a
+  two-thirds line, then a one-third line.
+
+Toasts in an app use `ToastProvider` with `offset={24}` (the component
+default is 96 — the app kit sits toasts closer to the bottom nav).
+
 ## Props
 
 | Prop | Type | Default | Notes |
@@ -38,8 +53,7 @@ import { AppState, Skeleton, Button } from "@lifeatjntuh/junction";
 <AppState
   tone="empty"
   title="No events yet"
-  body="Check back after the fest list drops."
-  action={<Button kit="app" size="sm">Browse all</Button>}
+  body="Once an organizer adds a schedule, it shows up here."
 />;
 
 <Skeleton className="h-24 w-full" />;

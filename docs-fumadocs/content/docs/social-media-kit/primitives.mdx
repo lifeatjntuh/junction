@@ -1,0 +1,138 @@
+---
+title: Social primitives
+description: The building blocks every social template is made of — SocialFrame, SocialHandle (the @lifeatjntuh pill), SocialChip, SocialStickerSlot, the u() canvas units and GROTESK.
+---
+
+Every social template — post, carousel slide, story — is built from
+the same few primitives. Learn these and you can rebuild any template,
+or make a new one that still looks like us. These are the building
+blocks; the templates themselves live in the studio
+([Social Media Kit](/docs/social-media-kit)).
+
+Source: `lifeatjntuh/social-studio` (`index.html` — `drawHandleC`,
+`drawChipC`, the template renderers) and the website repo's
+`src/components/social/social-kit.tsx`, which is the same system in
+React. The values below are from both, and they agree — where the two
+express a value differently, both forms are given. These primitives
+live in the studio and the website repo; they are not exported by the
+`@lifeatjntuh/junction` package.
+
+## SocialFrame — the canvas
+
+A template is drawn on a canvas at its true export ratio, and the
+canvas scales to any preview width. Children size themselves with
+`u()` (below), so a template laid out once is right at every size.
+
+- `format`: `square` (1080×1080), `portrait` (1080×1350) or `story`
+  (1080×1920).
+- The frame sets `containerType: inline-size` and `--u:
+  calc(100cqw / 1080)` — the canvas unit is always 1/1080th of the
+  frame width.
+- `force-light`: templates never render dark, even when the viewer has
+  dark mode on. See [Theme](/docs/brand/theme).
+
+## u() — canvas units
+
+`u(96)` is 96px on the 1080px-wide export, scaled to the preview
+width. Every size in every template is written in `u()` — never in
+fixed pixels — so the same numbers work in a small preview and in the
+exported PNG.
+
+```ts
+export const u = (n: number) => `calc(var(--u) * ${n})`;
+```
+
+## SocialHandle — the @lifeatjntuh pill
+
+The pill that signs every template. Fully round, the logo mark in a
+white circle, the handle in Fredoka semibold with a hot-pink `@`.
+This pill is the house glass treatment — the reference for frosted
+glass anywhere else in the brand.
+
+| Part | Value |
+| --- | --- |
+| Mark | Logo mark in a white circle, 56u, 3u padding |
+| Handle text | Fredoka semibold, 34u, hot-pink `@` + plum handle |
+| Gap / padding | 14u gap; 10u top and bottom, 28u right, 10u left |
+| Light tone (pastel, cream) | Website: `bg-white/85`. Studio canvas: `rgba(255,255,255,0.88)` |
+| Dark tone (photos, plum) | Website: `bg-white/15` + `backdrop-blur`. Studio canvas: `rgba(255,255,255,0.15)` |
+| Blur | Studio: `backdrop-filter: blur(6px)` on both tones; website: `backdrop-blur` on the dark tone |
+
+The light pill is nearly opaque white — frosted glass, not clear
+glass. It lets a pastel wash show through faintly while the handle
+stays perfectly readable. Never make it fully transparent, and never
+solid white with no blur: the glass is the point.
+
+## SocialChip — pill labels
+
+The small pill for dates, venues, club names, role names and slide
+counters. Bold 32u text, 16u top/bottom and 30u side padding, 12u gap
+to an optional leading icon (34u, Solar).
+
+| Tone | Value |
+| --- | --- |
+| `white` | `bg-white`, plum text |
+| `dark` | Plum background, white text |
+| `pink` | Hot pink background, white text |
+| `glass` | Website: `bg-white/20` + `backdrop-blur`. Studio canvas: `rgba(255,255,255,0.2)`, white text |
+
+The slide counter on a carousel (`1/4`) is a chip. So is the date,
+time and venue on an event post, and the role and pillar on a role
+call.
+
+## SocialStickerSlot — where the real sticker goes
+
+A dashed placeholder sized to a real Instagram / WhatsApp sticker, so
+the sticker covers it fully when the story is posted. Leave space
+above it so it never crowds the text.
+
+| Kind | Size | Radius | Font |
+| --- | --- | --- | --- |
+| `link` | 420×100 | Fully round (999) | 26u |
+| `question` | 640×300 | 48u | 28u |
+
+Dashed 3u border: plum at 25% opacity (text plum at 50%) on light,
+white at 40% (text white at 60%) on dark.
+
+## GROTESK — the social headline style
+
+```ts
+export const GROTESK =
+  "font-display font-extrabold uppercase [font-stretch:75%] leading-[0.86] tracking-[-0.02em]";
+```
+
+Bricolage Grotesque, extra bold, condensed, all caps, tight leading.
+Under six words — see the [typography rules](/docs/brand/typography).
+
+## PASTEL — the six pastel variables
+
+```ts
+export const PASTEL = {
+  pink: "var(--panel-pink)",
+  lime: "var(--panel-lime)",
+  blue: "var(--panel-blue)",
+  yellow: "var(--panel-yellow)",
+  lavender: "var(--panel-lavender)",
+  peach: "var(--panel-peach)",
+};
+```
+
+One pastel per template. The variable names are the same
+`--panel-*` variables as the [tokens](/docs/tokens).
+
+## How a template is composed
+
+A template is a `SocialFrame` in one of the three
+[formats](/docs/social-media-kit) (square, portrait, story), with:
+
+1. A background — one pastel, one solid colour, or a full-bleed photo
+   with a wash.
+2. A grotesk headline (`GROTESK`), under six words.
+3. `SocialChip`s for the facts — date, time, venue, club, slide
+   number.
+4. A `SocialHandle` pill signing it.
+5. A `SocialStickerSlot` where a story needs a real sticker.
+6. At most one 3D object, placed away from the text.
+
+That is the whole system. The studio's templates are these primitives
+in different arrangements — nothing else.

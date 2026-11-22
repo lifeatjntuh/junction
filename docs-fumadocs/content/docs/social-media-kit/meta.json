@@ -1,4 +1,10 @@
 {
   "title": "Social Media Kit",
-  "pages": ["index", "posts", "carousel", "stories"]
+  "pages": [
+    "index",
+    "primitives",
+    "posts",
+    "carousel",
+    "stories"
+  ]
 }
