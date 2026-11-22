@@ -21,11 +21,11 @@ photos (1080×1920).
 
 ## Credits
 
-Every photo is published with its photographer's credit where
-available: "📷: @handle" when an Instagram handle was given, "📷:
-Name" when only a credit name was given, and "📷: Anonymous" when no
-handle was given. If a submitter asked not to be named, don't name
-them.
+Every photo is published with its photographer's credit: **on the
+image, only the photographer's short name — no handle**; **in the
+caption, the Instagram handle — not the name**. If neither a name nor
+a handle was given, the credit is "📷: Anonymous". If a submitter
+asked not to be named, don't name them.
 
 ## Rules
 
