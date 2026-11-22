@@ -4,6 +4,42 @@ All notable changes to Junction. Format follows Keep a Changelog; versioning
 follows semver (0.x is pre-release — breaking changes may land in minor
 releases until 1.0).
 
+## Unreleased
+
+### Changed
+
+- Switched the package manager from npm to pnpm, pinned to 11.28.13 in
+  `packageManager` in `package.json` and `docs/package.json`. Install
+  with `pnpm install`, run scripts with `pnpm run <script>`, and add
+  the package with `pnpm add @lifeatjntuh/junction`.
+- Regenerated the root `pnpm-lock.yaml` from the current dependencies
+  (it still listed the removed shadcn / Base UI packages). The docs app
+  now has its own `docs/pnpm-lock.yaml` and its `docs/package-lock.json`
+  is removed.
+- `.github/workflows/build.yml` now installs with
+  `pnpm install --frozen-lockfile` and also runs `pnpm run build:demo`
+  in CI, not just the library build.
+- `.github/workflows/deploy-pages.yml` now deploys the Docusaurus docs
+  in `docs/` to GitHub Pages (it previously deployed the old Vite demo
+  with npm). Both workflow files must be added via the GitHub web UI —
+  the GitHub App token cannot write `.github/workflows/` (403); see the
+  README "Docs" section.
+- Added `pnpm-workspace.yaml` (root) and `docs/pnpm-workspace.yaml`:
+  pnpm 11 blocks dependency install scripts by default, so the root
+  file allows `esbuild` (Vite needs its platform binary) and the docs
+  file explicitly denies `core-js` (its postinstall only prints a
+  banner). Without these, `pnpm install --frozen-lockfile` fails.
+
+### Fixed
+
+- Two build issues the strict pnpm layout exposed (both passed under
+  npm's flat `node_modules`): `SheetTrigger` / `SheetClose` in
+  `src/components/ui/sheet.tsx` now have explicit `typeof Drawer.*`
+  annotations, so declaration emit no longer needs the undeclared
+  transitive `@radix-ui/react-dialog` types (TS2742); and
+  `@types/node` is now a dev dependency, since `vite.config.ts` uses
+  `node:path` and `__dirname` (TS2307/TS2304).
+
 ## 0.1.0 — 2026-11-21
 
 ### Changed — full replacement with the website design system

@@ -31,7 +31,7 @@ export default function Home(): JSX.Element {
           <div className="col col--4">
             <Heading as="h2">Install in one line</Heading>
             <p>
-              <code>npm install @lifeatjntuh/junction</code> — then import
+              <code>pnpm add @lifeatjntuh/junction</code> — then import
               the theme and the components you need. Tree-shakeable ESM and
               CJS with TypeScript types.
             </p>

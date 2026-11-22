@@ -15,7 +15,7 @@ experiences built by LifeatJNTUH. It is the design system from the
   corners, fully round buttons and chips, soft shadows.
 
 > **Status: 0.1.0, not published yet.** The package is set up to publish
-> (`npm publish` from this repo after a build), but it has not been
+> (`pnpm publish` from this repo after a build), but it has not been
 > published to the npm registry. The name `@lifeatjntuh/junction` has not
 > been checked against the registry — confirm it is free before the first
 > publish.
@@ -28,11 +28,12 @@ experiences built by LifeatJNTUH. It is the design system from the
 colours, fonts, tokens and every component, with copy-paste usage examples
 and props.
 
-> The workflow file itself is not in this PR: GitHub App tokens cannot
-> create or update files under `.github/workflows/`, so an org admin must
-> replace the existing workflow (which still deploys the old Vite demo)
-> with the version pasted in the PR description. Pages must also be
-> enabled with Source = "GitHub Actions" (Settings → Pages).
+> The workflow files are not in this PR: GitHub App tokens cannot create
+> or update files under `.github/workflows/` (403), so an org admin must
+> add `.github/workflows/deploy-pages.yml` and
+> `.github/workflows/build.yml` via the GitHub web UI — both files are
+> pasted in full in the PR description. Pages must also be enabled with
+> Source = "GitHub Actions" (Settings → Pages).
 
 The docs are LLM-friendly, using two published plugins (no custom copy
 code):
@@ -48,8 +49,8 @@ code):
 Run the docs locally:
 
 ```bash
-npm run docs:dev    # http://localhost:3000/junction/
-npm run docs:build  # static site in docs/build
+pnpm run docs:dev   # http://localhost:3000/junction/
+pnpm run docs:build # static site in docs/build
 ```
 
 > GitHub Pages must be enabled for this repo with Source = "GitHub
@@ -59,7 +60,7 @@ npm run docs:build  # static site in docs/build
 ## Install
 
 ```bash
-npm install @lifeatjntuh/junction
+pnpm add @lifeatjntuh/junction
 ```
 
 Peer dependencies (your app provides these): `react` ^19, `react-dom` ^19,
@@ -243,25 +244,22 @@ working. The public docs site is the Docusaurus site in `docs/` (see
 "Docs" above). Run the demo with:
 
 ```bash
-npm install
-npm run dev        # demo site
-npm run build:lib  # build the package into dist/
-npm run build:demo # type-check + build the demo site
-npm run docs:dev   # docs site
-npm run docs:build # build the docs site into docs/build
-npm pack --dry-run # inspect what would be published (dist/ only)
+pnpm install
+pnpm run dev        # demo site
+pnpm run build:lib  # build the package into dist/
+pnpm run build:demo # type-check + build the demo site
+pnpm run docs:dev   # docs site
+pnpm run docs:build # build the docs site into docs/build
+pnpm pack --dry-run # inspect what would be published (dist/ only)
 ```
 
-> Build note: the docs build was verified locally (Docusaurus 3.10.2:
-> `npm run docs:build` succeeds and writes `llms.txt`, `llms-full.txt`
-> and one `.md` copy per page). The library and demo builds were NOT
-> verified locally — the local clone step failed a system execution-risk
-> check, and the branch was built through the GitHub API instead. Run
-> `npm run build:lib` and `npm run build:demo` locally before merging,
-> and regenerate the root lockfile (`pnpm install` — the old
-> `pnpm-lock.yaml` still lists the removed Base UI / shadcn dependencies).
-> The docs app has its own `docs/package-lock.json` (npm), generated and
-> committed with this change.
+> Builds run in CI on every push and PR (`.github/workflows/build.yml`):
+> `pnpm install --frozen-lockfile`, then `pnpm run build` (the library)
+> and `pnpm run build:demo`. The docs build (`pnpm run docs:build`,
+> Docusaurus 3.10.2) writes `llms.txt`, `llms-full.txt` and one `.md`
+> copy per page. The package manager is pnpm 11.28.13, pinned in
+> `packageManager` in `package.json` / `docs/package.json`; the lockfiles
+> are `pnpm-lock.yaml` (root) and `docs/pnpm-lock.yaml` (docs app).
 
 ## Breaking changes from the old Junction (0.1.0, pre-release)
 

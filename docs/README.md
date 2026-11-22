@@ -9,9 +9,9 @@ Pages at https://lifeatjntuh.github.io/junction/ by
 
 ```bash
 cd docs
-npm install
-npm start   # http://localhost:3000/junction/
-npm run build  # static site in docs/build
+pnpm install
+pnpm start   # http://localhost:3000/junction/
+pnpm run build  # static site in docs/build
 ```
 
 ## LLM-friendly docs

@@ -14,6 +14,7 @@
   "description": "Junction \u2014 the shared design system powering the digital products and experiences built by LifeatJNTUH. Colours, type and components from the @lifeatjntuh website design system.",
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
+    "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
@@ -41,6 +42,7 @@
   "main": "./dist/junction.cjs",
   "module": "./dist/junction.js",
   "name": "@lifeatjntuh/junction",
+  "packageManager": "pnpm@11.28.13",
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -52,14 +54,14 @@
     }
   },
   "scripts": {
-    "build": "npm run build:lib",
+    "build": "pnpm run build:lib",
     "build:demo": "tsc -b && vite build",
     "build:lib": "vite build --config vite.lib.config.ts && tsc -p tsconfig.lib.json",
     "dev": "vite",
-    "docs:build": "npm --prefix docs run build",
-    "docs:dev": "npm --prefix docs run start",
+    "docs:build": "pnpm --dir docs run build",
+    "docs:dev": "pnpm --dir docs run start",
     "lint": "tsc --noEmit",
-    "prepack": "npm run build:lib",
+    "prepack": "pnpm run build:lib",
     "preview": "vite preview --port 4173"
   },
   "sideEffects": [

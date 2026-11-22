@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
  * Sheet > SheetTrigger asChild + SheetContent title=...
  */
 export const Sheet = Drawer.Root;
-export const SheetTrigger = Drawer.Trigger;
-export const SheetClose = Drawer.Close;
+export const SheetTrigger: typeof Drawer.Trigger = Drawer.Trigger;
+export const SheetClose: typeof Drawer.Close = Drawer.Close;
 
 export function SheetContent({
   title,

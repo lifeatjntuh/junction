@@ -1,0 +1,4 @@
+# pnpm 11: a dependency may only run install scripts if listed here.
+# core-js's postinstall only prints a banner, so it is explicitly denied.
+allowBuilds:
+  core-js: false
