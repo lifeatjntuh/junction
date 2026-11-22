@@ -10,6 +10,8 @@ for the site, our socials and our apps. The design system (the
 components in this package) is **one part** of Junction, not the whole
 of it.
 
+The design system itself was designed by [@muddassirhq](https://github.com/muddassirhq), its sole author.
+
 - **Source:** `lifeatjntuh-admin/website` —
   `src/components/pages/design-system/page.tsx` (+ `app-kit.tsx`),
   and the website's `src/components/ui/` and `src/components/app/`
