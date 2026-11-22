@@ -25,24 +25,27 @@ Every article in the Junction docs, grouped the way the sidebar groups them. On 
 - [Tokens](tokens.md) — core colours, pastels, fonts, radii and shadows, as CSS variables and typed TypeScript constants.
 - [Icons](icons.md) — Solar icons (linear) everywhere, via @solar-icons/react and @iconify/react.
 
-### Components
+### Components A–M
 
 - [Components](components/index.md) — every UI component, each with a live demo, props and usage code.
 - [Button](components/button.md) — pill-shaped button: primary, secondary, dark, ghost, link, soft, google and danger variants.
-- [Panel](components/panel.md) — big soft rounded block in the pastel palette or a solid colour.
-- [Tag](components/tag.md) — rounded pill chip for activities, roles and small labels.
-- [Heading](components/heading.md) — brand headings in Fredoka or Bricolage Grotesque.
-- [Text](components/text.md) — body text in Plus Jakarta Sans.
-- [Field](components/field.md) — form field wrapper wiring label, helper text and errors to its control.
-- [Input and Textarea](components/input.md) — pill text input and multi-line text box.
-- [Tabs](components/tabs.md) — tabs with pill and underline variants.
-- [Sheet](components/sheet.md) — bottom sheet for filters, details and actions on small screens.
-- [Toast](components/toast.md) — context toasts with success, error and info tones.
-- [ThemeToggle](components/theme-toggle.md) — Light / Dark / System theme switcher.
-- [Logo](components/logo.md) — the @lifeatjntuh wordmark in Fredoka with a pink @.
-- [Container](components/container.md) — centred page-width wrapper (max 1320px).
 - [ChipGroup](components/chip-group.md) — controlled single-select chip group for filters.
+- [Container](components/container.md) — centred page-width wrapper (max 1320px).
+- [Field](components/field.md) — form field wrapper wiring label, helper text and errors to its control.
+- [Heading](components/heading.md) — brand headings in Fredoka or Bricolage Grotesque.
+- [Input and Textarea](components/input.md) — pill text input and multi-line text box.
+- [Logo](components/logo.md) — the @lifeatjntuh wordmark in Fredoka with a pink @.
+
+### Components N–Z
+
+- [Panel](components/panel.md) — big soft rounded block in the pastel palette or a solid colour.
 - [Reveal](components/reveal.md) — scroll fade-and-rise animation wrapper.
+- [Sheet](components/sheet.md) — bottom sheet for filters, details and actions on small screens.
+- [Tabs](components/tabs.md) — tabs with pill and underline variants.
+- [Tag](components/tag.md) — rounded pill chip for activities, roles and small labels.
+- [Text](components/text.md) — body text in Plus Jakarta Sans.
+- [ThemeToggle](components/theme-toggle.md) — Light / Dark / System theme switcher.
+- [Toast](components/toast.md) — context toasts with success, error and info tones.
 
 ### Primitives
 

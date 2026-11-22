@@ -58,8 +58,8 @@
  * pink as the sidebar's active link, so they fail the same way in light
  * mode (3.73:1 on Cream). Point them at the same darker active colour
  * fixed above; dark mode is unchanged (#ff4da6, 5.74:1 on Plum). */
-.table-of-contents__link--active,
-.table-of-contents__link:hover {
+.table-of-contents__link--active:not(#\#):not(#\#),
+.table-of-contents__link:hover:not(#\#):not(#\#) {
   color: var(--ifm-menu-color-active);
 }
 
@@ -80,38 +80,43 @@
   --ifm-footer-title-color: #fff7ee;
 }
 
-.footer--dark .footer__link-item {
+.footer--dark .footer__link-item:not(#\#):not(#\#) {
   color: #ffc9e6;
 }
 
-.footer--dark .footer__link-item:hover {
+.footer--dark .footer__link-item:hover:not(#\#):not(#\#) {
   color: #fff7ee;
 }
 
 /* --- Footer: compact ---
  * The footer lists all 43 articles (kept in full — mobile readers have
  * no sidebar), so it is tall by design; tighten it instead of cutting
- * links: smaller type, tighter leading and padding. */
-.footer {
-  padding: 2rem 0 1.25rem;
+ * links: smaller type, tighter leading and padding. The Components
+ * group is split in two in docusaurus.config.ts (A–M / N–Z, 8 links
+ * each) so no single column sets a 19-row height, and the footer
+ * container is widened in the repair section below so nine columns
+ * fit. (Every rule here that sets margin/padding carries the
+ * :not(#\#) boost — see the repair section for why.) */
+.footer:not(#\#):not(#\#) {
+  padding: 1.5rem 0 1rem;
 }
 
-.footer__title {
-  font-size: 0.95rem;
-  margin-bottom: 0.4rem;
+.footer__title:not(#\#):not(#\#) {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
 }
 
-.footer__link-item {
-  font-size: 0.85rem;
-  line-height: 1.7;
-  padding: 0.1rem 0;
+.footer__link-item:not(#\#):not(#\#) {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  padding: 0.05rem 0;
 }
 
-.footer__col {
-  margin-bottom: 1.25rem;
+.footer__col:not(#\#):not(#\#) {
+  margin-bottom: 0.75rem;
 }
 
-.footer__copyright {
+.footer__copyright:not(#\#):not(#\#) {
   margin-top: 0.75rem;
 }
 
@@ -124,33 +129,35 @@
  * a light logo asset (img/logo-navbar.svg: hot-pink square, cream
  * "J") set in docusaurus.config.ts. Cream #fff7ee on Plum is 16.54:1,
  * pastel pink #ffc9e6 hover is 12.33:1 (WCAG AA). The navbar is Plum
- * in both colour modes, so these rules are not mode-scoped. */
+ * in both colour modes, so these rules are not mode-scoped.
+ * (Every colour rule here carries the :not(#\#) boost — see the
+ * repair section for why. The logo size is fixed there too.) */
 .navbar {
   background-color: #1f1235;
 }
 
-.navbar__brand,
-.navbar__title {
+.navbar__brand:not(#\#):not(#\#),
+.navbar__title:not(#\#):not(#\#) {
   color: #fff7ee;
 }
 
-.navbar__brand:hover {
+.navbar__brand:hover:not(#\#):not(#\#) {
   color: #ffc9e6;
 }
 
-.navbar__link {
+.navbar__link:not(#\#):not(#\#) {
   color: #fff7ee;
 }
 
-.navbar__link:hover,
-.navbar__link--active {
+.navbar__link:hover:not(#\#):not(#\#),
+.navbar__link--active:not(#\#):not(#\#) {
   color: #ffc9e6;
 }
 
 /* Theme toggle and the mobile hamburger are clean-btn buttons whose
  * icons inherit the button colour; make sure they read on Plum. */
-.navbar .clean-btn,
-.navbar__toggle {
+.navbar .clean-btn:not(#\#):not(#\#),
+.navbar__toggle:not(#\#):not(#\#) {
   color: #fff7ee;
 }
 
@@ -159,7 +166,12 @@
  * scroll, and inline code does not wrap, so the Button props table's
  * long `primary | secondary | …` type cells overflowed the doc column
  * and the Default/Notes columns ran together. Let table cells and
- * their code wrap at spaces/pipes instead. */
+ * their code wrap at spaces/pipes instead.
+ * Wrapping uses overflow-wrap:break-word (NOT anywhere) and
+ * word-break:normal — `anywhere` + `break-word` split short words
+ * mid-word on the live site ("primar/y", "disable/d", "classNa/me").
+ * Row borders are restored in the repair section below (the library
+ * preflight zeroes all borders). */
 .theme-doc-markdown table {
   display: table;
   width: 100%;
@@ -168,17 +180,24 @@
 .theme-doc-markdown table td,
 .theme-doc-markdown table th {
   overflow-wrap: break-word;
+  word-break: normal;
 }
 
 .theme-doc-markdown table td code,
 .theme-doc-markdown table th code {
   white-space: normal;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+/* Inline code in doc prose must not split mid-word either. */
+.theme-doc-markdown p code:not(#\#):not(#\#) {
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 /* Junction landing hero (src/pages/index.tsx). */
-.junction-hero {
+.junction-hero:not(#\#):not(#\#) {
   background: #1f1235;
   color: #fff7ee;
   padding: 4rem 1rem;
@@ -186,7 +205,7 @@
   border-radius: 0 0 32px 32px;
 }
 
-.junction-hero h1 {
+.junction-hero h1:not(#\#):not(#\#) {
   font-family: "Fredoka", sans-serif;
   font-size: 3rem;
   margin-bottom: 0.5rem;
@@ -196,7 +215,7 @@
  * sides plus explicit centre alignment. (A plain `.junction-hero p`
  * rule rendered left-aligned on the live site after PR #5, so this
  * uses the higher-specificity `header > p` selector.) */
-header.junction-hero > p {
+header.junction-hero > p:not(#\#):not(#\#) {
   font-size: 1.15rem;
   max-width: 640px;
   margin: 0 auto 1.5rem;
@@ -227,7 +246,7 @@ header.junction-hero > p {
  * Demos render the real Junction components with the package theme, so
  * they need a neutral frame that reads on both light and dark docs
  * themes. Demo internals use inline styles, not Docusaurus classes. */
-.junction-demo {
+.junction-demo:not(#\#):not(#\#) {
   border: 1px solid var(--ifm-color-emphasis-200);
   border-radius: 16px;
   padding: 1.25rem;
@@ -248,11 +267,181 @@ header.junction-hero > p {
   gap: 0.75rem;
 }
 
-.junction-demo-label {
+.junction-demo-label:not(#\#):not(#\#) {
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--ifm-color-emphasis-600);
   margin-bottom: 0.5rem;
+}
+
+/* === Preflight repair — READ THIS BEFORE EDITING ANYTHING ABOVE ===
+ *
+ * ROOT CAUSE (verified in the PR #6 local build bundle,
+ * docs/build/assets/css/styles.d53158f5.css): the docs site imports the
+ * compiled Junction theme globally in docs/src/theme/Root.tsx
+ * (`import "@lifeatjntuh/junction/theme"` — dist/junction.css). That
+ * stylesheet is Tailwind v4, and it is bundled AFTER custom.css. It
+ * contains Tailwind's preflight, and every preflight rule carries the
+ * specificity hack `:not(#\#)` — e.g.:
+ *
+ *   :not(#\#):not(#\#), :not(#\#):not(#\#)::before, ... { margin: 0; padding: 0; border: 0 solid; }
+ *   h1:not(#\#):not(#\#), h2:not(#\#):not(#\#), ... { font-size: inherit; font-weight: inherit; }
+ *   a:not(#\#):not(#\#) { color: inherit; }
+ *   img:not(#\#):not(#\#), video:not(#\#):not(#\#) { height: auto; max-width: 100%; }
+ *   body:not(#\#):not(#\#) { background-color: var(--ploy-background-primary); color: var(--ploy-text-primary); }
+ *   .container:not(#\#):not(#\#):not(#\#):not(#\#) { width: 100%; }  (+ breakpoint max-widths)
+ *
+ * Each `:not(#\#)` adds one ID of specificity, so a preflight rule is
+ * (2,0,0)–(4,0,1) — it beats every plain single-class custom rule
+ * (0,1,0) no matter that custom.css comes first in the bundle. That
+ * is exactly the live pattern PR #6 could not explain: some custom.css
+ * rules applied (variables, background colours — things preflight
+ * never sets) while others did not (navbar link colour, hero H1 size,
+ * hero padding, tagline margin:auto, dark-mode background, container
+ * padding). One rule explains all six reported defects:
+ *
+ *  1. Navbar links/toggle dark-on-plum — `a{color:inherit}` (and
+ *     `button{color:inherit}`) beat `.navbar__link{color:#fff7ee}`, so
+ *     links inherit the body colour #1f1235.
+ *  2. Logo invisible — `img{height:auto}` beat Infima's
+ *     `.navbar__logo img{height:100%}`, and the SVG has no intrinsic
+ *     width/height, so the image collapses. (The SVG now also carries
+ *     width/height attributes, and the logo size is set below.)
+ *  3. Hero H1 ~16px — `h1{font-size:inherit}` beat
+ *     `.junction-hero h1{font-size:3rem}` (and every `.markdown h1`).
+ *  4. Hero padding ~0, tagline not centred — the universal
+ *     `margin:0;padding:0` beat `.junction-hero{padding:4rem 1rem}`
+ *     and `header.junction-hero>p{margin:0 auto}` (the tagline's
+ *     font-size/max-width/text-align survived because preflight
+ *     never sets those — which is why it looked "half applied").
+ *  5. Dark mode does nothing — `body{background:var(--ploy-…)}`
+ *     beats the `[data-theme="dark"] --ifm-background-color` variable,
+ *     and NO `[data-theme=dark]` rule in the bundle redefines any
+ *     `--ploy-*` variable (verified: zero matches).
+ *  6. Flush-left layout — Tailwind's `.container` utility
+ *     (specificity (4,0,1), width:100%, breakpoint max-widths, no
+ *     margin auto, no padding) beat Infima's
+ *     `.container{margin:0 auto;max-width:1140px;padding:0 1rem}`.
+ *
+ * FIX USED HERE: the rules below mirror the preflight's own trick —
+ * `:not(#\#)` (an ID selector for a non-existent id) — so docs-chrome
+ * rules outrank preflight on specificity: two `:not(#\#)` beat
+ * preflight's two, four beat Tailwind's four on `.container`. No
+ * `!important` anywhere: the demo frames keep working because these
+ * selectors only target docs chrome (.navbar, .footer, .container,
+ * .markdown, .junction-hero, body) — the Junction Container component
+ * renders Tailwind utilities (mx-auto, max-w-[1320px], px-4), not the
+ * `.container` class, so demos are unaffected. Do NOT "simplify" these
+ * selectors away: without the boost, preflight wins again.
+ *
+ * The real long-term fix would be to stop shipping Tailwind preflight
+ * globally from the library theme (scope it to demo frames, or ship
+ * utilities without preflight) — that is a library change, out of
+ * scope for this docs PR; this repair is the docs-side containment. */
+html[data-theme="light"] body:not(#\#):not(#\#) {
+  background-color: #fff7ee;
+  color: #1f1235;
+}
+
+html[data-theme="dark"] body:not(#\#):not(#\#) {
+  background-color: #1f1235;
+  color: #fff7ee;
+}
+
+/* Navbar chrome: restore Infima's padding, which the universal
+ * margin/padding reset zeroes, and give the logo a real size. */
+.navbar:not(#\#):not(#\#) {
+  padding: var(--ifm-navbar-padding-vertical, 0.5rem) var(--ifm-navbar-padding-horizontal, 1rem);
+}
+
+.navbar__logo img:not(#\#):not(#\#) {
+  height: 2rem;
+  width: 2rem;
+  flex: none;
+}
+
+/* Doc headings: preflight forces font-size:inherit on every h1–h6,
+ * so every docs page heading rendered at body size. Restore Infima's
+ * heading sizes. */
+.markdown h1:not(#\#):not(#\#) {
+  font-size: var(--ifm-h1-font-size, 2rem);
+  font-weight: var(--ifm-heading-font-weight);
+}
+
+.markdown h2:not(#\#):not(#\#) {
+  font-size: var(--ifm-h2-font-size, 1.5rem);
+  font-weight: var(--ifm-heading-font-weight);
+}
+
+.markdown h3:not(#\#):not(#\#) {
+  font-size: var(--ifm-h3-font-size, 1.25rem);
+  font-weight: var(--ifm-heading-font-weight);
+}
+
+.markdown h4:not(#\#):not(#\#) {
+  font-size: var(--ifm-h4-font-size, 1rem);
+  font-weight: var(--ifm-heading-font-weight);
+}
+
+.markdown h5:not(#\#):not(#\#) {
+  font-size: var(--ifm-h5-font-size, 0.875rem);
+  font-weight: var(--ifm-heading-font-weight);
+}
+
+.markdown h6:not(#\#):not(#\#) {
+  font-size: var(--ifm-h6-font-size, 0.813rem);
+  font-weight: var(--ifm-heading-font-weight);
+}
+
+/* Doc prose: preflight zeroes paragraph margins, so text blocks run
+ * together. Restore Infima's paragraph rhythm. Doc links: preflight
+ * forces colour:inherit on every <a>. */
+.markdown p:not(#\#):not(#\#) {
+  margin: 0 0 var(--ifm-paragraph-margin-bottom);
+}
+
+.markdown a:not(#\#):not(#\#) {
+  color: var(--ifm-link-color);
+}
+
+/* Sidebar links: preflight zeroes their padding. */
+.menu__link:not(#\#):not(#\#) {
+  padding: var(--ifm-menu-link-padding-vertical, 0.375rem) var(--ifm-menu-link-padding-horizontal, 0.75rem);
+}
+
+/* Docs container: Tailwind's .container utility (four :not(#\#),
+ * specificity (4,0,1)) beat Infima's .container, killing its auto
+ * margins and side padding — the whole site sat flush-left. Four
+ * boosts beat four. The footer container is widened so its nine
+ * columns fit without wrapping every label. */
+.container:not(#\#):not(#\#):not(#\#):not(#\#) {
+  margin: 0 auto;
+  max-width: var(--ifm-container-width);
+  padding: 0 var(--ifm-spacing-horizontal);
+}
+
+@media (min-width: 1440px) {
+  .container:not(#\#):not(#\#):not(#\#):not(#\#) {
+    max-width: var(--ifm-container-width-xl);
+  }
+}
+
+.footer .container:not(#\#):not(#\#):not(#\#):not(#\#) {
+  max-width: 1400px;
+}
+
+/* Props tables: preflight zeroes every border, so Infima's row
+ * borders never rendered. Restore them (top border on rows, cell
+ * borders and padding as Infima defines them). */
+.theme-doc-markdown table tr:not(#\#):not(#\#) {
+  border-top: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+}
+
+.theme-doc-markdown table td:not(#\#):not(#\#),
+.theme-doc-markdown table th:not(#\#):not(#\#) {
+  border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+  padding: 0.75rem;
+  vertical-align: top;
 }
