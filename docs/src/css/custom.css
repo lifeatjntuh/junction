@@ -445,3 +445,114 @@ html[data-theme="dark"] body:not(#\#):not(#\#) {
   padding: 0.75rem;
   vertical-align: top;
 }
+
+/* === Navbar + footer icon flow (PR #8) — READ THE REPAIR NOTE ABOVE ===
+ *
+ * PR #7 fixed the colours, hero, tables, dark mode and container
+ * padding, but three navbar/footer defects survived on the live site
+ * (verified visually 16:53–16:55 IST, all pages, light and dark).
+ * Each has a different verified cause in the PR #7 built bundle
+ * (docs/build/assets/css/styles.807d502c.css):
+ *
+ *  1. "JunctionDocs" run together — Infima gives .navbar__brand
+ *     margin-right:1rem, but the preflight universal reset
+ *     `:not(#\#):not(#\#){margin:0}` (2,0,0) beats Infima's
+ *     (0,1,0), so the brand margin is 0. Same for .navbar__item
+ *     padding (.25rem .75rem): preflight zeroes it. Restore both
+ *     with the boost, as the repair above does for other chrome.
+ *
+ *  2. External-link icon drops to its own line — the "GitHub" navbar
+ *     link and the footer's Website / Design system / GitHub links
+ *     (all external hrefs, so Docusaurus renders an inline
+ *     .iconExternalLink_* SVG after the text). Preflight sets
+ *     `img,svg{display:block}` (2,0,1), flipping that inline SVG to
+ *     a block element — so it starts a new line under the text, even
+ *     though ~1500px of navbar space is empty and "Website" fits its
+ *     footer column easily. white-space:nowrap or a gap alone cannot
+ *     fix a block-level SVG. The fix re-establishes inline flow:
+ *     the link becomes inline-flex (text + icon are flex items on
+ *     one line) and the SVG is forced back to inline-block. The
+ *     icon class is a CSS-module hash (iconExternalLink_JUK5), so
+ *     the rules target the stable .navbar__link / .footer__link-item
+ *     parents and any svg inside them, not the hashed class.
+ *     Junction's own buttons keep their icons inline for the same
+ *     reason — they carry explicit Tailwind flex utilities.
+ *
+ *  3. Theme toggle clipped at the right edge, sun/moon side by side
+ *     — the toggle button renders THREE icons (light/dark/system)
+ *     and Docusaurus hides two of them with rules like
+ *     `[data-theme-choice=dark] .darkToggleIcon_ax5I {display:initial}`
+ *     (0,2,0) over a `display:none` default (0,1,0). Preflight's
+ *     `svg{display:block}` (2,0,1) beats BOTH, so all three icons
+ *     render side by side in the flex button, making it ~3x too
+ *     wide and pushing it off the viewport edge (the navbar padding
+ *     itself was already restored by PR #7 and is present in the
+ *     bundle, so this is not a padding problem). Fix: hide all three
+ *     icons with a boosted rule, then show only the active one with
+ *     an even stronger rule. The icon classes are CSS-module hashes
+ *     (darkToggleIcon_ax5I etc.), so the selectors use
+ *     [class*="…ToggleIcon"] substring matches, which survive a
+ *     rebuild. The toggle button and the mobile hamburger also get
+ *     flex:none so they can never be squeezed or stretched.
+ *
+ *  All rules below use the same :not(#\#) boost as the repair
+ *  section, scoped to navbar/footer chrome only. */
+.navbar__brand:not(#\#):not(#\#) {
+  margin-right: 1rem;
+  flex: none;
+}
+
+.navbar__item:not(#\#):not(#\#) {
+  padding: var(--ifm-navbar-item-padding-vertical, 0.25rem) var(--ifm-navbar-item-padding-horizontal, 0.75rem);
+}
+
+/* External-link icons: inline flow again, navbar and footer. */
+.navbar__link:not(#\#):not(#\#),
+.footer__link-item:not(#\#):not(#\#) {
+  display: inline-flex;
+  align-items: center;
+}
+
+.navbar__link svg:not(#\#):not(#\#),
+.footer__link-item svg:not(#\#):not(#\#) {
+  display: inline-block;
+  flex: none;
+}
+
+/* Theme toggle: exactly one icon visible at a time. */
+.navbar [class*="ToggleIcon"]:not(#\#):not(#\#) {
+  display: none;
+}
+
+html[data-theme-choice="light"] .navbar [class*="lightToggleIcon"]:not(#\#):not(#\#) {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+html[data-theme-choice="dark"] .navbar [class*="darkToggleIcon"]:not(#\#):not(#\#) {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+html[data-theme-choice="system"] .navbar [class*="systemToggleIcon"]:not(#\#):not(#\#) {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Before hydration data-theme-choice may be absent; show the sun
+ * icon rather than an empty toggle (mirrors the stock
+ * html:not([data-theme]) fallback in the bundle). */
+html:not([data-theme-choice]) .navbar [class*="lightToggleIcon"]:not(#\#):not(#\#) {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Toggle button and mobile hamburger: fixed size, never squeezed. */
+.navbar .clean-btn:not(#\#):not(#\#),
+.navbar__toggle:not(#\#):not(#\#) {
+  flex: none;
+}
