@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy docs to GitHub Pages
 
 on:
   push:
@@ -17,26 +17,40 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.13
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # No package-lock.json is committed — see build.yml for why.
-      - run: npm install
-      # base path must match the repo name if this deploys to
-      # https://<user>.github.io/<repo>/ — see README "Deploy" section.
-      - run: npm run build
+          cache: pnpm
+          cache-dependency-path: docs/pnpm-lock.yaml
+
+      - name: Install docs dependencies
+        working-directory: docs
+        run: pnpm install --frozen-lockfile
+
+      - name: Build docs
+        working-directory: docs
+        run: pnpm run build
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: docs/build
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
