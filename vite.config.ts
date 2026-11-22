@@ -12,6 +12,15 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      // blobmates/react is an optional peer loaded with a dynamic import
+      // in ProfileCard and is NOT installed. If Rollup tries to resolve
+      // it, the build fails; kept external, the import is preserved and
+      // BlobmateAvatar falls back to its pastel placeholder.
+      external: ["blobmates/react"],
+    },
+  },
   server: {
     port: 5173,
   },
