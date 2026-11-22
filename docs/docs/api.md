@@ -18,6 +18,51 @@ leak into the public surface: `src/lib/utils.ts` exposes only `cn`,
 `src/lib/schedule-layout.ts` exposes the layout helper and its types, and
 component internals are not exported.
 
+## Full export inventory
+
+Everything the package exports, from `src/index.ts`. Every item has a
+docs page — nothing is exported without documentation.
+
+### Utilities
+
+| Export | Docs |
+| --- | --- |
+| `cn` | [cn](./components/primitives/cn.md) |
+| `layoutScheduleEvents`, `PositionedEvent`, `ScheduleEvent`, `ScheduleLayoutOptions` | [layoutScheduleEvents](./components/primitives/layout-schedule-events.md) |
+| `tokens`, `colors`, `pastels`, `fonts`, `radii`, `shadows`, `ColorName`, `PastelName`, `FontName`, `JunctionTokens` | [Tokens](./tokens.md) |
+
+### Website components
+
+| Export | Docs |
+| --- | --- |
+| `Button`, `buttonVariants`, `ButtonProps` | [Button](./components/button.md) |
+| `Panel` | [Panel](./components/panel.md) |
+| `Tag`, `TagProps` | [Tag](./components/tag.md) |
+| `Heading`, `headingVariants`, `HeadingProps` | [Heading](./components/heading.md) |
+| `Text`, `TextProps` | [Text](./components/text.md) |
+| `Field`, `FieldProps` | [Field](./components/field.md) |
+| `Input`, `Textarea` | [Input and Textarea](./components/input.md) |
+| `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` | [Tabs](./components/tabs.md) |
+| `Sheet`, `SheetTrigger`, `SheetContent`, `SheetClose` | [Sheet](./components/sheet.md) |
+| `ToastProvider`, `useToast` | [Toast](./components/toast.md) |
+| `ThemeToggle`, `useTheme`, `ThemeChoice` | [ThemeToggle](./components/theme-toggle.md) |
+| `Logo` | [Logo](./components/logo.md) |
+| `Container` | [Container](./components/container.md) |
+| `ChipGroup`, `ChipGroupProps` | [ChipGroup](./components/chip-group.md) |
+| `Reveal` | [Reveal](./components/reveal.md) |
+
+### App components
+
+| Export | Docs |
+| --- | --- |
+| `AppShell`, `AppTopBar`, `AppBottomNav`, `AppMenuRow`, `AppIconButton`, `AppNavItem` | [AppShell](./app-design-kit/app-shell.md) |
+| `AppState`, `Skeleton` | [AppState](./app-design-kit/app-state.md) |
+| `EventCard`, `EventCardProps` | [EventCard](./app-design-kit/event-card.md) |
+| `ProfileCard`, `ProfileCardProps` | [ProfileCard](./app-design-kit/profile-card.md) |
+| `BlobmateAvatar` | [BlobmateAvatar](./app-design-kit/blobmate-avatar.md) |
+| `ScheduleGrid`, `ScheduleGridProps`, `ScheduleCategory`, `ScheduleEventActions`, `DEFAULT_CATEGORIES` | [ScheduleGrid](./app-design-kit/schedule-grid.md) |
+| `EventQuickCard`, `ScheduleEventBlock` | [EventQuickCard](./app-design-kit/schedule-primitives.md) |
+
 ## Builds
 
 - ESM (`dist/junction.js`) and CJS (`dist/junction.cjs`) from the same

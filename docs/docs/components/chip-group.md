@@ -1,38 +1,43 @@
 ---
 title: ChipGroup
-description: Controlled single-select chip group (radiogroup) for filters, with an optional All option.
+description: Controlled single-select chip group for filters, with an optional All option — ChipGroup.
 ---
+
+import { ChipGroupDemo } from "@site/src/components/demos/chip-group-demo";
 
 # ChipGroup
 
+<ChipGroupDemo />
+
 Controlled single-select chip group — a `radiogroup` of pill chips, for
-filters such as event categories.
-
-```tsx
-import { ChipGroup } from "@lifeatjntuh/junction";
-
-const [value, setValue] = useState("all");
-
-<ChipGroup
-  label="Filter by category"
-  value={value}
-  onChange={setValue}
-  allLabel="All"
-  options={[
-    { value: "music", label: "Music" },
-    { value: "tech", label: "Tech" },
-  ]}
-/>;
-```
+filters such as event categories. Unselected chips are white with a soft
+shadow; the selected chip is deep plum. Selected chips use
+`aria-pressed`.
 
 ## Props
 
 | Prop | Type | Notes |
 | --- | --- | --- |
-| `value` | `string` | Controlled selected value |
-| `onChange` | `(value: string) => void` | Called when a chip is picked |
-| `options` | `{ value: string; label: string }[]` | The chips |
-| `allLabel` | `string` | Optional "All" chip |
+| `options` | `string[]` | The chips — plain strings, not objects |
+| `value` | `string \| null` | Controlled selected value (`null` = nothing selected) |
+| `onChange` | `(value: string \| null) => void` | Called when a chip is picked; picking the active chip clears it (unless it is the All chip) |
+| `allLabel` | `string` | Optional first "All" chip that clears the filter |
 | `label` | `string` | Screen-reader label for the group |
+| `className` | `string` | Merged with `cn()` |
 
-Selected chips use `aria-pressed`.
+## Usage
+
+```tsx
+import { ChipGroup } from "@lifeatjntuh/junction";
+import { useState } from "react";
+
+const [value, setValue] = useState<string | null>(null);
+
+<ChipGroup
+  label="Filter by category"
+  allLabel="All events"
+  options={["Music", "Workshops", "Sports", "Food"]}
+  value={value}
+  onChange={setValue}
+/>;
+```

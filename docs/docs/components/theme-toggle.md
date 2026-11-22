@@ -1,20 +1,40 @@
 ---
 title: ThemeToggle
-description: Light / Dark / System theme switcher, saved to localStorage, with Solar sun, moon and monitor icons.
+description: Light / Dark / System theme switcher, saved to localStorage — ThemeToggle and useTheme.
 ---
+
+import { ThemeToggleDemo } from "@site/src/components/demos/theme-toggle-demo";
 
 # ThemeToggle
 
-Light / Dark / System theme switcher. The choice is saved to
-`localStorage` under `"theme"`.
+<ThemeToggleDemo />
+
+Three-way pill switch for Light, Dark and System (follows the device).
+Adds/removes `dark` on `<html>`, saves the choice to localStorage under
+`"theme"` (System clears it) and tracks device changes live. Used in the
+site nav and the design-system page. Icons are Solar, linear (`sun`,
+`moon`, `monitor`).
+
+## Props
+
+| Prop | Type | Notes |
+| --- | --- | --- |
+| `className` | `string` | Merged with `cn()` |
+
+## useTheme
+
+`useTheme()` returns `{ choice, setTheme }` — `choice` is a
+`ThemeChoice` (`"light" | "dark" | "system"`), `setTheme` sets it.
+Use it when you need the current theme in your own code instead of the
+switcher UI.
+
+## Usage
 
 ```tsx
 import { ThemeToggle, useTheme } from "@lifeatjntuh/junction";
 
 <ThemeToggle />;
 
-const { theme, setTheme } = useTheme(); // theme: ThemeChoice
+const { choice, setTheme } = useTheme();
+setTheme("dark");
 ```
-
-`ThemeChoice` is `"light" | "dark" | "system"`. Icons are Solar, linear:
-`sun`, `moon`, `monitor`.

@@ -1,0 +1,29 @@
+---
+title: Input and Textarea
+description: Pill text input and multi-line text box, with a soft shadow, pink focus ring and red invalid ring.
+---
+
+import { InputDemo } from "@site/src/components/demos/field-demo";
+
+# Input and Textarea
+
+<InputDemo />
+
+`Input` is a pill text input on white with a soft shadow and a pink
+focus ring; `aria-invalid` shows a red ring. `Textarea` is the
+multi-line version, with rounded app corners. Use them inside a
+[Field](./field.md) for label, helper and error text, or on their own.
+
+Both are standard HTML controls — every `input` / `textarea` attribute
+(`placeholder`, `value`, `onChange`, `disabled`, `type`, …) works, and
+both forward their ref.
+
+## Usage
+
+```tsx
+import { Input, Textarea } from "@lifeatjntuh/junction";
+
+<Input placeholder="Event name" />
+<Textarea placeholder="What's happening, who it's for." />
+<Input placeholder="Invalid" aria-invalid />
+```

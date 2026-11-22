@@ -3,13 +3,28 @@ title: Reveal
 description: Scroll fade-and-rise animation wrapper with an optional delay.
 ---
 
+import { RevealDemo } from "@site/src/components/demos/reveal-demo";
+
 # Reveal
 
-Scroll fade-and-rise animation wrapper (motion). Wrap content that
-should animate in as the user scrolls to it.
+<RevealDemo />
+
+House scroll entrance: a short fade and rise once the block enters
+view. Wrap a heading block, panel or card; never nest reveals.
+Reduced-motion preferences are respected by the theme.
+
+## Props
+
+| Prop | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `delay` | `number` | `0` | Animation delay in seconds |
+| `children` | `ReactNode` | — | Content to reveal |
+| `className` | `string` | — | Passed to the wrapper |
+
+## Usage
 
 ```tsx
-import { Reveal } from "@lifeatjntuh/junction";
+import { Reveal, Panel } from "@lifeatjntuh/junction";
 
 <Reveal>
   <Panel color="lime">…</Panel>
@@ -17,10 +32,3 @@ import { Reveal } from "@lifeatjntuh/junction";
 
 <Reveal delay={0.15}>…</Reveal>;
 ```
-
-| Prop | Type | Notes |
-| --- | --- | --- |
-| `delay` | `number` | Animation delay in seconds |
-| `children` | `ReactNode` | Content to reveal |
-
-Reduced-motion preferences are respected by the theme.

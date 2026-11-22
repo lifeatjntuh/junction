@@ -1,12 +1,32 @@
 ---
 title: Tabs
-description: Radix tabs with pill and underline variants for switching between views.
+description: Radix tabs with pill and underline variants — Tabs, TabsList, TabsTrigger and TabsContent.
 ---
+
+import { TabsDemo } from "@site/src/components/demos/tabs-demo";
 
 # Tabs
 
+<TabsDemo />
+
 Radix tabs. `TabsList` variant `pill` is a white pill track with a hot
-pink active tab; `underline` is the quieter style.
+pink active tab — the day switcher in Event Tracker. `underline` is the
+quieter admin-style tab bar. Tabs scroll sideways when they overflow.
+
+## Primitives
+
+`Tabs` is the Radix root. Compose it as
+`Tabs` → `TabsList` → `TabsTrigger`, then `TabsContent` for each panel:
+
+- **`TabsList`** — the track. Prop `variant`: `pill | underline`
+  (default `pill`).
+- **`TabsTrigger`** — one tab. Prop `value` (required): matches a
+  `TabsContent` value.
+- **`TabsContent`** — one panel. Prop `value` (required).
+
+Keyboard support comes from Radix.
+
+## Usage
 
 ```tsx
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@lifeatjntuh/junction";
@@ -20,13 +40,3 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@lifeatjntuh/junction"
   <TabsContent value="requests">…</TabsContent>
 </Tabs>
 ```
-
-## Props
-
-| Component | Prop | Type | Default | Notes |
-| --- | --- | --- | --- | --- |
-| `TabsList` | `variant` | `pill \| underline` | `pill` | |
-| `TabsTrigger` | `value` | `string` | — | Required, matches a `TabsContent` |
-| `TabsContent` | `value` | `string` | — | Required |
-
-Keyboard support comes from Radix.

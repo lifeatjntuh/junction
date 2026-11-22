@@ -1,0 +1,36 @@
+---
+title: Posts
+description: Social Media Kit post templates — club event, creator shoutout, campus memory, announcement and WhatsApp Channel digest, plus the full-bleed Photo of the Day.
+---
+
+import { SocialPostDemo } from "@site/src/components/demos/social-post-demo";
+
+# Posts
+
+Square posts for Instagram and the WhatsApp Channel — **1080×1080**.
+The previews below are small-scale mock-ups drawn with real Junction
+components; make the real post in the studio
+([Social Media Kit](./index.md)), swap in the real club, date, photo
+and credit, and download the PNG at 1080×1080.
+
+<SocialPostDemo />
+
+## The post templates
+
+| Template | What it is for | Fields |
+| --- | --- | --- |
+| **Club event** | One event, one post | Title, club, date, time, venue |
+| **Creator shoutout** | Feature a campus creator | Photo, @handle, one line about them, photo credit |
+| **Campus memory** | A photo worth keeping | Photo, caption, photo credit |
+| **Announcement** | News in big type | 2–3 short lines, one highlighted word, body |
+| **WhatsApp Channel digest** | "This week on campus" | Title, 3 items (title + meta + colour), footer |
+| **Photo of the Day** (`photo-day`) | Full-bleed campus photo | Photo, credit — the photo fills the whole frame edge to edge, nothing on it but the @lifeatjntuh handle and the photographer credit. No title, no caption card, no chips. **Portrait 1080×1350 — never 1080×1080 for a single post.** |
+
+## Rules (from the brand guidelines)
+
+- One pastel or one solid colour per post. Hot pink is the highlight.
+- Real campus photos, always with the photographer's credit.
+- One 3D object per post at most, placed away from the text.
+- Sign every post with the @lifeatjntuh pill.
+- Mention the WhatsApp Channel for people who aren't on Instagram.
+- Grotesk for the big social headline, round font for captions.

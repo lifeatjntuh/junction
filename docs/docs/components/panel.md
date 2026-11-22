@@ -3,19 +3,14 @@ title: Panel
 description: Big soft rounded block in the pastel palette or a solid colour, for cards and full-width sections.
 ---
 
+import { PanelDemo } from "@site/src/components/demos/panel-demo";
+
 # Panel
+
+<PanelDemo />
 
 Big soft rounded block with no border, in the pastel panel palette or a
 solid colour. Used for cards and full-width section panels.
-
-```tsx
-import { Panel, Heading, Text } from "@lifeatjntuh/junction";
-
-<Panel color="pink">
-  <Heading size="md">Curate</Heading>
-  <Text> campus stories worth keeping.</Text>
-</Panel>
-```
 
 ## Props
 
@@ -26,3 +21,14 @@ import { Panel, Heading, Text } from "@lifeatjntuh/junction";
 
 Panels are 32px corners (`rounded-card`). One pastel per panel — never
 two pastels fighting on one surface.
+
+## Usage
+
+```tsx
+import { Panel, Heading, Text } from "@lifeatjntuh/junction";
+
+<Panel color="pink">
+  <Heading size="md">Curate</Heading>
+  <Text> campus stories worth keeping.</Text>
+</Panel>
+```

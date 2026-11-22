@@ -3,19 +3,14 @@ title: Button
 description: Pill-shaped button with primary, secondary, dark, ghost, link, soft, google and danger variants, in web and app kits.
 ---
 
+import { ButtonDemo } from "@site/src/components/demos/button-demo";
+
 # Button
+
+<ButtonDemo />
 
 Pill-shaped button with no borders. The main action on a screen is
 usually `primary` (hot pink with a soft pink shadow).
-
-```tsx
-import { Button } from "@lifeatjntuh/junction";
-
-<Button>Join LifeOps</Button>
-<Button variant="secondary">Learn more</Button>
-<Button variant="dark">View events</Button>
-<Button variant="ghost">Skip</Button>
-```
 
 ## Props
 
@@ -31,6 +26,17 @@ import { Button } from "@lifeatjntuh/junction";
 `ButtonProps` and `buttonVariants` are exported. The component forwards
 its ref. Icons inside a button are sized automatically (`[&_svg]:size-5`).
 
+## Usage
+
+```tsx
+import { Button } from "@lifeatjntuh/junction";
+
+<Button>Join LifeOps</Button>
+<Button variant="secondary">Learn more</Button>
+<Button variant="dark">View events</Button>
+<Button variant="ghost">Skip</Button>
+```
+
 ## With an icon
 
 ```tsx
@@ -43,3 +49,17 @@ import { ArrowRightIcon } from "@solar-icons/react/linear/arrow-right";
 ```
 
 Icons are Solar, linear — see [Icons](../icons.md).
+
+## buttonVariants
+
+`buttonVariants` is the `class-variance-authority` recipe behind
+`Button` — use it when you need the same button classes on a different
+element (for example a link styled as a button without `asChild`):
+
+```tsx
+import { buttonVariants } from "@lifeatjntuh/junction";
+
+<a href="/events" className={buttonVariants({ variant: "secondary", size: "sm" })}>
+  Browse events
+</a>;
+```

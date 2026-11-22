@@ -1,0 +1,23 @@
+---
+title: Container
+description: Centered page-width wrapper (max 1320px) with responsive side padding.
+---
+
+import { ContainerDemo } from "@site/src/components/demos/container-demo";
+
+# Container
+
+<ContainerDemo />
+
+Centered page-width wrapper (max 1320px) with responsive side padding.
+Every page on the website sits inside one.
+
+## Usage
+
+```tsx
+import { Container } from "@lifeatjntuh/junction";
+
+<Container>
+  <Heading>Page content</Heading>
+</Container>;
+```

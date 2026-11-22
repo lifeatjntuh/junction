@@ -3,17 +3,13 @@ title: Tag
 description: Rounded pill chip for activities, roles and small labels, in white, dark, pink, glass, pastel and muted tones.
 ---
 
+import { TagDemo } from "@site/src/components/demos/tag-demo";
+
 # Tag
 
+<TagDemo />
+
 Rounded pill chip for activities, roles and small labels.
-
-```tsx
-import { Tag } from "@lifeatjntuh/junction";
-
-<Tag tone="dark">Music</Tag>
-<Tag tone="pinkSoft">Fest</Tag>
-<Tag tone="role">Organizer</Tag>
-```
 
 ## Props
 
@@ -24,3 +20,13 @@ import { Tag } from "@lifeatjntuh/junction";
 | `kit` | `web \| app` | `web` | `app` uses Lexend for app screens |
 
 Tags are fully round (`rounded-full`) and semibold.
+
+## Usage
+
+```tsx
+import { Tag } from "@lifeatjntuh/junction";
+
+<Tag tone="dark">Music</Tag>
+<Tag tone="pinkSoft">Fest</Tag>
+<Tag tone="role">Organizer</Tag>
+```
