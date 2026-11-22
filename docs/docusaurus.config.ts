@@ -112,14 +112,89 @@ const config: Config = {
     },
     footer: {
       style: "dark",
+      // The sidebar is hidden on mobile, so the footer is the bird-eye
+      // view: it lists EVERY docs article, grouped by section in sidebar
+      // order, so a reader on any device can reach any article from the
+      // footer of any page. Keep this list in sync with sidebars.ts and
+      // docs/docs/all-docs.md (the same list on one page).
       links: [
         {
-          title: "Docs",
+          title: "Brand",
           items: [
-            { label: "Introduction", to: "/" },
+            { label: "All docs", to: "/all-docs" },
+            { label: "Junction", to: "/" },
+            { label: "Brand", to: "/brand" },
+            { label: "Colours", to: "/brand/colours" },
+            { label: "Typography", to: "/brand/typography" },
+            { label: "Logo", to: "/brand/logo" },
+            { label: "Shapes", to: "/brand/shapes" },
+            { label: "Photography", to: "/brand/photography" },
+            { label: "Rules", to: "/brand/rules" },
+          ],
+        },
+        {
+          title: "Design System",
+          items: [
+            { label: "Design System", to: "/design-system" },
             { label: "Installation", to: "/installation" },
             { label: "Tokens", to: "/tokens" },
             { label: "Icons", to: "/icons" },
+          ],
+        },
+        {
+          title: "Components",
+          items: [
+            { label: "Components", to: "/components" },
+            { label: "Button", to: "/components/button" },
+            { label: "Panel", to: "/components/panel" },
+            { label: "Tag", to: "/components/tag" },
+            { label: "Heading", to: "/components/heading" },
+            { label: "Text", to: "/components/text" },
+            { label: "Field", to: "/components/field" },
+            { label: "Input and Textarea", to: "/components/input" },
+            { label: "Tabs", to: "/components/tabs" },
+            { label: "Sheet", to: "/components/sheet" },
+            { label: "Toast", to: "/components/toast" },
+            { label: "ThemeToggle", to: "/components/theme-toggle" },
+            { label: "Logo", to: "/components/logo" },
+            { label: "Container", to: "/components/container" },
+            { label: "ChipGroup", to: "/components/chip-group" },
+            { label: "Reveal", to: "/components/reveal" },
+          ],
+        },
+        {
+          title: "Primitives",
+          items: [
+            { label: "cn", to: "/components/primitives/cn" },
+            { label: "layoutScheduleEvents", to: "/components/primitives/layout-schedule-events" },
+          ],
+        },
+        {
+          title: "Social Media Kit",
+          items: [
+            { label: "Social Media Kit", to: "/social-media-kit" },
+            { label: "Posts", to: "/social-media-kit/posts" },
+            { label: "Carousel", to: "/social-media-kit/carousel" },
+            { label: "Stories", to: "/social-media-kit/stories" },
+          ],
+        },
+        {
+          title: "App Design Kit",
+          items: [
+            { label: "App Design Kit", to: "/app-design-kit" },
+            { label: "AppShell", to: "/app-design-kit/app-shell" },
+            { label: "AppState and Skeleton", to: "/app-design-kit/app-state" },
+            { label: "EventCard", to: "/app-design-kit/event-card" },
+            { label: "ProfileCard", to: "/app-design-kit/profile-card" },
+            { label: "BlobmateAvatar", to: "/app-design-kit/blobmate-avatar" },
+            { label: "ScheduleGrid", to: "/app-design-kit/schedule-grid" },
+            { label: "EventQuickCard and ScheduleEventBlock", to: "/app-design-kit/schedule-primitives" },
+          ],
+        },
+        {
+          title: "API reference",
+          items: [
+            { label: "API reference", to: "/api" },
           ],
         },
         {
