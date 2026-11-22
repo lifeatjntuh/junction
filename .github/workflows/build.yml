@@ -9,20 +9,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.13
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: pnpm
 
-      # No package-lock.json is committed (this repo intentionally pins
-      # @base-ui-components/react to "latest" while it's in active beta —
-      # see README "Known risk areas"). `npm install` resolves fresh each run;
-      # switch to `npm ci` once you've run `npm install` locally and committed
-      # the generated package-lock.json.
-      - run: npm install
-      - run: npm run build
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm run build
+
+      - run: pnpm run build:demo
 
       - uses: actions/upload-artifact@v4
         with:
