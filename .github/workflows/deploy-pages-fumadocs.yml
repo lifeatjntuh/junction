@@ -1,0 +1,93 @@
+# Deploy the Fumadocs docs site to GitHub Pages.
+#
+# ADD THIS FILE ON THE GITHUB WEBSITE — workflow files cannot be pushed
+# through the GitHub API (403). Create it at
+# .github/workflows/deploy-pages-fumadocs.yml in the lifeatjntuh/junction
+# repo (main branch), pasting these exact contents.
+#
+# Modelled on .github/workflows/deploy-pages.yml (the Docusaurus deploy).
+# That workflow stays in place until this one is verified live; do not
+# delete it as part of the migration PR.
+#
+# Why the "Assemble the Pages artifact" step exists: the prerender writes
+# pages under docs-fumadocs/build/client/junction/ (the router basename),
+# while Vite writes assets to build/client/assets/ and public/ files to
+# build/client/. GitHub Pages serves the uploaded directory at
+# /junction/, so the artifact must be the junction/ directory with
+# assets/, 404.html, favicon.svg and .nojekyll copied into it — otherwise
+# pages would be one level too deep and assets would be missing.
+#
+# Search is static: the /api/search route exports the index at build time
+# (staticGET), so the built api/search file serves search with no server.
+
+name: Deploy Fumadocs docs to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - 'docs-fumadocs/**'
+      - '.github/workflows/deploy-pages-fumadocs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.13
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            docs-fumadocs/pnpm-lock.yaml
+
+      - name: Build the library
+        run: pnpm install --frozen-lockfile && pnpm run build:lib
+
+      - name: Install docs dependencies
+        working-directory: docs-fumadocs
+        run: pnpm install --frozen-lockfile
+
+      - name: Build docs
+        working-directory: docs-fumadocs
+        run: pnpm run build
+
+      - name: Assemble the Pages artifact
+        run: |
+          cp -r docs-fumadocs/build/client/assets docs-fumadocs/build/client/junction/assets
+          cp docs-fumadocs/build/client/404.html docs-fumadocs/build/client/junction/404.html
+          cp docs-fumadocs/build/client/favicon.svg docs-fumadocs/build/client/junction/favicon.svg
+          cp docs-fumadocs/build/client/.nojekyll docs-fumadocs/build/client/junction/.nojekyll
+
+      - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs-fumadocs/build/client/junction
+
+  deploy:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
