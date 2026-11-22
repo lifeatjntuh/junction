@@ -1,0 +1,4 @@
+{
+  "title": "Components",
+  "pages": ["index", "button", "panel", "tag", "heading", "text", "field", "input", "tabs", "sheet", "toast", "theme-toggle", "logo", "container", "chip-group", "reveal", "primitives"]
+}

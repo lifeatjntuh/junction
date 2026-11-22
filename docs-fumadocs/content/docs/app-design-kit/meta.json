@@ -1,0 +1,4 @@
+{
+  "title": "App Design Kit",
+  "pages": ["index", "app-shell", "app-state", "event-card", "profile-card", "blobmate-avatar", "schedule-grid", "schedule-primitives"]
+}

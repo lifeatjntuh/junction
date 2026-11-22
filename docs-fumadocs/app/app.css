@@ -1,0 +1,113 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+/*
+ * Junction tokens on top of the Fumadocs theme.
+ *
+ * Fumadocs UI is built on Tailwind v4, and the Junction theme
+ * (imported once in root.tsx) is Tailwind v4 too — so there is only ONE
+ * CSS system here. No Infima, no second reset, no specificity war: the
+ * preflight clash that PRs #6–#8 fought on Docusaurus cannot happen,
+ * because the library CSS and the docs chrome share the same reset and
+ * the same tokens. These overrides just point Fumadocs' own variables
+ * at Junction values.
+ */
+@theme {
+  --color-fd-background: #fff7ee;
+  --color-fd-foreground: #1f1235;
+  --color-fd-muted: #ffefe0;
+  --color-fd-muted-foreground: #5a4b70;
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: #1f1235;
+  --color-fd-card: #ffffff;
+  --color-fd-card-foreground: #1f1235;
+  --color-fd-border: rgb(31 18 53 / 0.1);
+  --color-fd-primary: #f0208f;
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-secondary: #ffffff;
+  --color-fd-secondary-foreground: #1f1235;
+  --color-fd-accent: #ffc9e6;
+  --color-fd-accent-foreground: #1f1235;
+  --color-fd-ring: #f0208f;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-heading: 'Fredoka', 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.dark {
+  --color-fd-background: #150c26;
+  --color-fd-foreground: #f7f1ff;
+  --color-fd-muted: #221639;
+  --color-fd-muted-foreground: #bcaed4;
+  --color-fd-popover: #221639;
+  --color-fd-popover-foreground: #f7f1ff;
+  --color-fd-card: #221639;
+  --color-fd-card-foreground: #f7f1ff;
+  --color-fd-border: rgb(255 255 255 / 0.1);
+  --color-fd-secondary: #2a1d44;
+  --color-fd-secondary-foreground: #f7f1ff;
+  --color-fd-accent: #4d1a40;
+  --color-fd-accent-foreground: #f7f1ff;
+}
+
+html > body[data-scroll-locked] {
+  margin-right: 0px !important;
+  --removed-body-scroll-bar-size: 0px !important;
+}
+
+/*
+ * Stable scrollbar gutter only on desktop. On mobile it reserves ~15px
+ * on the right of the viewport, so the page renders 375px wide inside
+ * a 390px viewport and leaves a visible strip down the right edge.
+ */
+@media (min-width: 1024px) {
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+
+/*
+ * Live-demo frame, shared by every demo in app/components/demos/.
+ * Ported from the Docusaurus docs (docs/src/css/custom.css):
+ * a bordered card on the page background, with a small caps label.
+ */
+.junction-demo {
+  border: 1px solid var(--color-fd-border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin: 1rem 0;
+  background: var(--color-fd-card);
+}
+
+.junction-demo-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-fd-muted-foreground);
+  margin-bottom: 0.5rem;
+}
+
+.junction-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.junction-demo-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/*
+ * Home pastel cards keep their light backgrounds in dark mode, so
+ * their text must stay plum — Fumadocs flips body text to near-white
+ * in dark mode, which is unreadable on pink/lime/blue.
+ */
+.dark .junction-home-card,
+.dark .junction-home-card :is(h1, h2, h3, h4, h5, h6, p, span) {
+  color: #1f1235;
+}
