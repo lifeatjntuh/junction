@@ -16,7 +16,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
   title: "Junction",
-  tagline: "The LifeatJNTUH design system — colours, type and components for campus apps.",
+  tagline: "The brand design guidelines for LifeatJNTUH — colours, type, logo and rules, with the design system, the Social Media Kit and the App Design Kit.",
   favicon: "img/favicon.svg",
 
   // GitHub Pages (project site): https://lifeatjntuh.github.io/junction/
@@ -114,7 +114,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Junction — the design system for LifeatJNTUH. Built with Docusaurus.`,
+      copyright: `Junction — the brand design guidelines for LifeatJNTUH. Built with Docusaurus.`,
     },
   } satisfies Preset.ThemeConfig,
 };

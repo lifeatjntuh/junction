@@ -3,7 +3,11 @@ title: Icons
 description: Junction uses Solar icons (linear) everywhere, via @solar-icons/react and @iconify/react. No Lucide, no other icon set.
 ---
 
+import { IconsDemo } from "@site/src/components/demos/icons-demo";
+
 # Icons
+
+<IconsDemo />
 
 Junction uses **Solar icons, linear**, everywhere — that is the rule in
 the website design system, and this package keeps it. There is no Lucide

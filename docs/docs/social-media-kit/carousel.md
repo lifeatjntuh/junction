@@ -1,0 +1,33 @@
+---
+title: Carousel
+description: Social Media Kit carousel templates — cover, feature, steps and end slides at 1080×1350, plus full-bleed photo slides.
+---
+
+import { SocialCarouselDemo } from "@site/src/components/demos/social-carousel-demo";
+
+# Carousel
+
+Portrait slides for Instagram — **1080×1350**. Cover, as many content
+slides as you need, then the end slide. The preview below is a
+small-scale mock-up; build the real carousel in the studio
+([Social Media Kit](./index.md)) with the carousel builder — filmstrip,
+reorder, retype, mix slide types, download all slides in order.
+
+<SocialCarouselDemo />
+
+## The carousel slides
+
+| Slide | What it is for |
+| --- | --- |
+| **Cover** (`carousel-cover`) | The hook — one big grotesk headline, slide number and total |
+| **Feature** (`carousel-feature`) | One club / person / thing — name, one or two lines, photo, tags |
+| **Steps** (`carousel-steps`) | How-to in numbered steps with Solar icons |
+| **End** (`carousel-end`) | The close — "Don't miss the next one", follow @lifeatjntuh |
+| **Full-bleed photo** (`carousel-photo`) | The photo fills the whole frame edge to edge, same treatment as Photo of the Day |
+
+## How to build one
+
+1. Pick the cover, write the headline (under six words, grotesk).
+2. Add feature or steps slides — mix types in one carousel.
+3. End on the end slide with the follow line.
+4. Download all slides in order from the studio at 1080×1350.

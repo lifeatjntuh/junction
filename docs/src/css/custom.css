@@ -82,3 +82,37 @@
   color: #fff7ee;
   border-color: #fff7ee;
 }
+
+/* Live demo frames (src/components/demos/Demo.tsx).
+ * Demos render the real Junction components with the package theme, so
+ * they need a neutral frame that reads on both light and dark docs
+ * themes. Demo internals use inline styles, not Docusaurus classes. */
+.junction-demo {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin: 1rem 0;
+  background: var(--ifm-background-surface-color);
+}
+
+.junction-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.junction-demo-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.junction-demo-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: 0.5rem;
+}

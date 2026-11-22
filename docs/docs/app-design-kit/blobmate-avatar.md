@@ -1,0 +1,41 @@
+---
+title: BlobmateAvatar
+description: Interactive animated avatar wrapper — renders the LiveBlobmate when the optional blobmates peer is installed, else a pastel placeholder.
+---
+
+import { BlobmateAvatarDemo } from "@site/src/components/demos/profile-card-demo";
+
+# BlobmateAvatar
+
+<BlobmateAvatarDemo />
+
+Client-safe interactive Blobmate wrapper with roam, pointer-follow and
+tap reactions. Renders a graceful pastel placeholder during SSR and
+hydration, and whenever the optional `blobmates` peer dependency is not
+installed — `blobmates` is only loaded (via a dynamic import) when this
+avatar renders.
+
+## Props
+
+| Prop | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `seed` | `string` | — | Required — drives the avatar's look |
+| `size` | `number` | from `height` | Avatar size in pixels |
+| `pins` | `Record<string, unknown>` | `{ body: "circle" }` | Blobmate pins |
+| `motion` | `none \| follow \| idle` | `follow` | |
+| `mood` | `string` | — | |
+| `roam` | `boolean` | `true` | |
+| `react` | `boolean` | `true` | Tap reactions |
+| `height` | `number \| string` | `220` | Stage height |
+| `className` | `string` | — | Merged with `cn()` |
+
+## Usage
+
+```tsx
+import { BlobmateAvatar } from "@lifeatjntuh/junction";
+
+<BlobmateAvatar seed="ananya" />;
+```
+
+Install `blobmates` only if you want the animated avatar — without it,
+the placeholder shows instead, and nothing breaks.

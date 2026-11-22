@@ -1,0 +1,57 @@
+---
+title: ProfileCard
+description: Informal community profile card for student buddies — card, compact and hero variants, with vibe badges, stats and Add Mate.
+---
+
+import { ProfileCardDemo } from "@site/src/components/demos/profile-card-demo";
+
+# ProfileCard
+
+<ProfileCardDemo />
+
+Informal college community profile card for student buddies. Blobmate
+stage on top, college vibe badge, branch/year chips, campus bio,
+karma/mates stats, and an interactive Add Mate toggle (controlled with
+`isMate` / `onToggleMate`, or internal state by default).
+
+## Props
+
+| Prop | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `name` | `string` | — | Required |
+| `handle` | `string` | — | Required |
+| `seed` | `string` | handle or name | Avatar seed |
+| `vibeStatus` | `{ icon?: string; text: string }` | — | Campus vibe badge, e.g. `{ icon: "solar:cup-hot-bold", text: "Canteen run" }` |
+| `badge` | `{ label: string; tone?: TagProps["tone"] }` | — | Role badge, e.g. LifeOps Curate |
+| `campus` | `string` | `JNTUH CEH` | |
+| `branch` | `string` | `CSE '26` | |
+| `bio` | `string` | — | Two lines max |
+| `tags` | `string[]` | `[]` | Interest / vibe tags |
+| `stats` | `{ events?: number; mates?: number; karma?: string \| number }` | — | Stats row |
+| `isMate` | `boolean` | internal state | Controlled Add Mate state |
+| `onToggleMate` | `() => void` | — | Called when Add Mate is tapped |
+| `onPing` | `() => void` | — | Called when the wave button is tapped |
+| `variant` | `card \| compact \| hero` | `card` | `compact` is a horizontal row for friend lists; `hero` is the expanded showcase card |
+| `className` | `string` | — | Merged with `cn()` |
+
+Vibe icons are Solar by name (`solar:eye-linear`,
+`solar:star-fall-bold`, `solar:hand-shake-linear` /
+`solar:hand-shake-bold`). The animated avatar is
+[BlobmateAvatar](./blobmate-avatar.md) — without the optional
+`blobmates` peer it shows a pastel placeholder instead.
+
+## Usage
+
+```tsx
+import { ProfileCard } from "@lifeatjntuh/junction";
+
+<ProfileCard
+  variant="card"
+  name="Ananya"
+  handle="@ananya.shoots"
+  vibeStatus={{ icon: "solar:cup-hot-bold", text: "Canteen run" }}
+  badge={{ label: "Campus Creator", tone: "pinkSoft" }}
+  tags={["photography", "fests", "chai"]}
+  stats={{ mates: 42, events: 12, karma: "4.9" }}
+/>;
+```

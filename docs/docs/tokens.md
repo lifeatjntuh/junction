@@ -3,7 +3,11 @@ title: Tokens
 description: Junction design tokens — core colours, pastels, fonts, radii and shadows, as CSS variables and typed TypeScript constants.
 ---
 
+import { TokensDemo } from "@site/src/components/demos/tokens-demo";
+
 # Tokens
+
+<TokensDemo />
 
 Tokens are a first-class API: the same values live as CSS variables in
 the theme stylesheet and as typed constants in `src/tokens.ts`

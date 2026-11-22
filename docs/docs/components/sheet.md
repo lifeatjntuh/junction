@@ -1,12 +1,33 @@
 ---
 title: Sheet
-description: Vaul bottom sheet for filters, details and actions on small screens.
+description: Vaul bottom sheet for filters, details and actions on small screens — Sheet, SheetTrigger, SheetContent and SheetClose.
 ---
+
+import { SheetDemo } from "@site/src/components/demos/sheet-demo";
 
 # Sheet
 
+<SheetDemo />
+
 Vaul bottom sheet — the panel that slides up from the bottom of the
-screen for filters, details and actions.
+screen for filters, details and actions. Drag handle, cream panel with
+big rounded top corners, Lexend title, optional description, safe-area
+padding. Swipe down or tap outside to close.
+
+## Primitives
+
+Compose `Sheet` → `SheetTrigger` → `SheetContent`, with `SheetClose`
+for the action button inside:
+
+- **`Sheet`** — the Vaul root (`Drawer.Root`).
+- **`SheetTrigger`** — opens the sheet; use `asChild` to render it as
+  your own button.
+- **`SheetContent`** — the sliding panel. Props: `title` (required,
+  the sheet heading), `description` (optional subheading), `children`.
+- **`SheetClose`** — closes the sheet; use `asChild` to render it as
+  your own button.
+
+## Usage
 
 ```tsx
 import { Sheet, SheetTrigger, SheetContent, SheetClose, Button } from "@lifeatjntuh/junction";
@@ -23,10 +44,3 @@ import { Sheet, SheetTrigger, SheetContent, SheetClose, Button } from "@lifeatjn
   </SheetContent>
 </Sheet>
 ```
-
-## Props
-
-| Component | Prop | Type | Notes |
-| --- | --- | --- | --- |
-| `SheetContent` | `title` | `string` | Sheet heading |
-| `SheetContent` | `description` | `string` | Optional subheading |

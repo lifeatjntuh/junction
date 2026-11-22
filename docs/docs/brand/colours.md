@@ -1,0 +1,48 @@
+---
+title: Colours
+description: The Junction colour system — Plum, Cream, Hot pink, Orange, Violet, and six pastels. Live swatches included.
+---
+
+import { TokensDemo } from "@site/src/components/demos/tokens-demo";
+
+# Colours
+
+<TokensDemo />
+
+Plum and cream do most of the work. Hot pink is the one loud colour;
+pastels fill panels and backgrounds.
+
+## Core colours
+
+| Colour | Hex | Use |
+| --- | --- | --- |
+| Plum | `#1f1235` | Text, dark panels |
+| Cream | `#fff7ee` | Page background |
+| Hot pink | `#f0208f` | Main buttons, highlights |
+| Orange | `#ff6a1f` | Ticker, second accent |
+| Violet | `#7b5cff` | Small accents only |
+
+## Pastels
+
+One pastel per panel or post — never two pastels fighting on one
+surface.
+
+| Pastel | Hex |
+| --- | --- |
+| Pink | `#ffc9e6` |
+| Lime | `#dcf58a` |
+| Blue | `#c9e0ff` |
+| Yellow | `#fff27a` |
+| Lavender | `#ddd2ff` |
+| Peach | `#ffd6bd` |
+
+## In code
+
+The same values live as typed constants — see [Tokens](../tokens.md):
+
+```ts
+import { tokens } from "@lifeatjntuh/junction/tokens";
+
+tokens.colors.hotPink; // "#f0208f"
+tokens.pastels.pink; // "#ffc9e6"
+```
