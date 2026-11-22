@@ -7,9 +7,9 @@ import tailwindcss from "@tailwindcss/vite";
 // vite.config.ts; this config only builds dist/ for npm.
 //
 // Outputs:
-//   dist/junction.js  (ESM) and dist/junction.cjs (CJS) — main entry
+//   dist/index.js  (ESM) and dist/index.cjs (CJS) — main entry
 //   dist/tokens.js    (ESM) and dist/tokens.cjs   (CJS) — tokens-only entry
-//   dist/style.css    — the compiled Junction theme (import via
+//   dist/junction.css — the compiled Junction theme (import via
 //                       "@lifeatjntuh/junction/theme")
 // Type declarations are emitted separately by `tsc -p tsconfig.lib.json`
 // into dist/types/.

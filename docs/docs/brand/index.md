@@ -1,6 +1,6 @@
 ---
 title: Brand
-description: What Junction is — the brand design guidelines for LifeatJNTUH: one look for the site, socials and apps.
+description: "What Junction is — the brand design guidelines for LifeatJNTUH: one look for the site, socials and apps."
 ---
 
 # Junction — the brand guidelines

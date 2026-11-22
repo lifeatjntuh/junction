@@ -10,7 +10,7 @@ description: Entry points, builds, prop conventions, tokens and accessibility fo
 | Import | What it is |
 | --- | --- |
 | `@lifeatjntuh/junction` | Everything: all components, types, `cn`, tokens. Imports the theme CSS as a side effect. |
-| `@lifeatjntuh/junction/theme` | The compiled theme stylesheet only (`dist/style.css`). |
+| `@lifeatjntuh/junction/theme` | The compiled theme stylesheet only (`dist/junction.css`). |
 | `@lifeatjntuh/junction/tokens` | Typed token constants only — no CSS side effect. |
 
 One main entry point, plus subpaths where they help. No internal files
@@ -65,7 +65,7 @@ docs page — nothing is exported without documentation.
 
 ## Builds
 
-- ESM (`dist/junction.js`) and CJS (`dist/junction.cjs`) from the same
+- ESM (`dist/index.js`) and CJS (`dist/index.cjs`) from the same
   source, plus a separate `dist/tokens.js` / `dist/tokens.cjs`.
 - TypeScript declarations (`.d.ts`) for every export, emitted by
   `tsc -p tsconfig.lib.json` into `dist/types/`.

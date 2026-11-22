@@ -62,7 +62,7 @@ side effect) is enough in a Vite + `@tailwindcss/vite` app.
 | Import | What it is |
 | --- | --- |
 | `@lifeatjntuh/junction` | Everything: all components, types, `cn`, tokens. Imports the theme CSS as a side effect. |
-| `@lifeatjntuh/junction/theme` | The compiled theme stylesheet only (`dist/style.css`). |
+| `@lifeatjntuh/junction/theme` | The compiled theme stylesheet only (`dist/junction.css`). |
 | `@lifeatjntuh/junction/tokens` | Typed token constants only — no CSS side effect. |
 
 ## Before the first publish

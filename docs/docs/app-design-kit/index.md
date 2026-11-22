@@ -1,6 +1,6 @@
 ---
 title: App Design Kit
-description: The app parts of Junction — AppShell, AppState, EventCard, ProfileCard and ScheduleGrid — plus the app-kit guidance: Lexend, softer shadows, tap feedback, Solar icons, phone-width layouts.
+description: "The app parts of Junction — AppShell, AppState, EventCard, ProfileCard and ScheduleGrid — plus the app-kit guidance: Lexend, softer shadows, tap feedback, Solar icons, phone-width layouts."
 ---
 
 # App Design Kit
