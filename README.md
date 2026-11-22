@@ -14,6 +14,8 @@ experiences built by LifeatJNTUH. It is the design system from the
   headlines, Plus Jakarta Sans for body, Lexend for app screens. 32px panel
   corners, fully round buttons and chips, soft shadows.
 
+Designed by [@muddassirhq](https://github.com/muddassirhq) — the sole author of this design system.
+
 > **Status: 0.1.0, not published yet.** The package is set up to publish
 > (`pnpm publish` from this repo after a build), but it has not been
 > published to the npm registry. The name `@lifeatjntuh/junction` has not
