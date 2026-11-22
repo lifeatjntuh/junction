@@ -17,6 +17,13 @@ import tailwindcss from "@tailwindcss/vite";
 // dependencies (Radix primitives, vaul, Solar icons, motion, cva, clsx,
 // tailwind-merge) are bundled so consumers get a working install with
 // no extra peer setup beyond React and Tailwind v4.
+//
+// "blobmates/react" must also stay external: ProfileCard loads it with a
+// dynamic import, and blobmates is an optional peer that is NOT installed
+// (it is only listed under peerDependenciesMeta). If Rollup tries to
+// resolve that import at build time the lib build fails. Kept external,
+// the dynamic import is preserved in the output and BlobmateAvatar falls
+// back to its pastel placeholder when blobmates is not installed.
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
@@ -35,7 +42,7 @@ export default defineConfig({
         `${entryName}.${format === "es" ? "js" : "cjs"}`,
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime"],
+      external: ["react", "react-dom", "react/jsx-runtime", "blobmates/react"],
       output: {
         globals: {
           react: "React",
