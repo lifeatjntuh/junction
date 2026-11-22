@@ -1,82 +1,60 @@
 import * as React from "react";
-import { Tabs as TabsPrimitive } from "@base-ui-components/react/tabs";
+import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-export const Tabs = TabsPrimitive.Root;
+const TabsStyle = React.createContext<"pill" | "underline">("pill");
 
-type TabsVariant = "pill" | "underline";
-const TabsVariantContext = React.createContext<TabsVariant>("underline");
+const listVariants = cva("no-scrollbar inline-flex max-w-full items-center overflow-x-auto font-app", {
+  variants: {
+    variant: {
+      pill: "gap-1 rounded-full bg-ploy-background-secondary p-1 shadow-app-sm",
+      underline: "gap-6 border-b border-ploy-border-primary",
+    },
+  },
+  defaultVariants: { variant: "pill" },
+});
 
-export function TabsList({
-  className,
-  variant = "underline",
-  ...props
-}: React.ComponentProps<typeof TabsPrimitive.List> & { variant?: TabsVariant }) {
-  return (
-    <TabsVariantContext.Provider value={variant}>
-      <TabsPrimitive.List
-        data-slot="tabs-list"
-        className={cn(
-          "relative flex items-center",
-          variant === "pill" && "gap-1 rounded-full bg-muted p-1",
-          variant === "underline" && "gap-6 border-b border-border",
-          className,
-        )}
-        {...props}
-      />
-    </TabsVariantContext.Provider>
-  );
-}
-
-export function TabsTab({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Tab>) {
-  const variant = React.useContext(TabsVariantContext);
-  return (
-    <TabsPrimitive.Tab
-      data-slot="tabs-tab"
-      className={cn(
-        "relative z-10 select-none whitespace-nowrap text-sm font-medium outline-none transition-colors",
-        "text-muted-foreground data-[selected]:text-foreground",
-        variant === "pill" && "rounded-full px-4 py-1.5",
-        variant === "underline" && "pb-3",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
+const triggerVariants = cva(
+  "press-effect shrink-0 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ploy-accent-primary",
+  {
+    variants: {
+      variant: {
+        pill: "rounded-full px-4 py-2 text-ploy-text-secondary hover:text-ploy-text-primary data-[state=active]:bg-ploy-accent-primary data-[state=active]:text-white data-[state=active]:shadow-glow",
+        underline:
+          "-mb-px border-b-2 border-transparent pb-3 pt-1 text-ploy-text-secondary hover:text-ploy-text-primary data-[state=active]:border-ploy-accent-primary data-[state=active]:text-ploy-text-primary",
+      },
+    },
+    defaultVariants: { variant: "pill" },
+  },
+);
 
 /**
- * Tabs.Indicator is styled as a sliding pill for the day switcher (`bg-background`
- * `shadow-sm`, matches shadcn's default underline swap for a segmented control) or
- * as a 2px bottom border for the admin tab bar — set via `variant`, not two components.
+ * App tabs (Radix). TabsList variant pill = white pill track with a hot-pink
+ * active pill (day switcher); underline = admin-style tab bar with a pink
+ * underline. Scrolls sideways when tabs overflow. Compose
+ * Tabs > TabsList > TabsTrigger, then TabsContent.
  */
-export function TabsIndicator({
+export const Tabs = TabsPrimitive.Root;
+
+export function TabsList({
+  variant = "pill",
   className,
   ...props
-}: React.ComponentProps<typeof TabsPrimitive.Indicator>) {
-  const variant = React.useContext(TabsVariantContext);
+}: React.ComponentProps<typeof TabsPrimitive.List> & VariantProps<typeof listVariants>) {
+  const v = variant ?? "pill";
   return (
-    <TabsPrimitive.Indicator
-      data-slot="tabs-indicator"
-      className={cn(
-        "absolute z-0 transition-all duration-300 ease-out",
-        variant === "pill" &&
-          "top-1 left-0 h-[calc(100%-0.5rem)] w-[var(--active-tab-width)] translate-x-[var(--active-tab-left)] rounded-full bg-background shadow-sm",
-        variant === "underline" &&
-          "bottom-0 left-0 h-0.5 w-[var(--active-tab-width)] translate-x-[var(--active-tab-left)] bg-primary",
-        className,
-      )}
-      {...props}
-    />
+    <TabsStyle.Provider value={v}>
+      <TabsPrimitive.List className={cn(listVariants({ variant: v }), className)} {...props} />
+    </TabsStyle.Provider>
   );
 }
 
-export function TabsPanel({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Panel>) {
-  return (
-    <TabsPrimitive.Panel
-      data-slot="tabs-panel"
-      className={cn("pt-4 outline-none", className)}
-      {...props}
-    />
-  );
+export function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
+  const variant = React.useContext(TabsStyle);
+  return <TabsPrimitive.Trigger className={cn(triggerVariants({ variant }), className)} {...props} />;
+}
+
+export function TabsContent({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>) {
+  return <TabsPrimitive.Content className={cn("mt-4 font-body text-ploy-text-secondary focus-visible:outline-none", className)} {...props} />;
 }

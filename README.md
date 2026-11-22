@@ -1,102 +1,298 @@
-# Junction
+# Junction — LifeatJNTUH Design System
 
-Junction is the shared design system powering the digital products and experiences built by
-**LifeatJNTUH**. It's shadcn/ui, run on the [Base UI](https://base-ui.com) primitive library
-instead of Radix, wired to one set of Tailwind v4 design tokens.
+Junction is the shared design system powering the digital products and
+experiences built by LifeatJNTUH. It is the design system from the
+@lifeatjntuh website, packaged as an npm package:
 
-This repo is both:
-1. A **living style guide** you can run and click through (`npm run dev`).
-2. A **component source** another coding agent can lift files from, or extend with the shadcn
-   CLI, to build real Junction-branded product UI.
+- **Source:** `lifeatjntuh-admin/website` — `src/styles/globals.css` and
+  `src/components/pages/design-system/page.tsx` (+ `app-kit.tsx`), and the
+  website's `src/components/ui/` and `src/components/app/` components.
+- **Live reference:** https://lifeatjntuh.web.app/design-system
+- **Look:** Plum `#1f1235`, Cream `#fff7ee`, Hot pink `#f0208f`, Orange
+  `#ff6a1f`, Violet `#7b5cff`; pastels Pink, Lime, Blue, Yellow, Lavender,
+  Peach. Fredoka for website headlines, Bricolage Grotesque for social
+  headlines, Plus Jakarta Sans for body, Lexend for app screens. 32px panel
+  corners, fully round buttons and chips, soft shadows.
 
-## Stack
+> **Status: 0.1.0, not published yet.** The package is set up to publish
+> (`npm publish` from this repo after a build), but it has not been
+> published to the npm registry. The name `@lifeatjntuh/junction` has not
+> been checked against the registry — confirm it is free before the first
+> publish.
 
-- [Vite](https://vite.dev) + React 19 + TypeScript
-- [Tailwind CSS v4](https://tailwindcss.com) via `@tailwindcss/vite` (no `tailwind.config.js` —
-  everything lives in `src/styles/junction-theme.css`)
-- [Base UI](https://base-ui.com) (`@base-ui-components/react`) as the headless component runtime
-- [shadcn CLI](https://ui.shadcn.com) configured for the Base UI variant (`components.json`)
-- Icons via [Iconify](https://iconify.design)'s Solar set, loaded as the `<iconify-icon>` web
-  component — **not** `lucide-react`. `lucide-react` stays a dependency only because the shadcn
-  CLI requires an `iconLibrary` value; don't import from it when writing Junction UI.
+## Docs
 
-## Getting started
+**https://lifeatjntuh.github.io/junction/** — built with
+[Docusaurus](https://docusaurus.io/) (React + MDX) in `docs/`, deployed by
+`.github/workflows/deploy-pages.yml` to GitHub Pages. It documents the
+colours, fonts, tokens and every component, with copy-paste usage examples
+and props.
+
+> The workflow file itself is not in this PR: GitHub App tokens cannot
+> create or update files under `.github/workflows/`, so an org admin must
+> replace the existing workflow (which still deploys the old Vite demo)
+> with the version pasted in the PR description. Pages must also be
+> enabled with Source = "GitHub Actions" (Settings → Pages).
+
+The docs are LLM-friendly, using two published plugins (no custom copy
+code):
+
+- [`docusaurus-plugin-llms`](https://www.npmjs.com/package/docusaurus-plugin-llms)
+  writes `llms.txt`, `llms-full.txt` and one `.md` copy of every page at
+  build time.
+- [`docusaurus-plugin-copy-page-button`](https://www.npmjs.com/package/docusaurus-plugin-copy-page-button)
+  adds a **Copy page as Markdown** button to every page, plus **Open in
+  ChatGPT / Claude / Perplexity / Gemini** actions that point at the `.md`
+  copies.
+
+Run the docs locally:
+
+```bash
+npm run docs:dev    # http://localhost:3000/junction/
+npm run docs:build  # static site in docs/build
+```
+
+> GitHub Pages must be enabled for this repo with Source = "GitHub
+> Actions" (Settings → Pages) for the workflow to publish. The workflow
+> builds fine without it, but the deploy step has nowhere to publish to.
+
+## Install
+
+```bash
+npm install @lifeatjntuh/junction
+```
+
+Peer dependencies (your app provides these): `react` ^19, `react-dom` ^19,
+`tailwindcss` ^4. The package bundles its other runtime dependencies
+(Radix primitives, vaul, Solar icons, motion, cva/clsx/tailwind-merge), so
+there is nothing else to install for the core components.
+
+Optional: `blobmates` — only needed if you want the animated avatar in
+`ProfileCard` / `BlobmateAvatar`. Without it, the avatar shows a pastel
+placeholder instead.
+
+## Usage
+
+```tsx
+import "@lifeatjntuh/junction/theme";
+import { Button, Panel, Tag, Heading, Text } from "@lifeatjntuh/junction";
+
+export function Hero() {
+  return (
+    <Panel color="pink">
+      <Heading size="lg">Find your people</Heading>
+      <Text tone="muted">Club events, campus photos and buddy apps.</Text>
+      <Button>Join LifeOps</Button>
+      <Tag tone="dark">Music</Tag>
+    </Panel>
+  );
+}
+```
+
+Load the fonts in your HTML (the package does not bundle fonts):
+
+```html
+<link
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75,800&family=Fredoka:wght@600;700&family=Lexend:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+```
+
+Your Tailwind v4 setup must process the theme stylesheet — importing
+`@lifeatjntuh/junction/theme` (or the main entry, which imports it as a
+side effect) is enough in a Vite + `@tailwindcss/vite` app.
+
+### App screens
+
+```tsx
+import { Button, Field, Input, Tabs, TabsList, TabsTrigger, ChipGroup } from "@lifeatjntuh/junction";
+import { AppShell, AppTopBar, AppBottomNav, ScheduleGrid } from "@lifeatjntuh/junction";
+
+<Button kit="app">Register</Button>
+```
+
+`kit="app"` on `Button` and `Tag` switches to the app look: Lexend,
+tap-shrink instead of lift, pink glow on primary buttons.
+
+### Toasts
+
+```tsx
+import { ToastProvider, useToast } from "@lifeatjntuh/junction";
+
+function Screen() {
+  const toast = useToast();
+  return <Button onClick={() => toast({ title: "Saved!", tone: "success" })}>Save</Button>;
+}
+
+// Wrap the app (or the screen) in <ToastProvider> first.
+```
+
+### Tokens in code
+
+```ts
+import { tokens, colors, fonts } from "@lifeatjntuh/junction/tokens";
+
+tokens.colors.hotPink; // "#f0208f"
+tokens.fonts.app; // "Lexend"
+```
+
+The `tokens` subpath has no CSS side effect. The same values live as CSS
+variables in the theme stylesheet — use the variables in stylesheets and
+these constants in JS/TS (chart colours, canvas, `theme-color`).
+
+## Icons
+
+Solar, linear, everywhere — via `@solar-icons/react` and `@iconify/react`
+(`solar:` icons). There is no Lucide and no other icon set in the package,
+the docs or the demo. See the [Icons page](https://lifeatjntuh.github.io/junction/icons)
+in the docs for the full list and usage examples.
+
+```tsx
+import { SunIcon } from "@solar-icons/react/linear/sun";
+import { Icon } from "@iconify/react";
+
+<SunIcon />
+<Icon icon="solar:eye-linear" />;
+```
+
+## API design
+
+### Entry points
+
+| Import | What it is |
+| --- | --- |
+| `@lifeatjntuh/junction` | Everything: all components, types, `cn`, tokens. Imports the theme CSS as a side effect. |
+| `@lifeatjntuh/junction/theme` | The compiled theme stylesheet only (`dist/style.css`). |
+| `@lifeatjntuh/junction/tokens` | Typed token constants only — no CSS side effect. |
+
+One main entry point, plus subpaths where they help. No internal files
+leak into the public surface: `src/lib/utils.ts` exposes only `cn`,
+`src/lib/schedule-layout.ts` exposes the layout helper and its types, and
+component internals are not exported.
+
+### Builds
+
+- ESM (`dist/junction.js`) and CJS (`dist/junction.cjs`) from the same
+  source, plus a separate `dist/tokens.js` / `dist/tokens.cjs`.
+- TypeScript declarations (`.d.ts`) for every export, emitted by
+  `tsc -p tsconfig.lib.json` into `dist/types/`.
+- Tree-shakeable: named ESM exports, `sideEffects: ["*.css"]` (only the
+  theme CSS has side effects), React/React DOM external as peers.
+- `exports` map with `types` / `import` / `require` conditions, so
+  bundlers and Node both resolve correctly.
+
+### Prop conventions
+
+Consistent across all components, following the website components:
+
+- `variant` — the main visual variant (`Button`, `EventCard`, `TabsList`).
+- `size` — `xs | sm | md | lg` (or the component's own scale), with a
+  sensible default (`md` for buttons, `lg` for headings).
+- `tone` — colour intent where the component is a label or chip
+  (`Tag`, `Text`, `AppState`).
+- `kit` — `"web" | "app"` on `Button` and `Tag`; `"app"` is the Event
+  Tracker / Buddy app look.
+- `as` — polymorphic tag where it fits (`Heading as="h1"`, `Text as="span"`).
+- `asChild` — render as the child element on `Button` (Radix Slot).
+- `disabled`, `className` — standard HTML behaviour everywhere; `className`
+  always merges with `cn()` and wins over defaults.
+- Every component's props type is exported (`ButtonProps`, `TagProps`,
+  `EventCardProps`, …) and documented with TSDoc.
+- `forwardRef` on components that wrap a DOM element (`Button`, `Input`,
+  `Textarea`).
+
+Stable, semantic props: no renames were made to the website components'
+props in this port, except `Logo`, which gained an optional `markSrc`
+(see below). One-off prop names were not introduced.
+
+### Theme and tokens
+
+Tokens are a first-class API: `src/tokens.ts` exports typed `colors`,
+`pastels`, `fonts`, `radii`, `shadows` and the combined `tokens` object,
+and the theme CSS defines the same values as variables. Consumers never
+need to copy hex values.
+
+### Accessibility
+
+Components keep the website's behaviour: correct semantics (`button`,
+`radiogroup`/`radio` in `ThemeToggle`, `role="group"` in `ChipGroup`,
+`aria-pressed` on toggle chips and save/going buttons, `aria-live="polite"`
+on toasts, `aria-invalid` + `aria-describedby` wired by `Field`), visible
+focus rings, keyboard support from Radix primitives (`Tabs`, popovers in
+the schedule), and reduced-motion handling in the theme.
+
+## Components
+
+Website parts (`src/components/ui/`): `Button`, `Panel`, `Tag`, `Heading`,
+`Text`, `Field` (+ `Input`, `Textarea`), `Tabs`, `Sheet`, `Toast`
+(`ToastProvider`, `useToast`), `ThemeToggle` (`useTheme`), `Logo`,
+`Container`, `ChipGroup`, `Reveal`.
+
+App kit (`src/components/app/`): `AppShell`, `AppTopBar`, `AppIconButton`,
+`AppBottomNav`, `AppMenuRow`, `AppState`, `Skeleton`, `EventCard`,
+`ProfileCard` (+ `BlobmateAvatar`), `ScheduleGrid`, `ScheduleEventBlock`,
+`EventQuickCard`, `layoutScheduleEvents`, `DEFAULT_CATEGORIES`.
+
+See `COMPONENT-MANIFEST.md` for the full list with props and status.
+
+## Demo
+
+The demo site in this repo (`src/App.tsx`, `src/sections/Showcase.tsx`)
+is **not** part of the published package — it only shows the components
+working. The public docs site is the Docusaurus site in `docs/` (see
+"Docs" above). Run the demo with:
 
 ```bash
 npm install
-npm run dev       # http://localhost:5173
+npm run dev        # demo site
+npm run build:lib  # build the package into dist/
+npm run build:demo # type-check + build the demo site
+npm run docs:dev   # docs site
+npm run docs:build # build the docs site into docs/build
+npm pack --dry-run # inspect what would be published (dist/ only)
 ```
 
-```bash
-npm run build      # type-check + production build to dist/
-npm run preview    # serve the production build locally
-```
+> Build note: the docs build was verified locally (Docusaurus 3.10.2:
+> `npm run docs:build` succeeds and writes `llms.txt`, `llms-full.txt`
+> and one `.md` copy per page). The library and demo builds were NOT
+> verified locally — the local clone step failed a system execution-risk
+> check, and the branch was built through the GitHub API instead. Run
+> `npm run build:lib` and `npm run build:demo` locally before merging,
+> and regenerate the root lockfile (`pnpm install` — the old
+> `pnpm-lock.yaml` still lists the removed Base UI / shadcn dependencies).
+> The docs app has its own `docs/package-lock.json` (npm), generated and
+> committed with this change.
 
-## Adding more components
+## Breaking changes from the old Junction (0.1.0, pre-release)
 
-Install anything else from shadcn's registry (Base UI variant) straight into this repo:
+This is a full replacement, not a migration — the old API is gone:
 
-```bash
-npx shadcn@latest add <component>
-```
+- **Removed:** shadcn/ui on Base UI. All old components are deleted:
+  `Accordion`, `Badge`, `Card`, `Dialog`, `Menu`, `Popover`, `Skeleton`
+  (old), `ToggleGroup`, and the shadcn `components.json` config.
+  `Field` in the new system is the website's form-field wrapper, not the
+  old one; `Sheet`, `Tabs` and `Toast` are the website's versions (vaul /
+  Radix Tabs / context toasts), not the old Base UI ones.
+- **Renamed package:** `junction-design-system` (private) →
+  `@lifeatjntuh/junction` (publishable, `private` removed).
+- **Tokens replaced:** the old oklch shadcn token set is gone. The new
+  tokens are the website's Plum/Cream/Hot pink system; class names such as
+  `bg-card`, `text-muted-foreground` and `shadow-glow` (old blue glow) no
+  longer exist — use `bg-ploy-*` / `text-ploy-*` classes and the new
+  `shadow-glow` (pink).
+- **Fonts replaced:** Inter/Lexend/JetBrains Mono → Fredoka, Bricolage
+  Grotesque, Plus Jakarta Sans, Lexend.
+- **Icons:** `<iconify-icon>` / Iconify Solar web component is gone.
+  Components use `@solar-icons/react` (bundled); `ProfileCard` uses
+  `@iconify/react` for vibe icons.
+- **Logo:** the website's `Logo` used a local media asset for its mark.
+  The package version takes an optional `markSrc` prop instead; without
+  it, only the wordmark renders.
+- **`.prose` styles removed:** the Tailwind typography plugin (and
+  `tw-animate-css`) are not dependencies of this package, so the `.prose`
+  block from the website stylesheet was dropped.
 
-`components.json` already points the CLI at `"base": "base-ui"` and at
-`src/styles/junction-theme.css` as the token file, so new components land pre-wired to Junction's
-palette, radii, and shadows — style the generated file's `className`s against the existing tokens
-(`bg-card`, `text-muted-foreground`, `border-border`, `shadow-glow`, `rounded-lg`, …) rather than
-hardcoding colors.
+## Versioning
 
-## Project structure
-
-```
-src/
-  styles/junction-theme.css   # token source of truth (colors, radius, shadow, font, all oklch)
-  lib/utils.ts                 # cn() — clsx + tailwind-merge
-  components/ui/               # the component library (see COMPONENT-MANIFEST.md)
-  sections/Showcase.tsx        # the style-guide page content
-  App.tsx                      # header, hero, showcase, custom-pattern notes
-COMPONENT-MANIFEST.md          # source pattern → shadcn component → Base UI primitive mapping
-components.json                # shadcn CLI config (base-ui, new-york, this repo's token file)
-```
-
-Read **COMPONENT-MANIFEST.md** first if you're an agent picking this repo up — it tells you which
-component and which custom variant to reach for instead of re-deriving Junction's design from
-scratch, and lists the handful of patterns (bottom nav, countdown hero, masonry grid, schedule
-timeline, carousel, auth/404 screens) that are intentionally kept as plain Tailwind because no
-shadcn/Base UI component fits them.
-
-## Known risk areas
-
-Base UI is under active development. Two primitives in this library are newer / less settled and
-are flagged inline in their source files as well:
-
-- **`components/ui/toast.tsx`** — Base UI's Toast primitive only shipped in July 2026. Verify
-  `Provider` / `Viewport` / `useToastManager()` against the current docs before shipping.
-- **`components/ui/accordion.tsx`** — uses `data-panel-open` for the open-state selector; confirm
-  that attribute name against base-ui.com before relying on it.
-
-Run `npm install` before trusting any of this against real type definitions — `@base-ui-components/react`
-is pinned to `latest` in `package.json` deliberately, since the API is still moving.
-
-No `package-lock.json` is committed for the same reason: pinning `latest` and locking it
-would defeat the point. CI runs `npm install` rather than `npm ci` as a result. Once you're ready
-to stop tracking Base UI's latest release automatically, run `npm install` locally, pin
-`@base-ui-components/react` to a real version, commit the generated `package-lock.json`, and
-switch both workflow files back to `npm ci` for reproducible installs.
-
-## Deploy
-
-**GitHub Pages** — `.github/workflows/deploy-pages.yml` builds and deploys `main` automatically
-once Pages is enabled for the repo (Settings → Pages → Source: GitHub Actions). If the repo is
-served from a subpath (`https://<user>.github.io/<repo>/`), add `base: "/<repo>/"` to
-`vite.config.ts`.
-
-**Vercel / Netlify** — this is a standard Vite app: build command `npm run build`, output
-directory `dist`, no extra configuration needed.
-
-**Plain CI** — `.github/workflows/build.yml` installs and builds on every push/PR and uploads
-`dist` as a build artifact, independent of where you deploy.
-
-## License
-
-MIT — see `LICENSE`.
+Semver, starting at `0.1.0` (pre-release: breaking changes are expected
+before 1.0). See `CHANGELOG.md`.
