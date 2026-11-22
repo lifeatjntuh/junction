@@ -1,0 +1,4 @@
+# pnpm 11: a dependency may only run install scripts if listed here.
+# esbuild's postinstall downloads its platform binary, which Vite needs.
+allowBuilds:
+  esbuild: true

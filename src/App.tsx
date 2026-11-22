@@ -7,7 +7,7 @@ import { ToastProvider } from "@/components/ui/toast";
  * Demo site for the Junction package. This is NOT part of the published
  * package — the package is src/index.ts, src/tokens.ts, src/components/
  * and src/styles/. This file and src/sections/ exist only to show the
- * components working, and to verify the build with `npm run build:demo`.
+ * components working, and to verify the build with `pnpm run build:demo`.
  */
 export default function App() {
   return (

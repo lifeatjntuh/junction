@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Install @lifeatjntuh/junction with npm, import the theme, and render your first components.
+description: Install @lifeatjntuh/junction with pnpm, import the theme, and render your first components.
 ---
 
 # Installation
@@ -14,7 +14,7 @@ description: Install @lifeatjntuh/junction with npm, import the theme, and rende
 ## Install
 
 ```bash
-npm install @lifeatjntuh/junction
+pnpm add @lifeatjntuh/junction
 ```
 
 Peer dependencies (your app provides these): `react` ^19, `react-dom`
@@ -72,7 +72,7 @@ Install from a local build instead:
 ```bash
 git clone https://github.com/lifeatjntuh/junction.git
 cd junction
-npm install
-npm run build:lib
-npm pack   # then install the .tgz in your app
+pnpm install
+pnpm run build:lib
+pnpm pack   # then install the .tgz in your app
 ```
