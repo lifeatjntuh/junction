@@ -63,6 +63,120 @@
   color: var(--ifm-menu-color-active);
 }
 
+/* --- Footer: plum, not Docusaurus slate ---
+ * Root cause: custom.css set --ifm-footer-background-color: #1f1235 on
+ * :root, but the footer has style="dark", and Infima's .footer--dark
+ * rule (infima 0.2.0-alpha.45, default.css:2193) redefines the variable
+ * to #303846 ON THE FOOTER ELEMENT ITSELF. An element-level custom
+ * property always beats the inherited :root value, so the :root
+ * assignment never took effect. Fix it with the same selector, loaded
+ * later (custom.css is bundled after Infima), so this wins. Link/title
+ * colours are set explicitly too: pastel pink #ffc9e6 links on Plum
+ * are 12.33:1, cream #fff7ee titles 16.54:1 (WCAG AA). */
+.footer--dark {
+  --ifm-footer-background-color: #1f1235;
+  --ifm-footer-color: #fff7ee;
+  --ifm-footer-link-color: #ffc9e6;
+  --ifm-footer-title-color: #fff7ee;
+}
+
+.footer--dark .footer__link-item {
+  color: #ffc9e6;
+}
+
+.footer--dark .footer__link-item:hover {
+  color: #fff7ee;
+}
+
+/* --- Footer: compact ---
+ * The footer lists all 43 articles (kept in full — mobile readers have
+ * no sidebar), so it is tall by design; tighten it instead of cutting
+ * links: smaller type, tighter leading and padding. */
+.footer {
+  padding: 2rem 0 1.25rem;
+}
+
+.footer__title {
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+}
+
+.footer__link-item {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  padding: 0.1rem 0;
+}
+
+.footer__col {
+  margin-bottom: 1.25rem;
+}
+
+.footer__copyright {
+  margin-top: 0.75rem;
+}
+
+/* --- Navbar: visible on Plum, in light AND dark mode ---
+ * Root cause (same family as the footer): the navbar colours lived
+ * only in :root variables, and the navbar logo itself was the problem
+ * too — favicon.svg is a Plum square with a small pink "J", which
+ * blends into the Plum navbar. Fix both halves explicitly, not via
+ * variables alone: hard colours on the brand/title/links/toggle, and
+ * a light logo asset (img/logo-navbar.svg: hot-pink square, cream
+ * "J") set in docusaurus.config.ts. Cream #fff7ee on Plum is 16.54:1,
+ * pastel pink #ffc9e6 hover is 12.33:1 (WCAG AA). The navbar is Plum
+ * in both colour modes, so these rules are not mode-scoped. */
+.navbar {
+  background-color: #1f1235;
+}
+
+.navbar__brand,
+.navbar__title {
+  color: #fff7ee;
+}
+
+.navbar__brand:hover {
+  color: #ffc9e6;
+}
+
+.navbar__link {
+  color: #fff7ee;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: #ffc9e6;
+}
+
+/* Theme toggle and the mobile hamburger are clean-btn buttons whose
+ * icons inherit the button colour; make sure they read on Plum. */
+.navbar .clean-btn,
+.navbar__toggle {
+  color: #fff7ee;
+}
+
+/* --- Props tables: let long union types wrap ---
+ * Infima renders markdown tables as display:block with horizontal
+ * scroll, and inline code does not wrap, so the Button props table's
+ * long `primary | secondary | …` type cells overflowed the doc column
+ * and the Default/Notes columns ran together. Let table cells and
+ * their code wrap at spaces/pipes instead. */
+.theme-doc-markdown table {
+  display: table;
+  width: 100%;
+}
+
+.theme-doc-markdown table td,
+.theme-doc-markdown table th {
+  overflow-wrap: break-word;
+}
+
+.theme-doc-markdown table td code,
+.theme-doc-markdown table th code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 /* Junction landing hero (src/pages/index.tsx). */
 .junction-hero {
   background: #1f1235;
@@ -78,10 +192,17 @@
   margin-bottom: 0.5rem;
 }
 
-.junction-hero p {
+/* The tagline must sit in a centred 640px block: margin auto on both
+ * sides plus explicit centre alignment. (A plain `.junction-hero p`
+ * rule rendered left-aligned on the live site after PR #5, so this
+ * uses the higher-specificity `header > p` selector.) */
+header.junction-hero > p {
   font-size: 1.15rem;
   max-width: 640px;
   margin: 0 auto 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .junction-hero .buttons {
