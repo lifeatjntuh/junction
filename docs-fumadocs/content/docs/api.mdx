@@ -1,0 +1,44 @@
+---
+title: API reference
+description: Entry points, builds, prop conventions, tokens and accessibility for @lifeatjntuh/junction.
+---
+
+# API reference
+
+## Entry points
+
+| Import | What it is |
+| --- | --- |
+| `@lifeatjntuh/junction` | Everything: all components, types, `cn`, tokens. Imports the theme CSS as a side effect. |
+| `@lifeatjntuh/junction/theme` | The compiled theme stylesheet only (`dist/junction.css`). |
+| `@lifeatjntuh/junction/tokens` | Typed token constants only — no CSS side effect. |
+
+One main entry point, plus subpaths where they help. No internal files
+leak into the public surface: `src/lib/utils.ts` exposes only `cn`,
+`src/lib/schedule-layout.ts` exposes the layout helper and its types, and
+component internals are not exported.
+
+## Main exports
+
+- **Utilities:** `cn`, `layoutScheduleEvents`, `tokens`, `colors`,
+  `pastels`, `fonts`, `radii`, `shadows`
+- **Website components:** `Button`, `Panel`, `Tag`, `Heading`, `Text`,
+  `Field`, `Input`, `Textarea`, `Tabs`, `Sheet`, `ToastProvider`,
+  `ThemeToggle`, `Logo`, `Container`, `ChipGroup`, `Reveal`
+- **App components:** `AppShell`, `AppTopBar`, `AppBottomNav`,
+  `AppMenuRow`, `AppState`, `EventCard`, `ProfileCard`,
+  `BlobmateAvatar`, `ScheduleGrid`, `EventQuickCard`
+
+The full inventory, with a docs page for every export, lives on the
+live Docusaurus site. This prototype carries four pages only.
+
+## Builds
+
+- ESM (`dist/index.js`) and CJS (`dist/index.cjs`) from the same
+  source, plus a separate `dist/tokens.js` / `dist/tokens.cjs`.
+- TypeScript declarations (`.d.ts`) for every export, emitted by
+  `tsc -p tsconfig.lib.json` into `dist/types/`.
+- Tree-shakeable: named ESM exports, `sideEffects: ["*.css"]` (only the
+  theme CSS has side effects), React/React DOM external as peers.
+- `exports` map with `types` / `import` / `require` conditions, so
+  bundlers and Node both resolve correctly.

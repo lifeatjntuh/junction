@@ -1,0 +1,8 @@
+minimumReleaseAgeExclude:
+  - '@fumadocs/base-ui@16.19.7'
+  - fumadocs-core@16.19.7
+
+# pnpm 11: a dependency may only run install scripts if listed here.
+# esbuild's postinstall downloads its platform binary, which Vite needs.
+allowBuilds:
+  esbuild: true
