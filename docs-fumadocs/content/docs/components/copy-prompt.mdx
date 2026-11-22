@@ -1,0 +1,36 @@
+---
+title: CopyPrompt
+description: Read-only prompt box with a copy button — CopyPrompt, used for the image-generation prompts on the design-system page.
+---
+
+`CopyPrompt` is a read-only prompt box with a copy button. It is the
+component the whole "Make more 3D objects" workflow depends on — every
+prompt on [Make more 3D objects](/docs/brand/make-3d) is shown in one.
+
+## Behaviour
+
+- The text is selectable (`select-all`) and shown in monospace 13px.
+- The copy button copies the exact text; it shows a check for 1.8
+  seconds after copying, then goes back to the copy icon.
+- `tone="light"` on white or pastel; `tone="dark"` on plum.
+
+## Props
+
+| Prop | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `text` | `string` | — | Required — the prompt to show and copy |
+| `tone` | `"light" \| "dark"` | `"light"` | `dark` is white text on `bg-white/10` (plum panels); `light` is the page background |
+| `className` | `string` | — | Merged with `cn()` |
+
+`CopyPrompt` lives in the website repo, not in the
+`@lifeatjntuh/junction` package — it is documented here because the
+"Make more 3D objects" workflow depends on it. Copy the component from
+`src/components/pages/design-system/copy-prompt.tsx` if you need it.
+
+```tsx
+<CopyPrompt text="A single cute 3D inflated puffy guitar, ..." />
+<CopyPrompt text="A single cute 3D inflated puffy guitar, ..." tone="dark" />
+```
+
+Source: `lifeatjntuh-admin/website` —
+`src/components/pages/design-system/copy-prompt.tsx`.

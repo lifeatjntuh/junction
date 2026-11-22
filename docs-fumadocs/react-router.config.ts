@@ -9,6 +9,12 @@ export default {
   ssr: true,
   // Deployed to GitHub Pages at https://lifeatjntuh.github.io/junction/
   basename: basePath,
+  // Static host: no server answers the /__manifest route-discovery
+  // endpoint, so lazy discovery (the default) makes every client-side
+  // navigation throw — the manifest fetch 404s and the navigation lands
+  // in the root ErrorBoundary ("Oops!"). Ship the full manifest instead;
+  // the site is small and the manifest is a few KB.
+  routeDiscovery: { mode: 'initial' },
   async prerender({ getStaticPaths }) {
     const paths: string[] = [];
 

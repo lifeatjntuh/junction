@@ -1,0 +1,46 @@
+---
+title: Theme
+description: How the Junction theme works — Light, Dark and System, the dark class on <html>, the "theme" localStorage key, and why social templates never go dark.
+---
+
+Junction has three theme choices: **Light**, **Dark** and **System**
+(follows the device). The switcher is
+[ThemeToggle](/docs/components/theme-toggle); the choice is stored, so
+it survives reloads.
+
+## How it works
+
+- `ThemeToggle` adds or removes the `dark` class on `<html>`.
+- The choice is saved to localStorage under the key `"theme"`.
+- **System** clears the stored key — the theme then follows the
+  device live, and tracks device changes as they happen.
+- Use `useTheme()` (`{ choice, setTheme }`) when your own code needs
+  the current theme instead of the switcher UI.
+
+```tsx
+import { ThemeToggle, useTheme } from "@lifeatjntuh/junction";
+
+<ThemeToggle />;
+
+const { choice, setTheme } = useTheme();
+setTheme("dark");
+```
+
+## Social templates never go dark
+
+Social templates always render light, whatever the viewer's theme is.
+`SocialFrame` carries `force-light`, so a post or story built in the
+studio looks the same on a dark-mode phone as on a light one. See
+[Social primitives](/docs/social-media-kit/primitives).
+
+## Customising the theme
+
+The theme values are the [tokens](/docs/tokens) — the same colours,
+pastels, fonts, radii and shadows as CSS variables in the theme
+stylesheet and as typed constants in
+`@lifeatjntuh/junction/tokens`. Change the theme by changing the
+tokens, not by overriding individual components.
+
+Source: `lifeatjntuh-admin/website` —
+`src/components/ui/theme-toggle.tsx` and
+`src/components/social/social-kit.tsx` (`force-light`).

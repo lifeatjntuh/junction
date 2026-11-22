@@ -18,8 +18,10 @@ const groups: { title: string; items: { label: string; to: string; external?: bo
       { label: 'Typography', to: '/docs/brand/typography' },
       { label: 'Logo', to: '/docs/brand/logo' },
       { label: 'Shapes', to: '/docs/brand/shapes' },
+      { label: 'Make more 3D objects', to: '/docs/brand/make-3d' },
       { label: 'Photography', to: '/docs/brand/photography' },
       { label: 'Rules', to: '/docs/brand/rules' },
+      { label: 'Theme', to: '/docs/brand/theme' },
     ],
   },
   {
@@ -38,6 +40,7 @@ const groups: { title: string; items: { label: string; to: string; external?: bo
       { label: 'Button', to: '/docs/components/button' },
       { label: 'ChipGroup', to: '/docs/components/chip-group' },
       { label: 'Container', to: '/docs/components/container' },
+      { label: 'CopyPrompt', to: '/docs/components/copy-prompt' },
       { label: 'Field', to: '/docs/components/field' },
       { label: 'Heading', to: '/docs/components/heading' },
       { label: 'Input and Textarea', to: '/docs/components/input' },
@@ -47,6 +50,7 @@ const groups: { title: string; items: { label: string; to: string; external?: bo
   {
     title: 'Components N–Z',
     items: [
+      { label: 'Page sections', to: '/docs/components/page-sections' },
       { label: 'Panel', to: '/docs/components/panel' },
       { label: 'Reveal', to: '/docs/components/reveal' },
       { label: 'Sheet', to: '/docs/components/sheet' },
@@ -68,6 +72,7 @@ const groups: { title: string; items: { label: string; to: string; external?: bo
     title: 'Social Media Kit',
     items: [
       { label: 'Social Media Kit', to: '/docs/social-media-kit' },
+      { label: 'Social primitives', to: '/docs/social-media-kit/primitives' },
       { label: 'Posts', to: '/docs/social-media-kit/posts' },
       { label: 'Carousel', to: '/docs/social-media-kit/carousel' },
       { label: 'Stories', to: '/docs/social-media-kit/stories' },
@@ -138,8 +143,11 @@ export function SiteFooter() {
         ))}
       </div>
       <p className="mx-auto mt-10 max-w-6xl border-t pt-6 text-center text-sm opacity-70" style={{ borderColor: 'rgb(255 247 238 / 0.15)' }}>
-        Junction — the brand design guidelines for LifeatJNTUH. Built with
-        Fumadocs.
+        Junction — the brand design guidelines for LifeatJNTUH. Designed by{' '}
+        <a href="https://github.com/muddassirhq" target="_blank" rel="noreferrer" className="underline hover:opacity-100">
+          @muddassirhq
+        </a>
+        . Built with Fumadocs.
       </p>
     </footer>
   );

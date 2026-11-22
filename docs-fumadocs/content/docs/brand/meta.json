@@ -1,4 +1,14 @@
 {
   "title": "Brand",
-  "pages": ["index", "colours", "typography", "logo", "shapes", "photography", "rules"]
+  "pages": [
+    "index",
+    "colours",
+    "typography",
+    "logo",
+    "shapes",
+    "make-3d",
+    "photography",
+    "rules",
+    "theme"
+  ]
 }

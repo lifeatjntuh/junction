@@ -42,6 +42,7 @@ is the kit to use for making stories and posts (see the
 
 | Section | What is in it |
 | --- | --- |
+| [Social primitives](/docs/social-media-kit/primitives) | The building blocks every template is made of — SocialFrame, the @lifeatjntuh pill, SocialChip, SocialStickerSlot, the u() canvas units and GROTESK |
 | [Posts](/docs/social-media-kit/posts) | Club event, creator shoutout, campus memory, announcement, WhatsApp Channel digest — 1080×1350. Full-bleed Photo of the Day (`photo-day`). |
 | [Carousel](/docs/social-media-kit/carousel) | Cover, feature, steps and end slides — 1080×1350. Full-bleed photo slides (`carousel-photo`). |
 | [Stories](/docs/social-media-kit/stories) | Event, photo of the day, question, LifeOps role call — 1080×1920 (`story-photo`). |
@@ -54,6 +55,20 @@ Grotesque, all caps, under six words for social headlines).
 
 | Format | Size | Use |
 | --- | --- | --- |
+| Square post | 1080×1080 | Instagram post, WhatsApp Channel |
 | Portrait post | 1080×1350 | Instagram posts, WhatsApp Channel |
 | Portrait / carousel | 1080×1350 | Carousel slides |
-| Story | 1080×1920 | Instagram stories, WhatsApp status — keep the top 250px and bottom 300px clear for app controls |
+| Story | 1080×1920 | Instagram stories, WhatsApp status, reel cover — keep the top 250px and bottom 300px clear for app controls |
+
+Every template is drawn on a 1080px-wide canvas. Sizes inside a
+template are written in `u()` canvas units — `u(96)` is 96px on the
+1080px export, scaled to the preview width — so the same numbers work
+in a small preview and in the exported PNG. See
+[Social primitives](/docs/social-media-kit/primitives).
+
+A note on square vs portrait: the website repo's five post templates
+were drawn square (1080×1080); the studio draws the same templates
+portrait (1080×1350). Both sizes are real — square is the website
+original, portrait is what the studio and the page use now. Which one
+is canonical is still an open question for the team; the
+[Posts](/docs/social-media-kit/posts) page says the same.

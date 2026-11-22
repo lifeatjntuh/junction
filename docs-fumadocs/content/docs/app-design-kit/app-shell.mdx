@@ -10,6 +10,18 @@ optional top bar, content capped at max-w-3xl even on desktop, and
 bottom padding that clears `AppBottomNav`. Use it as the page wrapper
 for Event Tracker and Buddy app screens.
 
+## The phone-frame example
+
+The website's design-system page shows the shell in a phone frame —
+"Event Tracker" as the top-bar title, the logo mark on the left,
+search and bell icon buttons on the right. Inside: an "Open mic"
+EventCard (Amphitheatre, 6:30 PM, Music / yellow), then a menu card
+with two rows — "My tickets" (hint "2 upcoming", ticket icon) and
+"Settings" (blue tint, settings icon). The bottom nav has four items
+with Solar icons: Home (`home-2`), Schedule (`calendar`), Tickets
+(`ticket`), Profile (`user-circle`). In a real app the nav is fixed to
+the bottom; in the preview it renders in place (`fixed={false}`).
+
 ## AppTopBar
 
 Sticky blurred header: optional leading slot (logo or back button),
