@@ -53,6 +53,23 @@ const config: Config = {
   ],
 
   plugins: [
+    // blobmates/react is an optional peer of the library (a git-only
+    // dependency, not on npm) and is NOT installed for the docs site.
+    // The library dynamically imports it and falls back to a pastel
+    // placeholder when it is absent; tell webpack the same, so the
+    // docs build does not try to bundle it.
+    function blobmatesIgnorePlugin() {
+      return {
+        name: "blobmates-ignore",
+        configureWebpack() {
+          return {
+            resolve: {
+              alias: { "blobmates/react": false },
+            },
+          };
+        },
+      };
+    },
     [
       "docusaurus-plugin-llms",
       {

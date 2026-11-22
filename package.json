@@ -24,12 +24,12 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/junction.js",
-      "require": "./dist/junction.cjs",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "types": "./dist/types/index.d.ts"
     },
     "./package.json": "./package.json",
-    "./theme": "./dist/style.css",
+    "./theme": "./dist/junction.css",
     "./tokens": {
       "import": "./dist/tokens.js",
       "require": "./dist/tokens.cjs",
@@ -39,8 +39,8 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/junction.cjs",
-  "module": "./dist/junction.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "name": "@lifeatjntuh/junction",
   "packageManager": "pnpm@11.28.13",
   "peerDependencies": {

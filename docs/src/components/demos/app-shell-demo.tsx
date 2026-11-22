@@ -3,7 +3,7 @@ import { AppShell, AppTopBar, AppBottomNav, AppMenuRow, AppIconButton, Text } fr
 import { HomeIcon } from "@solar-icons/react/linear/home";
 import { CalendarIcon } from "@solar-icons/react/linear/calendar";
 import { BellIcon } from "@solar-icons/react/linear/bell";
-import { SettingsIcon } from "@solar-icons/react/linear/settings-minimalistic";
+import { SettingsMinimalisticIcon } from "@solar-icons/react/linear/settings-minimalistic";
 import { AltArrowRightIcon } from "@solar-icons/react/linear/alt-arrow-right";
 import { Demo } from "./Demo";
 
@@ -34,7 +34,7 @@ export function AppMenuRowDemo() {
     <Demo label="Settings rows — icon in a pastel circle, label, hint, chevron">
       <div style={{ background: "#fff", borderRadius: 16, overflow: "hidden" }}>
         <AppMenuRow icon={BellIcon} label="Notifications" hint="On" />
-        <AppMenuRow icon={SettingsIcon} label="Settings" />
+        <AppMenuRow icon={SettingsMinimalisticIcon} label="Settings" />
         <AppMenuRow icon={AltArrowRightIcon} label="About LifeatJNTUH" hint="v0.1.0" href="#" />
       </div>
     </Demo>

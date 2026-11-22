@@ -1,6 +1,6 @@
 ---
 title: Design System
-description: The design system part of Junction — the @lifeatjntuh/junction npm package: components, primitives, tokens and theme.
+description: "The design system part of Junction — the @lifeatjntuh/junction npm package: components, primitives, tokens and theme."
 ---
 
 # Design System

@@ -1,6 +1,6 @@
 ---
 title: Social Media Kit
-description: The Social Media Kit — the social-studio Content Creation Studio for @lifeatjntuh: templates for posts, carousels and stories, with a canvas editor, carousel builder and caption sets.
+description: "The Social Media Kit — the social-studio Content Creation Studio for @lifeatjntuh: templates for posts, carousels and stories, with a canvas editor, carousel builder and caption sets."
 ---
 
 # Social Media Kit
