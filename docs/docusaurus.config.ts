@@ -94,7 +94,12 @@ const config: Config = {
       title: "Junction",
       logo: {
         alt: "Junction logo",
-        src: "img/favicon.svg",
+        // Hot-pink square with a cream "J": the favicon (Plum square,
+        // pink "J") blends into the Plum navbar and was effectively
+        // invisible. Same asset in both colour modes — the navbar is
+        // Plum in light and dark mode.
+        src: "img/logo-navbar.svg",
+        srcDark: "img/logo-navbar.svg",
       },
       items: [
         {

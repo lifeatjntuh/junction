@@ -7,6 +7,11 @@ import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
 // parts, then the API reference.
 const sidebars: SidebarsConfig = {
   docs: [
+    // All docs first: the page was not in the sidebar, so it rendered
+    // with no sidebar, full-width, and its "On this page" TOC
+    // overlapped the intro text. Listing it here gives it the normal
+    // docs layout (sidebar + content + TOC) on desktop and mobile.
+    "all-docs",
     {
       type: "category",
       label: "Brand",
